@@ -6,31 +6,46 @@
   <title>Who Are You?</title>
   <link rel="stylesheet" href="shared.css" />
   <style>
+    .shell {
+      padding-top: clamp(1rem, 3vw, 1.5rem);
+      padding-bottom: var(--bottom-safe);
+    }
+
     .layout {
       display: grid;
-      gap: clamp(1.5rem, 4vw, 2.35rem);
+      gap: clamp(0.75rem, 2.2vw, 1.1rem);
       justify-items: center;
+      align-content: start;
       width: 100%;
     }
 
-    .head { width: 100%; max-width: 34rem; text-align: center; }
+    .head {
+      width: 100%;
+      max-width: 34rem;
+      text-align: center;
+    }
 
     .head h1 {
-      font-size: clamp(2.3rem, 7vw, 3.5rem);
+      font-size: clamp(2.1rem, 6.5vw, 3.1rem);
       font-weight: 500;
-      margin-top: 0.35rem;
+      margin-top: 0.2rem;
+    }
+
+    .head .hairline {
+      margin: 0.7rem auto 0.15rem;
     }
 
     .id-wrap {
-      width: min(100%, 720px);
+      width: min(100%, 34rem);
       perspective: 1200px;
     }
 
     .id-card {
       width: 100%;
-      display: block;
-      border: 0;
+      aspect-ratio: 1.62 / 1;
+      overflow: hidden;
       background: transparent;
+      line-height: 0;
       transform-style: preserve-3d;
       will-change: transform;
       transition: transform 0.2s ease;
@@ -38,9 +53,12 @@
 
     .id-card img {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
-      object-fit: contain;
+      object-fit: cover;
+      object-position: center center;
+      transform: scale(1.14);
+      transform-origin: center center;
     }
 
     .bio {
@@ -48,26 +66,26 @@
       max-width: 34rem;
       text-align: left;
       font-size: clamp(1.04rem, 2.2vw, 1.14rem);
-      line-height: 1.7;
+      line-height: 1.65;
       color: var(--ink-dark);
       background: rgba(190, 202, 203, 0.62);
       border-top: 1px solid rgba(255, 255, 255, 0.4);
       border-left: 1px solid rgba(255, 255, 255, 0.3);
       border-right: 1px solid rgba(96, 100, 103, 0.45);
       border-bottom: 1px solid rgba(53, 53, 51, 0.45);
-      padding: clamp(1rem, 3vw, 1.35rem);
+      padding: clamp(0.9rem, 2.6vw, 1.2rem);
       box-shadow: 2px 2px 0 rgba(9, 10, 12, 0.12);
     }
 
-    .bio p { margin-bottom: 1.15rem; }
+    .bio p { margin-bottom: 1rem; }
     .bio p:last-child { margin-bottom: 0; }
 
     .bio p:first-child {
-      font-size: clamp(1.12rem, 2.5vw, 1.28rem);
+      font-size: clamp(1.1rem, 2.4vw, 1.24rem);
       font-style: italic;
-      line-height: 1.45;
+      line-height: 1.4;
       text-align: left;
-      margin-bottom: 1.3rem;
+      margin-bottom: 1rem;
     }
 
     .bio .mark {
@@ -81,7 +99,7 @@
       border-bottom-color: var(--charcoal);
     }
 
-    .footer-back { margin-top: clamp(2.25rem, 5vh, 3.25rem); }
+    .footer-back { margin-top: clamp(1.35rem, 3.5vh, 2rem); }
   </style>
 </head>
 <body>

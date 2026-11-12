@@ -6,41 +6,74 @@
   <title>Who Are You?</title>
   <link rel="stylesheet" href="shared.css" />
   <style>
-.shell {
-  padding-top: clamp(1.1rem, 3.2vw, 1.75rem);
-  padding-bottom: var(--bottom-safe);
-}
+    .shell {
+      padding-top: clamp(1.1rem, 3.2vw, 1.75rem);
+      padding-bottom: var(--bottom-safe);
+    }
 
-.layout {
-  display: grid;
-  gap: 0;
-  justify-items: center;
-  align-content: start;
-  width: 100%;
-}
+    .layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
 
-.head {
-  width: 100%;
-  max-width: 34rem;
-  text-align: center;
-  margin-bottom: clamp(1.5rem, 4vw, 2rem);
-}
+    .head {
+      width: 100%;
+      max-width: 34rem;
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
 
-.head h1 {
-  font-size: clamp(2.1rem, 6.5vw, 3.1rem);
-  font-weight: 500;
-  margin-top: 0.2rem;
-}
+    .head h1 {
+      font-size: clamp(2.1rem, 6.5vw, 3.1rem);
+      font-weight: 500;
+      margin-top: 0.2rem;
+    }
 
-.head .hairline {
-  margin: 0.85rem auto 0;
-}
+    .head .hairline {
+      margin: 0.85rem auto 0;
+    }
 
-.id-wrap {
-  width: min(100%, 34rem);
-  margin-bottom: clamp(1.5rem, 4vw, 2rem);
-  perspective: 1200px;
-}
+    .id-wrap {
+      width: min(100%, 34rem);
+      margin-bottom: 1.75rem;
+      perspective: 1200px;
+    }
+
+    .id-card {
+      width: 100%;
+      display: block;
+      border: 0;
+      background: transparent;
+      line-height: 0;
+      transform-style: preserve-3d;
+      will-change: transform;
+      transition: transform 0.2s ease;
+    }
+
+    .id-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .layout .prose {
+      width: 100%;
+      max-width: 34rem;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .layout .prose p:first-child {
+      font-size: clamp(1.1rem, 2.4vw, 1.24rem);
+      font-style: italic;
+      line-height: 1.45;
+      margin-bottom: 1.15rem;
+    }
+
+    .footer-back { margin-top: 2rem; }
   </style>
 </head>
 <body>
@@ -59,7 +92,7 @@
         </article>
       </div>
 
-      <section class="bio" aria-label="Profile">
+      <section class="prose" aria-label="Profile">
         <p data-reveal><span class="mark">Ballroom</span> raised him. Mireille learned early how to work a room.</p>
         <p data-reveal>He is warm, affectionate, flirtatious, and rarely composed. Once he likes someone, he makes it known quickly. He enjoys people, long conversations, and finding out what makes them tick.</p>
         <p data-reveal>Do not mistake the flamboyance for a romantic advance. That is just who he is. He only turns <span class="mark">cutthroat</span> when the lights are on and the cameras are rolling. That is when the <span class="mark">obsession</span> shows. Offstage, he is quieter than he looks. An introvert with two cats and a long vanity ritual. The vivacious diva is something he puts on.</p>

@@ -49,12 +49,12 @@
       perspective: 1200px;
     }
 
-    /* Fixed box = transparent PNG padding cannot create page gaps */
+    /* Fixed box crops PNG padding, mild scale so card edges stay visible */
     .id-card {
       width: 100%;
-      aspect-ratio: 1.6 / 1;
+      aspect-ratio: 1.52 / 1;
       overflow: hidden;
-      background: #dfe6e8;
+      background: transparent;
       line-height: 0;
       transform-style: preserve-3d;
       will-change: transform;
@@ -65,8 +65,8 @@
       height: 100%;
       display: block;
       object-fit: cover;
-      object-position: center 45%;
-      transform: scale(1.2);
+      object-position: center center;
+      transform: scale(1.06);
       transform-origin: center center;
     }
 

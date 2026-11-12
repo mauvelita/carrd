@@ -40,11 +40,10 @@ html, body {
   background: var(--ice);
   color: var(--ink);
   font-family: var(--serif);
-  cursor: url("assets/hand.png") 18 4, auto;
   -webkit-font-smoothing: antialiased;
 }
 
-a, button { cursor: url("assets/hand.png") 18 4, pointer; }
+a, button { cursor: pointer; }
 img { max-width: 100%; height: auto; display: block; }
 
 .page-bg {
@@ -52,10 +51,9 @@ img { max-width: 100%; height: auto; display: block; }
   inset: 0;
   z-index: 0;
   background:
-    linear-gradient(180deg, rgba(197, 204, 205, 0.55), rgba(162, 172, 176, 0.72)),
-    #c5cccd url("assets/bg.jpg") center / cover no-repeat;
-  transform: scale(1.02);
-  filter: grayscale(0.35) saturate(0.55) contrast(1.05) brightness(0.92);
+    radial-gradient(ellipse at 22% 18%, rgba(232, 236, 236, 0.55), transparent 42%),
+    radial-gradient(ellipse at 78% 72%, rgba(150, 130, 121, 0.18), transparent 48%),
+    linear-gradient(165deg, #c5cccd 0%, #becacb 38%, #a2acb0 72%, #8e989c 100%);
 }
 
 .page-bg::before {
@@ -63,16 +61,13 @@ img { max-width: 100%; height: auto; display: block; }
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 28% 30%, rgba(232, 236, 236, 0.18), transparent 42%),
-    linear-gradient(160deg, rgba(197, 204, 205, 0.35) 0%, rgba(28, 28, 28, 0.22) 55%, rgba(9, 10, 12, 0.38) 100%);
+    linear-gradient(160deg, rgba(197, 204, 205, 0.25) 0%, rgba(28, 28, 28, 0.12) 55%, rgba(9, 10, 12, 0.22) 100%);
 }
 
 .page-bg::after {
   content: "";
   position: absolute;
   inset: 0;
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
   background:
     repeating-linear-gradient(
       0deg,
@@ -82,7 +77,7 @@ img { max-width: 100%; height: auto; display: block; }
       rgba(9, 10, 12, 0.015) 3px
     );
   pointer-events: none;
-  opacity: 0.85;
+  opacity: 0.75;
 }
 
 .shell {
@@ -129,14 +124,6 @@ img { max-width: 100%; height: auto; display: block; }
   border-bottom-color: rgba(96, 100, 103, 0.65);
   letter-spacing: 0.32em;
   outline: none;
-}
-
-.footer-nav .sep {
-  font-family: var(--serif);
-  font-size: 0.78rem;
-  color: var(--slate);
-  opacity: 0.7;
-  user-select: none;
 }
 
 .label {

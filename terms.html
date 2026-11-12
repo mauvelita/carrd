@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms of Use</title>
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .head { width: 100%; max-width: 34rem; text-align: center; }
+    .head h1 {
+      font-size: clamp(2.2rem, 6.8vw, 3.3rem);
+      font-weight: 500;
+      margin-top: 0.35rem;
+    }
+
+    .terms {
+      list-style: none;
+      counter-reset: t;
+      width: 100%;
+      max-width: 34rem;
+      margin: 0 auto;
+      text-align: left;
+      background: rgba(190, 202, 203, 0.58);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-left: 1px solid rgba(255, 255, 255, 0.28);
+      border-right: 1px solid rgba(96, 100, 103, 0.45);
+      border-bottom: 1px solid rgba(53, 53, 51, 0.45);
+      box-shadow: 2px 2px 0 rgba(9, 10, 12, 0.12);
+      padding: 0.35rem 0.9rem 0.55rem;
+    }
+
+    .terms li {
+      counter-increment: t;
+      display: grid;
+      grid-template-columns: 1.7rem 1fr;
+      gap: 0.75rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(96, 100, 103, 0.25);
+      font-size: clamp(0.96rem, 2.2vw, 1.06rem);
+      line-height: 1.55;
+      color: var(--ink-dark);
+      transition: background 0.2s ease;
+    }
+
+    .terms li:last-child { border-bottom: 0; }
+
+    .terms li::before {
+      content: counter(t) ".";
+      font-style: italic;
+      color: var(--slate);
+      padding-top: 0.08rem;
+    }
+
+    .terms li strong {
+      font-weight: 600;
+      color: var(--void);
+    }
+
+    .terms li:hover {
+      background: rgba(184, 184, 183, 0.28);
+    }
+
+    .terms li:hover::before { color: var(--charcoal); }
+
+    .footer-back { margin-top: clamp(2.25rem, 5vh, 3.25rem); }
+  </style>
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+  <main class="shell">
+    <header class="head" data-reveal>
+      <p class="label">Rules</p>
+      <h1 class="display">Terms of Use</h1>
+      <hr class="hairline" />
+    </header>
+    <ol class="terms" aria-label="Terms of Use">
+      <li data-reveal><span><strong>Mature / NSFW themes.</strong> Minors do not interact. Admin is 25+ and prefers writers 20+.</span></li>
+      <li data-reveal><span><strong>Writing.</strong> Mirrored literate to advanced, third person. No TL writing. DMs to plot and pre-established relationships are welcome.</span></li>
+      <li data-reveal><span><strong>Credits.</strong> Images, faceclaim material, and other content are not owned by admin. No affiliation with Lee Taemin or his agency. Mireille is an original character.</span></li>
+      <li data-reveal><span><strong>IC and OOC.</strong> Keep them separate.</span></li>
+      <li data-reveal><span><strong>Activity.</strong> Replies are selective. Roleplay is a pastime, not a priority.</span></li>
+      <li data-reveal><span><strong>Shipping.</strong> Unavailable. Mireille’s AU is a collaboration with honeyedgaze.</span></li>
+      <li data-reveal><span><strong>Relationships.</strong> Mireille is married to Zenon Eto. His relationship with the doctor is an affair. Infidelity is an intentional theme in the AU.</span></li>
+      <li data-reveal><span><strong>Gender.</strong> Mireille may be depicted femininely in edits and writing, but uses he/him pronouns.</span></li>
+      <li data-reveal><span><strong>Edits.</strong> Admin makes CapCut slob and rarely watermarks it. Watermarks look ugly, and I do not enjoy adding them. Edits may be posted and deleted later. Do not repost them as your own. Nothing stops you from making your own CapCut slob.</span></li>
+      <li data-reveal><span><strong>AI edits.</strong> Admin softblocks accounts that use AI-generated edits.</span></li>
+      <li data-reveal><span><strong>Boundaries.</strong> Admin can be wishy-washy about plenty of things. Bigotry is not tolerated.</span></li>
+    </ol>
+<div class="footer-back">
+  <nav class="footer-nav" aria-label="Page navigation">
+    <a href="index.html" data-nav-home>Back</a>
+  </nav>
+</div>
+  </main>
+  <script src="shared.js"></script>
+</body>
+</html>

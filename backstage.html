@@ -33,7 +33,7 @@
     }
 
     .panel .label {
-      margin-bottom: 0.55rem;
+      margin-bottom: 0.15rem;
       color: var(--slate);
     }
 
@@ -50,14 +50,13 @@
       color: var(--ink-dark);
       text-decoration: none;
       text-align: center;
-      border-top: 1px solid rgba(96, 100, 103, 0.28);
+      border: 0;
       text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
       transition: background 0.2s ease, letter-spacing 0.25s ease;
     }
 
-    .links a:last-child {
-      border-bottom: 1px solid rgba(96, 100, 103, 0.28);
-      margin-bottom: 0.35rem;
+    .links a + a {
+      border-top: 1px solid rgba(96, 100, 103, 0.28);
     }
 
     .links a:hover,
@@ -77,7 +76,6 @@
       <header class="head" data-reveal>
         <p class="label">Access</p>
         <h1 class="display">How Do I Get Backstage?</h1>
-        <hr class="hairline" />
       </header>
 
       <section class="panel" data-reveal>
@@ -96,11 +94,11 @@
       </section>
     </div>
 
-<div class="footer-back">
-  <nav class="footer-nav" aria-label="Page navigation">
-    <a href="index.html" data-nav-home>Back</a>
-  </nav>
-</div>
+    <div class="footer-back">
+      <nav class="footer-nav" aria-label="Page navigation">
+        <a href="index.html" data-nav-home>Back</a>
+      </nav>
+    </div>
   </main>
   <script src="shared.js"></script>
 </body>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How Do I Get Backstage?</title>
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .stage {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(1.85rem, 4.5vw, 2.5rem);
+    }
+
+    .head { width: 100%; max-width: 34rem; text-align: center; }
+    .head h1 {
+      font-size: clamp(2.2rem, 6.8vw, 3.3rem);
+      font-weight: 500;
+      margin-top: 0.35rem;
+    }
+
+    .panel {
+      width: min(100%, 22rem);
+      background: rgba(190, 202, 203, 0.55);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-left: 1px solid rgba(255, 255, 255, 0.28);
+      border-right: 1px solid rgba(96, 100, 103, 0.45);
+      border-bottom: 1px solid rgba(53, 53, 51, 0.45);
+      box-shadow: 2px 2px 0 rgba(9, 10, 12, 0.12);
+      padding: 0.85rem 0.75rem 0.35rem;
+    }
+
+    .panel .label {
+      margin-bottom: 0.55rem;
+      color: var(--slate);
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .links a {
+      display: block;
+      padding: 0.7rem 0.4rem;
+      font-size: clamp(1.18rem, 3.5vw, 1.4rem);
+      color: var(--ink-dark);
+      text-decoration: none;
+      text-align: center;
+      border-top: 1px solid rgba(96, 100, 103, 0.28);
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+      transition: background 0.2s ease, letter-spacing 0.25s ease;
+    }
+
+    .links a:last-child {
+      border-bottom: 1px solid rgba(96, 100, 103, 0.28);
+      margin-bottom: 0.35rem;
+    }
+
+    .links a:hover,
+    .links a:focus-visible {
+      background: rgba(184, 184, 183, 0.45);
+      letter-spacing: 0.03em;
+      outline: none;
+    }
+
+    .footer-back { margin-top: clamp(1.75rem, 4vh, 2.5rem); }
+  </style>
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+  <main class="shell">
+    <div class="stage">
+      <header class="head" data-reveal>
+        <p class="label">Access</p>
+        <h1 class="display">How Do I Get Backstage?</h1>
+        <hr class="hairline" />
+      </header>
+
+      <section class="panel" data-reveal>
+        <p class="label">Main contacts</p>
+        <div class="links">
+          <a href="https://www.instagram.com/mauvelita" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://x.com/mourvella" target="_blank" rel="noopener noreferrer">Twitter</a>
+        </div>
+      </section>
+
+      <section class="panel" data-reveal>
+        <p class="label">Ask me anything</p>
+        <div class="links">
+          <a href="https://tellonym.me/principesssa" target="_blank" rel="noopener noreferrer">Tellonym</a>
+        </div>
+      </section>
+    </div>
+
+<div class="footer-back">
+  <nav class="footer-nav" aria-label="Page navigation">
+    <a href="index.html" data-nav-home>Back</a>
+  </nav>
+</div>
+  </main>
+  <script src="shared.js"></script>
+</body>
+</html>

@@ -26,35 +26,21 @@
       perspective: 1200px;
     }
 
-    .id-frame {
-      padding: 3px;
-      background: var(--win-face);
-      border-top: 2px solid var(--win-light);
-      border-left: 2px solid var(--win-light);
-      border-right: 2px solid var(--win-darker);
-      border-bottom: 2px solid var(--win-darker);
-      box-shadow: 3px 3px 0 rgba(9, 10, 12, 0.28);
-    }
-
     .id-card {
       width: 100%;
-      aspect-ratio: 1.55 / 1;
-      overflow: hidden;
-      background: var(--void);
-      border-top: 2px solid var(--win-dark);
-      border-left: 2px solid var(--win-dark);
-      border-right: 2px solid var(--win-light);
-      border-bottom: 2px solid var(--win-light);
+      display: block;
+      border: 0;
+      background: transparent;
       transform-style: preserve-3d;
       will-change: transform;
+      transition: transform 0.2s ease;
     }
 
     .id-card img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 46%;
-      filter: saturate(0.8) contrast(1.04);
+      height: auto;
+      display: block;
+      object-fit: contain;
     }
 
     .bio {
@@ -109,11 +95,9 @@
       </header>
 
       <div class="id-wrap" data-reveal>
-        <div class="id-frame">
-          <article class="id-card" id="id-card" aria-label="Identity card">
-<img src="id.png" alt="Mireille identity card" width="1080" height="1350" draggable="false" />
-          </article>
-        </div>
+        <article class="id-card" id="id-card" aria-label="Identity card">
+          <img src="id.png" alt="Mireille identity card" width="1080" height="680" draggable="false" />
+        </article>
       </div>
 
       <section class="bio" aria-label="Profile">
@@ -125,11 +109,11 @@
       </section>
     </div>
 
-<div class="footer-back">
-  <nav class="footer-nav" aria-label="Page navigation">
-    <a href="index.html" data-nav-home>Back</a>
-  </nav>
-</div>
+    <div class="footer-back">
+      <nav class="footer-nav" aria-label="Page navigation">
+        <a href="index.html" data-nav-home>Back</a>
+      </nav>
+    </div>
   </main>
   <script src="shared.js"></script>
   <script>

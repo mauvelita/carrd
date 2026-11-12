@@ -6,45 +6,47 @@
   <title>Who Are You?</title>
   <link rel="stylesheet" href="shared.css" />
   <style>
-    .shell {
-      padding-top: clamp(1.1rem, 3.2vw, 1.75rem);
+    .who {
+      position: relative;
+      z-index: 1;
+      width: min(94vw, 400px);
+      margin: 0 auto;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding: clamp(1.25rem, 4vw, 2rem);
       padding-bottom: var(--bottom-safe);
-    }
-
-    .layout {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 100%;
+      justify-content: flex-start;
+      gap: clamp(1.1rem, 2.8vh, 1.5rem);
+      text-align: center;
     }
 
     .head {
       width: 100%;
-      max-width: 34rem;
       text-align: center;
-      margin-bottom: 1.75rem;
     }
 
     .head h1 {
-      font-size: clamp(2.1rem, 6.5vw, 3.1rem);
+      font-size: clamp(2rem, 6.2vw, 2.85rem);
       font-weight: 500;
       margin-top: 0.2rem;
     }
 
     .head .hairline {
-      margin: 0.85rem auto 0;
+      margin: 0.75rem auto 0;
     }
 
     .id-wrap {
-      width: min(100%, 34rem);
-      margin-bottom: 1.75rem;
+      width: 100%;
       perspective: 1200px;
     }
 
     .id-card {
       width: 100%;
-      display: block;
-      border: 0;
+      aspect-ratio: 1.68 / 1;
+      overflow: hidden;
       background: transparent;
       line-height: 0;
       transform-style: preserve-3d;
@@ -54,52 +56,59 @@
 
     .id-card img {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
-      object-fit: contain;
+      object-fit: cover;
+      object-position: center center;
+      transform: scale(1.12);
+      transform-origin: center center;
     }
 
-    .layout .prose {
+    .who .prose {
       width: 100%;
-      max-width: 34rem;
-      margin: 0 auto;
+      max-width: none;
+      margin: 0;
       text-align: left;
+      padding: clamp(0.85rem, 2.5vw, 1.1rem);
+      font-size: clamp(1rem, 2.2vw, 1.08rem);
+      line-height: 1.6;
     }
 
-    .layout .prose p:first-child {
-      font-size: clamp(1.1rem, 2.4vw, 1.24rem);
+    .who .prose p { margin-bottom: 0.95rem; }
+    .who .prose p:last-child { margin-bottom: 0; }
+
+    .who .prose p:first-child {
+      font-size: clamp(1.06rem, 2.4vw, 1.18rem);
       font-style: italic;
-      line-height: 1.45;
-      margin-bottom: 1.15rem;
+      line-height: 1.4;
+      margin-bottom: 0.95rem;
     }
 
-    .footer-back { margin-top: 2rem; }
+    .footer-back { margin-top: 0.15rem; }
   </style>
 </head>
 <body>
   <div class="page-bg" aria-hidden="true"></div>
-  <main class="shell">
-    <div class="layout">
-      <header class="head" data-reveal>
-        <p class="label">Identity</p>
-        <h1 class="display">Who Are You?</h1>
-        <hr class="hairline" />
-      </header>
+  <main class="who" aria-label="Who Are You?">
+    <header class="head" data-reveal>
+      <p class="label">Identity</p>
+      <h1 class="display">Who Are You?</h1>
+      <hr class="hairline" />
+    </header>
 
-      <div class="id-wrap" data-reveal>
-        <article class="id-card" id="id-card" aria-label="Identity card">
-          <img src="id.png" alt="Mireille identity card" width="1080" height="680" draggable="false" />
-        </article>
-      </div>
-
-      <section class="prose" aria-label="Profile">
-        <p data-reveal><span class="mark">Ballroom</span> raised him. Mireille learned early how to work a room.</p>
-        <p data-reveal>He is warm, affectionate, flirtatious, and rarely composed. Once he likes someone, he makes it known quickly. He enjoys people, long conversations, and finding out what makes them tick.</p>
-        <p data-reveal>Do not mistake the flamboyance for a romantic advance. That is just who he is. He only turns <span class="mark">cutthroat</span> when the lights are on and the cameras are rolling. That is when the <span class="mark">obsession</span> shows. Offstage, he is quieter than he looks. An introvert with two cats and a long vanity ritual. The vivacious diva is something he puts on.</p>
-        <p data-reveal>He has <span class="mark">modified</span> so much of himself that hiding would feel like a waste. He moves between hotels, moves through the world like a socialite, and deals in <span class="mark">archival fashion</span>. He sources rare garments, arranges private sales, and has a particular talent for finding buyers willing to pay considerably more than something is worth. His business is not always as <span class="mark">legitimate</span> as he makes it sound.</p>
-        <p data-reveal>He likes beautiful things. He likes being <span class="mark">seen</span>.</p>
-      </section>
+    <div class="id-wrap" data-reveal>
+      <article class="id-card" id="id-card" aria-label="Identity card">
+        <img src="id.png" alt="Mireille identity card" width="1080" height="680" draggable="false" />
+      </article>
     </div>
+
+    <section class="prose" aria-label="Profile">
+      <p data-reveal><span class="mark">Ballroom</span> raised him. Mireille learned early how to work a room.</p>
+      <p data-reveal>He is warm, affectionate, flirtatious, and rarely composed. Once he likes someone, he makes it known quickly. He enjoys people, long conversations, and finding out what makes them tick.</p>
+      <p data-reveal>Do not mistake the flamboyance for a romantic advance. That is just who he is. He only turns <span class="mark">cutthroat</span> when the lights are on and the cameras are rolling. That is when the <span class="mark">obsession</span> shows. Offstage, he is quieter than he looks. An introvert with two cats and a long vanity ritual. The vivacious diva is something he puts on.</p>
+      <p data-reveal>He has <span class="mark">modified</span> so much of himself that hiding would feel like a waste. He moves between hotels, moves through the world like a socialite, and deals in <span class="mark">archival fashion</span>. He sources rare garments, arranges private sales, and has a particular talent for finding buyers willing to pay considerably more than something is worth. His business is not always as <span class="mark">legitimate</span> as he makes it sound.</p>
+      <p data-reveal>He likes beautiful things. He likes being <span class="mark">seen</span>.</p>
+    </section>
 
     <div class="footer-back">
       <nav class="footer-nav" aria-label="Page navigation">

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Who Are You?</title>
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .layout {
+      display: grid;
+      gap: clamp(1.5rem, 4vw, 2.35rem);
+      justify-items: center;
+      width: 100%;
+    }
+
+    .head { width: 100%; max-width: 34rem; text-align: center; }
+
+    .head h1 {
+      font-size: clamp(2.3rem, 7vw, 3.5rem);
+      font-weight: 500;
+      margin-top: 0.35rem;
+    }
+
+    .id-wrap {
+      width: min(100%, 720px);
+      perspective: 1200px;
+    }
+
+    .id-frame {
+      padding: 3px;
+      background: var(--win-face);
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-darker);
+      border-bottom: 2px solid var(--win-darker);
+      box-shadow: 3px 3px 0 rgba(9, 10, 12, 0.28);
+    }
+
+    .id-card {
+      width: 100%;
+      aspect-ratio: 1.55 / 1;
+      overflow: hidden;
+      background: var(--void);
+      border-top: 2px solid var(--win-dark);
+      border-left: 2px solid var(--win-dark);
+      border-right: 2px solid var(--win-light);
+      border-bottom: 2px solid var(--win-light);
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .id-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 46%;
+      filter: saturate(0.8) contrast(1.04);
+    }
+
+    .bio {
+      width: 100%;
+      max-width: 34rem;
+      text-align: left;
+      font-size: clamp(1.04rem, 2.2vw, 1.14rem);
+      line-height: 1.7;
+      color: var(--ink-dark);
+      background: rgba(190, 202, 203, 0.62);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-left: 1px solid rgba(255, 255, 255, 0.3);
+      border-right: 1px solid rgba(96, 100, 103, 0.45);
+      border-bottom: 1px solid rgba(53, 53, 51, 0.45);
+      padding: clamp(1rem, 3vw, 1.35rem);
+      box-shadow: 2px 2px 0 rgba(9, 10, 12, 0.12);
+    }
+
+    .bio p { margin-bottom: 1.15rem; }
+    .bio p:last-child { margin-bottom: 0; }
+
+    .bio p:first-child {
+      font-size: clamp(1.12rem, 2.5vw, 1.28rem);
+      font-style: italic;
+      line-height: 1.45;
+      text-align: left;
+      margin-bottom: 1.3rem;
+    }
+
+    .bio .mark {
+      font-style: italic;
+      border-bottom: 1px solid rgba(96, 100, 103, 0.55);
+      transition: border-color 0.25s ease, color 0.25s ease;
+    }
+
+    .bio .mark:hover {
+      color: var(--void);
+      border-bottom-color: var(--charcoal);
+    }
+
+    .footer-back { margin-top: clamp(2.25rem, 5vh, 3.25rem); }
+  </style>
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+  <main class="shell">
+    <div class="layout">
+      <header class="head" data-reveal>
+        <p class="label">Identity</p>
+        <h1 class="display">Who Are You?</h1>
+        <hr class="hairline" />
+      </header>
+
+      <div class="id-wrap" data-reveal>
+        <div class="id-frame">
+          <article class="id-card" id="id-card" aria-label="Identity card">
+            <img src="assets/id-card.png" alt="Mireille identity card" width="1080" height="1350" draggable="false" />
+          </article>
+        </div>
+      </div>
+
+      <section class="bio" aria-label="Profile">
+        <p data-reveal><span class="mark">Ballroom</span> raised him. Mireille learned early how to work a room.</p>
+        <p data-reveal>He is warm, affectionate, flirtatious, and rarely composed. Once he likes someone, he makes it known quickly. He enjoys people, long conversations, and finding out what makes them tick.</p>
+        <p data-reveal>Do not mistake the flamboyance for a romantic advance. That is just who he is. He only turns <span class="mark">cutthroat</span> when the lights are on and the cameras are rolling. That is when the <span class="mark">obsession</span> shows. Offstage, he is quieter than he looks. An introvert with two cats and a long vanity ritual. The vivacious diva is something he puts on.</p>
+        <p data-reveal>He has <span class="mark">modified</span> so much of himself that hiding would feel like a waste. He moves between hotels, moves through the world like a socialite, and deals in <span class="mark">archival fashion</span>. He sources rare garments, arranges private sales, and has a particular talent for finding buyers willing to pay considerably more than something is worth. His business is not always as <span class="mark">legitimate</span> as he makes it sound.</p>
+        <p data-reveal>He likes beautiful things. He likes being <span class="mark">seen</span>.</p>
+      </section>
+    </div>
+
+<div class="footer-back">
+  <nav class="footer-nav" aria-label="Page navigation">
+    <a href="index.html" data-nav-home>Back</a>
+  </nav>
+</div>
+  </main>
+  <script src="shared.js"></script>
+  <script>
+    (() => {
+      const card = document.getElementById("id-card");
+      if (!card || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      card.addEventListener("pointermove", (e) => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width;
+        const y = (e.clientY - r.top) / r.height;
+        card.style.transform = `rotateX(${(0.5 - y) * 5}deg) rotateY(${(x - 0.5) * 7}deg)`;
+      });
+      card.addEventListener("pointerleave", () => {
+        card.style.transform = "rotateX(0) rotateY(0)";
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -51,9 +51,9 @@ img { max-width: 100%; height: auto; display: block; }
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse at 22% 18%, rgba(232, 236, 236, 0.55), transparent 42%),
-    radial-gradient(ellipse at 78% 72%, rgba(150, 130, 121, 0.18), transparent 48%),
-    linear-gradient(165deg, #c5cccd 0%, #becacb 38%, #a2acb0 72%, #8e989c 100%);
+    linear-gradient(180deg, rgba(9, 10, 12, 0.35) 0%, rgba(9, 10, 12, 0.22) 45%, rgba(9, 10, 12, 0.48) 100%),
+    #090a0c url("mireille.jpg") center / cover no-repeat;
+  transform: scale(1.02);
 }
 
 .page-bg::before {
@@ -61,7 +61,7 @@ img { max-width: 100%; height: auto; display: block; }
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(160deg, rgba(197, 204, 205, 0.25) 0%, rgba(28, 28, 28, 0.12) 55%, rgba(9, 10, 12, 0.22) 100%);
+    linear-gradient(160deg, rgba(197, 204, 205, 0.12) 0%, rgba(28, 28, 28, 0.18) 55%, rgba(9, 10, 12, 0.28) 100%);
 }
 
 .page-bg::after {
@@ -73,11 +73,11 @@ img { max-width: 100%; height: auto; display: block; }
       0deg,
       transparent,
       transparent 2px,
-      rgba(9, 10, 12, 0.015) 2px,
-      rgba(9, 10, 12, 0.015) 3px
+      rgba(9, 10, 12, 0.02) 2px,
+      rgba(9, 10, 12, 0.02) 3px
     );
   pointer-events: none;
-  opacity: 0.75;
+  opacity: 0.55;
 }
 
 .shell {
@@ -111,8 +111,8 @@ img { max-width: 100%; height: auto; display: block; }
   letter-spacing: 0.28em;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--ink-dark);
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25);
+  color: #f2f4f4;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
   padding: 0.35rem 0.15rem;
   border-bottom: 1px solid transparent;
   transition: color 0.25s ease, border-color 0.25s ease, letter-spacing 0.25s ease;
@@ -120,8 +120,8 @@ img { max-width: 100%; height: auto; display: block; }
 
 .footer-nav a:hover,
 .footer-nav a:focus-visible {
-  color: var(--void);
-  border-bottom-color: rgba(96, 100, 103, 0.65);
+  color: #fff;
+  border-bottom-color: rgba(242, 244, 244, 0.55);
   letter-spacing: 0.32em;
   outline: none;
 }
@@ -130,7 +130,8 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 0.7rem;
   letter-spacing: 0.34em;
   text-transform: uppercase;
-  color: var(--slate);
+  color: rgba(242, 244, 244, 0.72);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
 }
 
 .display {
@@ -138,8 +139,8 @@ img { max-width: 100%; height: auto; display: block; }
   font-weight: 500;
   letter-spacing: 0.03em;
   line-height: 1;
-  color: var(--ink-dark);
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: #f2f4f4;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
 }
 
 .hairline {
@@ -147,7 +148,7 @@ img { max-width: 100%; height: auto; display: block; }
   height: 1px;
   margin: 1.1rem auto 1.45rem;
   border: 0;
-  background: linear-gradient(90deg, transparent, var(--slate), transparent);
+  background: linear-gradient(90deg, transparent, rgba(242, 244, 244, 0.55), transparent);
 }
 
 .prose {

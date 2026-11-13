@@ -47,6 +47,162 @@
       text-align: center;
     }
 
+    /* —— Main: Win95 Notepad frame (first screen only) —— */
+    .shot-main {
+      background: var(--win-face);
+      justify-content: center;
+      gap: 0.85rem;
+    }
+
+    .notepad {
+      width: min(88vw, 22rem);
+      background: var(--win-face);
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-darker);
+      border-bottom: 2px solid var(--win-darker);
+      box-shadow: 3px 3px 0 rgba(9, 10, 12, 0.28);
+      user-select: none;
+    }
+
+    .np-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      margin: 2px;
+      padding: 2px 3px 2px 5px;
+      background: var(--win-title);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .np-title span {
+      white-space: nowrap;
+    }
+
+    .np-btns {
+      display: flex;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .np-btn {
+      width: 16px;
+      height: 14px;
+      display: grid;
+      place-items: center;
+      background: var(--win-face);
+      color: #000;
+      border-top: 1px solid var(--win-light);
+      border-left: 1px solid var(--win-light);
+      border-right: 1px solid var(--win-darker);
+      border-bottom: 1px solid var(--win-darker);
+      font-size: 9px;
+      line-height: 1;
+      font-family: var(--sans);
+      font-weight: 700;
+    }
+
+    .np-menu {
+      display: flex;
+      gap: 0.85rem;
+      padding: 2px 8px 3px;
+      font-family: var(--sans);
+      font-size: 11px;
+      color: #000;
+      background: var(--win-face);
+    }
+
+    .np-menu span::first-letter {
+      text-decoration: underline;
+    }
+
+    .np-body {
+      display: flex;
+      margin: 0 2px 2px;
+      border-top: 1px solid var(--win-dark);
+      border-left: 1px solid var(--win-dark);
+      border-right: 1px solid var(--win-light);
+      border-bottom: 1px solid var(--win-light);
+      background: #fff;
+    }
+
+    .np-view {
+      flex: 1;
+      min-width: 0;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .np-view img {
+      width: 100%;
+      height: auto;
+      display: block;
+      vertical-align: top;
+    }
+
+    .np-scroll {
+      width: 16px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--win-face);
+      border-left: 1px solid var(--win-dark);
+    }
+
+    .np-arrow {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      background: var(--win-face);
+      border-top: 1px solid var(--win-light);
+      border-left: 1px solid var(--win-light);
+      border-right: 1px solid var(--win-darker);
+      border-bottom: 1px solid var(--win-darker);
+      font-size: 8px;
+      line-height: 1;
+      color: #000;
+    }
+
+    .np-track {
+      flex: 1;
+      position: relative;
+      background:
+        repeating-linear-gradient(
+          -45deg,
+          #fff 0,
+          #fff 1px,
+          var(--win-face) 1px,
+          var(--win-face) 3px
+        );
+    }
+
+    .np-thumb {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 28%;
+      background: var(--win-face);
+      border-top: 1px solid var(--win-light);
+      border-left: 1px solid var(--win-light);
+      border-right: 1px solid var(--win-darker);
+      border-bottom: 1px solid var(--win-darker);
+    }
+
+    .shot-main .shot-hint {
+      margin-top: 0;
+      color: rgba(28, 28, 28, 0.45);
+      text-shadow: none;
+    }
+
+    /* —— Scroll pages: unchanged —— */
     .shot-brand {
       font-family: "Cormorant Garamond", "Times New Roman", serif;
       font-size: clamp(0.7rem, 1.9vw, 0.78rem);
@@ -106,8 +262,35 @@
   <div class="photo-bg" aria-hidden="true"></div>
 
   <main class="home-scroll" aria-label="Mireille">
-    <section class="shot" data-reveal>
-      <p class="shot-brand">Mireille</p>
+    <section class="shot shot-main" data-reveal>
+      <div class="notepad" aria-hidden="true">
+        <div class="np-title">
+          <span>--- Notepad</span>
+          <div class="np-btns">
+            <span class="np-btn">_</span>
+            <span class="np-btn">□</span>
+            <span class="np-btn">×</span>
+          </div>
+        </div>
+        <div class="np-menu">
+          <span>File</span>
+          <span>Edit</span>
+          <span>Search</span>
+          <span>Help</span>
+        </div>
+        <div class="np-body">
+          <div class="np-view">
+            <img src="mireille.jpg" alt="" />
+          </div>
+          <div class="np-scroll">
+            <span class="np-arrow">▲</span>
+            <div class="np-track">
+              <span class="np-thumb"></span>
+            </div>
+            <span class="np-arrow">▼</span>
+          </div>
+        </div>
+      </div>
       <p class="shot-hint">Scroll</p>
     </section>
 

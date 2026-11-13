@@ -8,37 +8,23 @@
   <style>
     html, body {
       margin: 0;
-      min-height: 100%;
-      background: #090a0c;
+      height: 100%;
+      background: #000;
       overflow: hidden;
     }
 
     .splash {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      min-height: 100dvh;
+      position: fixed;
+      inset: 0;
+      z-index: 2;
       display: grid;
       place-items: center;
       padding: 1.25rem;
+      background: #000;
     }
 
-    .splash-bg {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      background: #090a0c url("mod.png") center / cover no-repeat;
-      filter: contrast(1.05) saturate(0.9);
-      transform: scale(1.02);
-    }
-
-    .splash-bg::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(180deg, rgba(9, 10, 12, 0.12), rgba(9, 10, 12, 0.28));
-      pointer-events: none;
+    .splash.is-gone {
+      display: none;
     }
 
     .sys {
@@ -125,11 +111,30 @@
       outline: 1px dotted #000;
       outline-offset: 2px;
     }
+
+    .app {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: none;
+      background: #c5cccd;
+    }
+
+    .app.is-on {
+      display: block;
+    }
   </style>
 </head>
 <body>
-  <div class="splash-bg" aria-hidden="true"></div>
-  <main class="splash" aria-label="Enter">
+  <audio id="bgm" loop preload="auto">
+    <source src="track.mp3" type="audio/mpeg" />
+    <source src="track.mp3.mp3" type="audio/mpeg" />
+  </audio>
+
+  <div class="splash" id="splash">
     <section class="sys" role="dialog" aria-labelledby="sys-msg">
       <div class="sys-title">
         <span>System message</span>
@@ -140,31 +145,41 @@
         <button type="button" class="sys-enter" id="enter-btn">Enter</button>
       </div>
     </section>
-  </main>
+  </div>
+
+  <iframe class="app" id="app" title="Mireille" src="about:blank"></iframe>
+
   <script>
     (() => {
       const btn = document.getElementById("enter-btn");
-      if (!btn) return;
+      const splash = document.getElementById("splash");
+      const app = document.getElementById("app");
+      const bgm = document.getElementById("bgm");
+      if (!btn || !splash || !app || !bgm) return;
 
-      const go = async () => {
+      window.__mireilleBgm = bgm;
+
+      const enter = async () => {
         try {
           sessionStorage.setItem("mireille-bgm", "1");
         } catch (_) {}
 
         try {
-          const audio = new Audio("track.mp3");
-          audio.loop = true;
-          audio.preload = "auto";
-          window.__mireilleBgm = audio;
-          await audio.play();
+          bgm.currentTime = 0;
+          await bgm.play();
         } catch (_) {}
 
-        window.setTimeout(() => {
-          window.location.href = "home.html";
-        }, 120);
+        splash.classList.add("is-gone");
+        app.classList.add("is-on");
+        app.src = "home.html";
       };
 
-      btn.addEventListener("click", go);
+      btn.addEventListener("click", enter);
+
+      window.addEventListener("message", (e) => {
+        if (!e || !e.data || e.data.type !== "mireille-bgm-ping") return;
+        bgm.play().catch(() => {});
+      });
     })();
   </script>
 </body>

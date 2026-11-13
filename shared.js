@@ -1,45 +1,54 @@
 (() => {
   const BGM_KEY = "mireille-bgm";
   const BGM_TIME = "mireille-bgm-t";
+  const inFrame = window !== window.parent;
 
-  const ensureBgm = () => {
+  if (inFrame) {
     try {
-      if (sessionStorage.getItem(BGM_KEY) !== "1") return null;
-    } catch (_) {
-      return null;
-    }
-
-    let audio = window.__mireilleBgm;
-    if (!(audio instanceof HTMLAudioElement)) {
-      audio = new Audio("track.mp3");
-      audio.loop = true;
-      audio.preload = "auto";
-      window.__mireilleBgm = audio;
-
+      if (sessionStorage.getItem(BGM_KEY) === "1") {
+        window.parent.postMessage({ type: "mireille-bgm-ping" }, "*");
+      }
+    } catch (_) {}
+  } else {
+    const ensureBgm = () => {
       try {
-        const t = parseFloat(sessionStorage.getItem(BGM_TIME) || "0");
-        if (!Number.isNaN(t) && t > 0) audio.currentTime = t;
-      } catch (_) {}
+        if (sessionStorage.getItem(BGM_KEY) !== "1") return null;
+      } catch (_) {
+        return null;
+      }
 
-      audio.addEventListener("timeupdate", () => {
+      let audio = window.__mireilleBgm;
+      if (!(audio instanceof HTMLAudioElement)) {
+        audio = new Audio("track.mp3");
+        audio.loop = true;
+        audio.preload = "auto";
+        window.__mireilleBgm = audio;
+
         try {
-          sessionStorage.setItem(BGM_TIME, String(audio.currentTime || 0));
+          const t = parseFloat(sessionStorage.getItem(BGM_TIME) || "0");
+          if (!Number.isNaN(t) && t > 0) audio.currentTime = t;
         } catch (_) {}
-      });
-    }
 
-    audio.play().catch(() => {});
-    return audio;
-  };
+        audio.addEventListener("timeupdate", () => {
+          try {
+            sessionStorage.setItem(BGM_TIME, String(audio.currentTime || 0));
+          } catch (_) {}
+        });
+      }
 
-  ensureBgm();
-  document.addEventListener(
-    "pointerdown",
-    () => {
-      ensureBgm();
-    },
-    { passive: true },
-  );
+      audio.play().catch(() => {});
+      return audio;
+    };
+
+    ensureBgm();
+    document.addEventListener(
+      "pointerdown",
+      () => {
+        ensureBgm();
+      },
+      { passive: true },
+    );
+  }
 
   const glow = document.createElement("div");
   glow.className = "cursor-glow";

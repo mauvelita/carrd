@@ -129,10 +129,7 @@
   </style>
 </head>
 <body>
-  <audio id="bgm" loop preload="auto">
-    <source src="track.mp3" type="audio/mpeg" />
-    <source src="track.mp3.mp3" type="audio/mpeg" />
-  </audio>
+  <audio id="bgm" src="track.mp3" loop preload="auto"></audio>
 
   <div class="splash" id="splash">
     <section class="sys" role="dialog" aria-labelledby="sys-msg">
@@ -159,15 +156,12 @@
 
       window.__mireilleBgm = bgm;
 
-      const enter = async () => {
+      const enter = () => {
         try {
           sessionStorage.setItem("mireille-bgm", "1");
         } catch (_) {}
 
-        try {
-          bgm.currentTime = 0;
-          await bgm.play();
-        } catch (_) {}
+        bgm.play().catch(() => {});
 
         splash.classList.add("is-gone");
         app.classList.add("is-on");

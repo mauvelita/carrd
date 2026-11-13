@@ -47,33 +47,16 @@
       text-align: center;
     }
 
-    .shot::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: min(92vw, 26rem);
-      height: min(36vh, 13rem);
-      transform: translate(-50%, -50%);
-      background: radial-gradient(ellipse at center, rgba(9, 10, 12, 0.32) 0%, rgba(9, 10, 12, 0.1) 55%, transparent 72%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .shot-brand,
-    .shot-hint,
-    .shot a {
-      position: relative;
-      z-index: 1;
-    }
-
     .shot-brand {
       font-family: "Cormorant Garamond", "Times New Roman", serif;
       font-size: clamp(0.7rem, 1.9vw, 0.78rem);
       font-weight: 500;
       letter-spacing: 0.5em;
       text-transform: uppercase;
-      color: rgba(247, 245, 241, 0.88);
+      color: rgba(247, 245, 241, 0.92);
+      text-shadow:
+        0 0 12px rgba(247, 245, 241, 0.28),
+        0 0 28px rgba(247, 245, 241, 0.12);
     }
 
     .shot-hint {
@@ -85,6 +68,7 @@
       letter-spacing: 0.32em;
       text-transform: uppercase;
       color: rgba(247, 245, 241, 0.42);
+      text-shadow: 0 0 16px rgba(247, 245, 241, 0.1);
     }
 
     .shot a {
@@ -98,15 +82,22 @@
       font-style: italic;
       line-height: 1.3;
       letter-spacing: 0.04em;
-      text-shadow: none;
-      transition: opacity 0.3s ease, letter-spacing 0.35s ease, transform 0.35s ease;
+      text-shadow:
+        0 0 14px rgba(247, 245, 241, 0.35),
+        0 0 32px rgba(247, 245, 241, 0.16),
+        0 0 48px rgba(247, 245, 241, 0.08);
+      transition: opacity 0.3s ease, letter-spacing 0.35s ease, transform 0.35s ease, text-shadow 0.35s ease;
     }
 
     .shot a:hover,
     .shot a:focus-visible {
-      opacity: 0.78;
+      opacity: 0.9;
       letter-spacing: 0.07em;
       transform: translateY(-1px);
+      text-shadow:
+        0 0 18px rgba(247, 245, 241, 0.48),
+        0 0 40px rgba(247, 245, 241, 0.22),
+        0 0 64px rgba(247, 245, 241, 0.12);
       outline: none;
     }
   </style>

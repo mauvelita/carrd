@@ -44,49 +44,9 @@
       flex-shrink: 0;
     }
 
-.np-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.4rem;
-  margin: 2px;
-  padding: 2px 3px 2px 5px;
-  background: var(--win-title);
-  color: #fff;
-  font-family: var(--sans);
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1.2;
-  flex-shrink: 0;
-}
-
-.np-marquee {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  mask-image: linear-gradient(90deg, transparent, #000 0.4rem, #000 calc(100% - 0.4rem), transparent);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 0.4rem, #000 calc(100% - 0.4rem), transparent);
-}
-
-.np-marquee-track {
-  display: inline-flex;
-  width: max-content;
-  white-space: nowrap;
-  animation: np-marquee 14s linear infinite;
-}
-
-.np-marquee-track span {
-  padding-right: 2.75rem;
-}
-
-@keyframes np-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .np-marquee-track { animation: none; }
-}
+    .np-title-label {
+      white-space: nowrap;
+    }
 
     .np-btns {
       display: flex;
@@ -122,7 +82,68 @@
       flex-shrink: 0;
     }
 
-    .np-menu span::first-letter { text-decoration: underline; }
+    .np-menu span::first-letter {
+      text-decoration: underline;
+    }
+
+    .np-now {
+      flex-shrink: 0;
+      margin: 0 2px;
+      padding: 4px 6px;
+      background: #000080;
+      border-top: 1px solid var(--win-darker);
+      border-left: 1px solid var(--win-darker);
+      border-right: 1px solid var(--win-light);
+      border-bottom: 1px solid var(--win-light);
+      overflow: hidden;
+    }
+
+    .np-now-inner {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      min-width: 0;
+    }
+
+    .np-now-icon {
+      flex-shrink: 0;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      color: #7cff7c;
+      letter-spacing: 0.04em;
+    }
+
+    .np-marquee {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    .np-marquee-track {
+      display: inline-flex;
+      width: max-content;
+      white-space: nowrap;
+      color: #7cff7c;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      animation: np-marquee 16s linear infinite;
+    }
+
+    .np-marquee-track span {
+      padding-right: 3rem;
+    }
+
+    @keyframes np-marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .np-marquee-track { animation: none; }
+    }
 
     .np-body {
       flex: 1;
@@ -197,20 +218,20 @@
       border-bottom: 1px solid var(--win-darker);
     }
 
-.home-nav {
-  position: relative;
-  z-index: 1;
-  height: 100vh;
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.15rem;
-  padding: clamp(1.5rem, 5vw, 2.5rem);
-  padding-bottom: clamp(3.25rem, 12vh, 5.5rem);
-  text-align: center;
-}
+    .home-nav {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.15rem;
+      padding: clamp(1.5rem, 5vw, 2.5rem);
+      padding-bottom: clamp(3.25rem, 12vh, 5.5rem);
+      text-align: center;
+    }
 
     .home-nav a {
       position: relative;
@@ -218,7 +239,7 @@
       width: max-content;
       max-width: min(88vw, 20rem);
       margin: 0 auto;
-      padding-bottom: clamp(3.25rem, 12vh, 5.5rem);
+      padding: 0.42rem 1.55rem 0.42rem 1.7rem;
       color: #f7f5f1;
       text-decoration: none;
       font-family: "Cormorant Garamond", "Times New Roman", serif;
@@ -265,19 +286,7 @@
 <body>
   <div class="notepad" aria-hidden="true">
     <div class="np-title">
-<div class="np-title">
-  <div class="np-marquee" aria-label="Mireille — Twist of Fate (Now Playing)">
-    <div class="np-marquee-track">
-      <span>Mireille — Twist of Fate (Now Playing) — Olivia Newton-John — Fashion as Body Modification</span>
-      <span aria-hidden="true">Mireille — Twist of Fate (Now Playing) — Olivia Newton-John — Fashion as Body Modification</span>
-    </div>
-  </div>
-  <div class="np-btns">
-    <span class="np-btn">_</span>
-    <span class="np-btn">□</span>
-    <span class="np-btn">×</span>
-  </div>
-</div>
+      <span class="np-title-label">--- Notepad</span>
       <div class="np-btns">
         <span class="np-btn">_</span>
         <span class="np-btn">□</span>
@@ -289,6 +298,17 @@
       <span>Edit</span>
       <span>Search</span>
       <span>Help</span>
+    </div>
+    <div class="np-now">
+      <div class="np-now-inner">
+        <span class="np-now-icon">▶ NOW</span>
+        <div class="np-marquee">
+          <div class="np-marquee-track">
+            <span>Mireille — Twist of Fate (Now Playing) — Olivia Newton-John — Fashion as Body Modification</span>
+            <span>Mireille — Twist of Fate (Now Playing) — Olivia Newton-John — Fashion as Body Modification</span>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="np-body">
       <div class="np-view"></div>

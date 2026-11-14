@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mireille — Twist of Fate</title>
+  <title>Mireille d'épine — Twist of Fate</title>
   <link rel="stylesheet" href="shared.css" />
   <style>
     html, body {
@@ -157,12 +157,12 @@
       window.__mireilleBgm = bgm;
 
       const setNowPlaying = () => {
-        document.title = "Mireille d'Épine — Twist of Fate";
+        document.title = "Mireille d'épine — Twist of Fate";
         if (!("mediaSession" in navigator)) return;
         try {
           navigator.mediaSession.metadata = new MediaMetadata({
             title: "Twist of Fate",
-           artist: "Mireille d'Épine",
+            artist: "Mireille d'épine",
             album: "Now Playing",
           });
           navigator.mediaSession.playbackState = "playing";

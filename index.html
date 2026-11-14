@@ -157,13 +157,13 @@
       window.__mireilleBgm = bgm;
 
       const setNowPlaying = () => {
-        document.title = "Mireille — Twist of Fate";
+        document.title = "Mireille d'Épine — Twist of Fate";
         if (!("mediaSession" in navigator)) return;
         try {
           navigator.mediaSession.metadata = new MediaMetadata({
             title: "Twist of Fate",
-            artist: "Mireille — Now Playing",
-            album: "Olivia Newton-John",
+           artist: "Mireille d'épine",
+            album: "Now Playing",
           });
           navigator.mediaSession.playbackState = "playing";
         } catch (_) {}

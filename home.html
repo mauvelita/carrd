@@ -32,9 +32,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.4rem;
+      gap: 0.45rem;
       margin: 2px;
-      padding: 2px 3px 2px 5px;
+      padding: 3px 3px 3px 6px;
       background: var(--win-title);
       color: #fff;
       font-family: var(--sans);
@@ -44,7 +44,10 @@
       flex-shrink: 0;
     }
 
-    .np-title-label { white-space: nowrap; }
+    .np-title-label {
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
 
     .np-btns {
       display: flex;
@@ -106,6 +109,7 @@
       font-weight: 700;
       letter-spacing: 0.02em;
       animation: np-marquee 16s linear infinite;
+      will-change: transform;
     }
 
     .np-marquee-track span { padding-right: 3rem; }
@@ -137,8 +141,16 @@
       min-height: 0;
       overflow: hidden;
       background:
-        radial-gradient(ellipse at 50% 45%, rgba(9, 10, 12, 0.12) 0%, rgba(9, 10, 12, 0.28) 70%, rgba(9, 10, 12, 0.4) 100%),
-        #090a0c url("mireille.jpg") center / cover no-repeat;
+        radial-gradient(ellipse at 50% 38%, rgba(9, 10, 12, 0.08) 0%, rgba(9, 10, 12, 0.22) 62%, rgba(9, 10, 12, 0.38) 100%),
+        #090a0c url("mireille.jpg") center 28% / cover no-repeat;
+    }
+
+    @media (min-width: 720px) {
+      .np-view {
+        background:
+          radial-gradient(ellipse at 50% 40%, rgba(9, 10, 12, 0.06) 0%, rgba(9, 10, 12, 0.2) 65%, rgba(9, 10, 12, 0.34) 100%),
+          #090a0c url("mireille.jpg") center 32% / cover no-repeat;
+      }
     }
 
     .np-scroll {
@@ -206,69 +218,185 @@
 
     .home-nav {
       width: max-content;
-      max-width: min(86vw, 18.5rem);
+      max-width: min(88vw, 19.5rem);
       margin: 0 auto;
-      background: rgba(190, 202, 203, 0.55);
-      border-top: 1px solid rgba(255, 255, 255, 0.4);
-      border-left: 1px solid rgba(255, 255, 255, 0.28);
-      border-right: 1px solid rgba(96, 100, 103, 0.45);
-      border-bottom: 1px solid rgba(53, 53, 51, 0.45);
-      box-shadow: 2px 2px 0 rgba(9, 10, 12, 0.18);
-      padding: 0.4rem 0.35rem;
+      background: rgba(190, 202, 203, 0.58);
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-darker);
+      border-bottom: 2px solid var(--win-darker);
+      box-shadow: 2px 2px 0 rgba(9, 10, 12, 0.2);
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: stretch;
-      gap: 0.08rem;
-      text-align: center;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      text-align: left;
+      backdrop-filter: blur(7px);
+      -webkit-backdrop-filter: blur(7px);
+      overflow: hidden;
+    }
+
+    .dir-chrome {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      margin: 2px;
+      padding: 3px 3px 3px 6px;
+      background: var(--win-title);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+    }
+
+    .dir-chrome-btns { display: flex; gap: 2px; }
+
+    .dir-chrome-btn {
+      width: 14px;
+      height: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--win-face);
+      color: #000;
+      border-top: 1px solid var(--win-light);
+      border-left: 1px solid var(--win-light);
+      border-right: 1px solid var(--win-darker);
+      border-bottom: 1px solid var(--win-darker);
+      font-size: 8px;
+      line-height: 1;
+      font-family: var(--sans);
+      font-weight: 700;
+    }
+
+    .dir-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 0 2px;
+      padding: 0.35rem 0.55rem;
+      border-bottom: 1px solid rgba(96, 100, 103, 0.28);
+      font-family: var(--sans);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(28, 28, 28, 0.48);
+    }
+
+    .dir-meta .online {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .dir-meta .online::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #a2acb0;
+      box-shadow: 0 0 0 1px rgba(28, 28, 28, 0.2);
+    }
+
+    .dir-meta .cursor {
+      display: inline-block;
+      width: 0.4em;
+      margin-left: 1px;
+      border-right: 1px solid rgba(28, 28, 28, 0.4);
+      animation: dir-cursor 1s steps(1) infinite;
+    }
+
+    @keyframes dir-cursor {
+      50% { border-color: transparent; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .dir-meta .cursor { animation: none; }
+    }
+
+    .dir-list {
+      display: flex;
+      flex-direction: column;
+      padding: 0.2rem 0 0.25rem;
     }
 
     .home-nav a {
       position: relative;
-      display: block;
+      display: grid;
+      grid-template-columns: 0.85rem 1fr auto;
+      align-items: center;
+      gap: 0.45rem;
       width: 100%;
       box-sizing: border-box;
-      padding: 0.42rem 1.35rem 0.42rem 1.45rem;
+      padding: 0.48rem 0.65rem 0.48rem 0.55rem;
       color: var(--ink-dark);
       text-decoration: none;
       font-family: "Cormorant Garamond", "Times New Roman", serif;
-      font-size: clamp(1.15rem, 4vw, 1.45rem);
+      font-size: clamp(1.12rem, 3.9vw, 1.4rem);
       font-weight: 500;
       font-style: italic;
-      line-height: 1.3;
-      letter-spacing: 0.03em;
+      line-height: 1.25;
+      letter-spacing: 0.02em;
       white-space: nowrap;
       background: transparent;
-      transition: background 0.12s ease, color 0.12s ease, letter-spacing 0.18s ease;
+      border: 0;
+      transition: background 0.12s ease, color 0.12s ease;
     }
 
-    .home-nav a::before {
-      content: "►";
-      position: absolute;
-      left: 0.35rem;
-      top: 50%;
-      transform: translateY(-50%);
+    .home-nav a + a {
+      border-top: 1px solid rgba(96, 100, 103, 0.14);
+    }
+
+    .dir-mark {
+      font-family: var(--sans);
+      font-size: 8px;
       font-style: normal;
-      font-size: 0.55em;
-      letter-spacing: 0;
-      opacity: 0;
-      color: #fff;
-      transition: opacity 0.12s ease;
+      font-weight: 700;
+      color: rgba(28, 28, 28, 0.32);
+      transition: color 0.12s ease, transform 0.12s ease;
+    }
+
+    .dir-label {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .dir-index {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-style: normal;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: rgba(28, 28, 28, 0.38);
+      transition: color 0.12s ease;
     }
 
     .home-nav a:hover,
     .home-nav a:focus-visible {
       background: #000080;
       color: #fff;
-      letter-spacing: 0.05em;
       outline: none;
     }
 
-    .home-nav a:hover::before,
-    .home-nav a:focus-visible::before {
-      opacity: 1;
+    .home-nav a:hover .dir-mark,
+    .home-nav a:focus-visible .dir-mark {
+      color: #fff;
+      transform: translateX(1px);
     }
+
+    .home-nav a:hover .dir-index,
+    .home-nav a:focus-visible .dir-index {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .home-nav a .dir-mark::before { content: "·"; }
+    .home-nav a:hover .dir-mark::before,
+    .home-nav a:focus-visible .dir-mark::before { content: "►"; }
   </style>
 </head>
 <body>
@@ -278,45 +406,4 @@
       <div class="np-btns">
         <span class="np-btn">_</span>
         <span class="np-btn">□</span>
-        <span class="np-btn">×</span>
-      </div>
-    </div>
-    <div class="np-menu">
-      <span>File</span>
-      <span>Edit</span>
-      <span>Search</span>
-      <span>Help</span>
-    </div>
-    <div class="np-now">
-      <div class="np-marquee">
-        <div class="np-marquee-track">
-          <span>Mireille d'épine — Twist of Fate (Now Playing) — Olivia Newton-John — Fashion as Body Modification</span>
-          <span>Mireille d'épine — Twist of Fate (Now Playing) — Olivia Newton-John — Fashion as Body Modification</span>
-        </div>
-      </div>
-    </div>
-    <div class="np-body">
-      <div class="np-view"></div>
-      <div class="np-scroll">
-        <span class="np-arrow">▲</span>
-        <div class="np-track">
-          <span class="np-thumb"></span>
-        </div>
-        <span class="np-arrow">▼</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="home-nav-wrap">
-    <nav class="home-nav" aria-label="Mireille" data-reveal>
-      <a href="who.html">Who Are You?</a>
-      <a href="making.html">The Making of Mireille.</a>
-      <a href="life.html">The Life He Left Behind.</a>
-      <a href="backstage.html">How Do I Get Backstage?</a>
-      <a href="terms.html">Terms of Use.</a>
-    </nav>
-  </div>
-
-  <script src="shared.js"></script>
-</body>
-</html>
+       

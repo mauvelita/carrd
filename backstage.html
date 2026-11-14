@@ -6,162 +6,78 @@
   <title>How Do I Get Backstage?</title>
   <link rel="stylesheet" href="shared.css" />
   <style>
+    .shell {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: var(--page-pad);
+      padding-bottom: var(--page-pad);
+    }
+
     .stage {
       width: 100%;
-      max-width: 26rem;
+      max-width: 22rem;
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      align-items: stretch;
-      gap: 0.85rem;
-    }
-
-    .terminal {
-      background: var(--win-face);
-      border-top: 2px solid var(--win-light);
-      border-left: 2px solid var(--win-light);
-      border-right: 2px solid var(--win-darker);
-      border-bottom: 2px solid var(--win-darker);
-      box-shadow: 3px 3px 0 rgba(9, 10, 12, 0.28);
-    }
-
-    .term-title {
-      display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 0.4rem;
-      margin: 2px;
-      padding: 2px 3px 2px 5px;
-      background: var(--win-title);
-      color: #fff;
-      font-family: var(--sans);
-      font-size: 11px;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-
-    .term-btns { display: flex; gap: 2px; }
-
-    .term-btn {
-      width: 16px;
-      height: 14px;
-      display: grid;
-      place-items: center;
-      background: var(--win-face);
-      color: #000;
-      border-top: 1px solid var(--win-light);
-      border-left: 1px solid var(--win-light);
-      border-right: 1px solid var(--win-darker);
-      border-bottom: 1px solid var(--win-darker);
-      font-size: 9px;
-      line-height: 1;
-      font-family: var(--sans);
-      font-weight: 700;
-    }
-
-    .term-status {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      gap: 0.35rem 0.75rem;
-      margin: 0 2px;
-      padding: 0.35rem 0.55rem;
-      background: #000080;
-      color: #fff;
-      font-family: var(--sans);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      border-top: 1px solid var(--win-darker);
-      border-left: 1px solid var(--win-darker);
-      border-right: 1px solid var(--win-light);
-      border-bottom: 1px solid var(--win-light);
-    }
-
-    .term-status .live { color: #7cff7c; }
-
-    .term-body {
-      margin: 0 2px 2px;
-      padding: clamp(0.85rem, 3vw, 1.1rem);
-      background:
-        linear-gradient(180deg, rgba(9, 10, 12, 0.08), rgba(9, 10, 12, 0.18)),
-        rgba(190, 202, 203, 0.72);
-      border-top: 1px solid var(--win-dark);
-      border-left: 1px solid var(--win-dark);
-      border-right: 1px solid var(--win-light);
-      border-bottom: 1px solid var(--win-light);
+      gap: clamp(1.15rem, 3.2vw, 1.55rem);
+      flex: 0 0 auto;
     }
 
     .head {
+      width: 100%;
       text-align: center;
-      margin-bottom: 0.95rem;
     }
 
     .head .label {
-      color: var(--slate);
-      text-shadow: none;
+      margin: 0;
     }
 
     .head h1 {
-      font-size: clamp(1.65rem, 5.5vw, 2.15rem);
+      font-size: clamp(2rem, 6.2vw, 2.85rem);
       font-weight: 500;
-      margin-top: 0.3rem;
-      color: var(--ink-dark);
-      text-shadow: none;
-      line-height: 1.15;
-    }
-
-    .head .prompt {
-      margin-top: 0.55rem;
-      font-family: var(--sans);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      color: rgba(28, 28, 28, 0.55);
+      margin: 0.3rem 0 0;
+      line-height: 1.1;
     }
 
     .panel {
-      background: rgba(255, 255, 255, 0.28);
-      border-top: 1px solid rgba(255, 255, 255, 0.45);
-      border-left: 1px solid rgba(255, 255, 255, 0.35);
-      border-right: 1px solid rgba(96, 100, 103, 0.4);
-      border-bottom: 1px solid rgba(53, 53, 51, 0.4);
-      box-shadow: 1px 1px 0 rgba(9, 10, 12, 0.1);
-      padding: 0.65rem 0.45rem 0.3rem;
-      margin-bottom: 0.7rem;
+      width: 100%;
+      background: rgba(190, 202, 203, 0.55);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-left: 1px solid rgba(255, 255, 255, 0.28);
+      border-right: 1px solid rgba(96, 100, 103, 0.45);
+      border-bottom: 1px solid rgba(53, 53, 51, 0.45);
+      box-shadow: 2px 2px 0 rgba(9, 10, 12, 0.12);
+      padding: 0.75rem 0.55rem 0.3rem;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
     }
 
-    .panel:last-child { margin-bottom: 0; }
-
     .panel .label {
-      margin: 0 0 0.45rem;
-      padding: 0 0.35rem 0.45rem;
+      margin: 0 0 0.5rem;
+      padding: 0 0.25rem 0.5rem;
       color: var(--slate);
       text-shadow: none;
       border-bottom: 1px solid rgba(96, 100, 103, 0.28);
+      text-align: center;
+    }
+
+    .links {
       display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      gap: 0.5rem;
+      flex-direction: column;
+      align-items: stretch;
     }
-
-    .panel .ch {
-      font-family: var(--sans);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: rgba(28, 28, 28, 0.45);
-      text-transform: uppercase;
-    }
-
-    .links { display: flex; flex-direction: column; }
 
     .links a {
       position: relative;
       display: block;
-      padding: 0.62rem 1.45rem 0.62rem 1.55rem;
+      padding: 0.65rem 1.4rem;
       font-family: var(--serif);
-      font-size: clamp(1.12rem, 3.4vw, 1.32rem);
+      font-size: clamp(1.15rem, 3.4vw, 1.35rem);
       font-style: italic;
       font-weight: 500;
       color: var(--ink-dark);
@@ -174,7 +90,7 @@
     .links a::before {
       content: "►";
       position: absolute;
-      left: 0.45rem;
+      left: 0.4rem;
       top: 50%;
       transform: translateY(-50%);
       font-style: normal;
@@ -197,75 +113,38 @@
       opacity: 1;
     }
 
-    .term-foot {
-      margin-top: 0.75rem;
-      padding-top: 0.55rem;
-      border-top: 1px dashed rgba(96, 100, 103, 0.35);
-      font-family: var(--sans);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: rgba(28, 28, 28, 0.5);
-      text-align: center;
+    .footer-back {
+      margin-top: clamp(1.35rem, 3.5vh, 1.85rem);
+      flex: 0 0 auto;
     }
-
-    .footer-back { margin-top: clamp(1.35rem, 3.5vh, 2rem); }
   </style>
 </head>
 <body>
   <div class="page-bg" aria-hidden="true"></div>
   <main class="shell">
-    <div class="stage" data-reveal>
-      <section class="terminal" aria-label="Backstage access terminal">
-        <div class="term-title">
-          <span>Backstage Access — Terminal</span>
-          <div class="term-btns" aria-hidden="true">
-            <span class="term-btn">_</span>
-            <span class="term-btn">□</span>
-            <span class="term-btn">×</span>
-          </div>
+    <div class="stage">
+      <header class="head" data-reveal>
+        <p class="label">Access</p>
+        <h1 class="display">How Do I Get Backstage?</h1>
+      </header>
+
+      <section class="panel" data-reveal>
+        <p class="label">Main contacts</p>
+        <div class="links">
+          <a href="https://www.instagram.com/mauvelita" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://x.com/asphyxielle" target="_blank" rel="noopener noreferrer">Twitter</a>
         </div>
+      </section>
 
-        <div class="term-status" aria-hidden="true">
-          <span>CLEARANCE: GUEST</span>
-          <span class="live">● ONLINE</span>
-          <span>CH / SELECT</span>
-        </div>
-
-        <div class="term-body">
-          <header class="head">
-            <p class="label">Access</p>
-            <h1 class="display">How Do I Get Backstage?</h1>
-            <p class="prompt">&gt; select a channel to continue_</p>
-          </header>
-
-          <section class="panel">
-            <p class="label">
-              <span>Main contacts</span>
-              <span class="ch">CH-01</span>
-            </p>
-            <div class="links">
-              <a href="https://www.instagram.com/mauvelita" target="_blank" rel="noopener noreferrer">Instagram</a>
-              <a href="https://x.com/asphyxielle" target="_blank" rel="noopener noreferrer">Twitter</a>
-            </div>
-          </section>
-
-          <section class="panel">
-            <p class="label">
-              <span>Ask me anything</span>
-              <span class="ch">CH-02</span>
-            </p>
-            <div class="links">
-              <a href="https://tellonym.me/principesssa" target="_blank" rel="noopener noreferrer">Tellonym</a>
-            </div>
-          </section>
-
-          <p class="term-foot">AWAITING INPUT — PRESS CHANNEL TO OPEN</p>
+      <section class="panel" data-reveal>
+        <p class="label">Ask me anything</p>
+        <div class="links">
+          <a href="https://tellonym.me/principesssa" target="_blank" rel="noopener noreferrer">Tellonym</a>
         </div>
       </section>
     </div>
 
-    <div class="footer-back">
+    <div class="footer-back" data-reveal>
       <nav class="footer-nav" aria-label="Page navigation">
         <a href="home.html" data-nav-home>Back</a>
       </nav>

@@ -79,18 +79,20 @@
       width: 100%;
       height: auto;
       display: block;
+      vertical-align: top;
     }
 
     .entry-eyes .entry-frame {
       aspect-ratio: 4 / 3;
+      min-height: 12rem;
     }
 
     .entry-eyes .entry-frame img {
       width: 100%;
       height: 100%;
+      min-height: 12rem;
       object-fit: cover;
       object-position: center 40%;
-      transform: scale(1.08);
     }
 
     .scan-tags {
@@ -161,6 +163,7 @@
     .entry-xray .entry-frame {
       margin: 0.55rem 0.35rem 0.75rem 0.65rem;
       aspect-ratio: 3 / 4;
+      min-height: 14rem;
     }
 
     @media (max-width: 520px) {
@@ -173,6 +176,7 @@
     .entry-xray .entry-frame img {
       width: 100%;
       height: 100%;
+      min-height: 14rem;
       object-fit: cover;
       object-position: center top;
       filter: contrast(1.05);
@@ -216,11 +220,13 @@
     .entry-machine .entry-frame {
       aspect-ratio: 16 / 10;
       margin-top: 0.45rem;
+      min-height: 10rem;
     }
 
     .entry-machine .entry-frame img {
       width: 100%;
       height: 100%;
+      min-height: 10rem;
       object-fit: cover;
       object-position: center;
     }
@@ -251,7 +257,7 @@
         </div>
         <h2 class="entry-title">Artificial Eyes</h2>
         <div class="entry-frame">
-          <img src="eyes.jpeg" alt="Close-up of Mireille's artificial eyes" width="1200" height="900" loading="lazy" />
+          <img src="eyes.jpeg" alt="Close-up of Mireille's artificial eyes" width="1200" height="900" decoding="async" onerror="this.onerror=null;this.src='eyes.jpg'" />
           <div class="scan-tags" aria-hidden="true">
             <span class="tl">Scan // Live</span>
             <span class="tr">48.2mm</span>
@@ -274,7 +280,7 @@
         <h2 class="entry-title">Internal Structure</h2>
         <div class="xray-grid">
           <div class="entry-frame">
-            <img src="xray.jpeg" alt="X-ray of Mireille's cybernetic anatomy" width="900" height="1200" loading="lazy" />
+            <img src="xray.jpeg" alt="X-ray of Mireille's cybernetic anatomy" width="900" height="1200" decoding="async" onerror="this.onerror=null;this.src='xray.jpg'" />
             <div class="scan-tags" aria-hidden="true">
               <span class="tl">X-Ray</span>
               <span class="tr">Exposure 02</span>
@@ -303,7 +309,7 @@
         </div>
         <h2 class="entry-title">Cybernetic Devices</h2>
         <div class="entry-frame">
-          <img src="machine.jpeg" alt="Mireille's cybernetic devices" width="1200" height="750" loading="lazy" />
+          <img src="machine.jpeg" alt="Mireille's cybernetic devices" width="1200" height="750" decoding="async" onerror="this.onerror=null;this.src='machine.jpg'" />
           <div class="scan-tags" aria-hidden="true">
             <span class="tl">Archive Entry</span>
             <span class="tr">DEV-03</span>
@@ -319,7 +325,7 @@
 
     <div class="footer-back">
       <nav class="footer-nav" aria-label="Page navigation">
-        <a href="making.html">Back to File</a>
+        <a href="making.html" data-nav>Back to File</a>
       </nav>
     </div>
   </main>

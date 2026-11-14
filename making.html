@@ -13,6 +13,79 @@
       margin-top: 0.35rem;
     }
     .footer-back { margin-top: clamp(2.25rem, 5vh, 3.25rem); }
+
+    .file-card {
+      display: block;
+      width: 100%;
+      max-width: 34rem;
+      margin: clamp(1.5rem, 4vw, 2rem) auto 0;
+      padding: 0.85rem 0.95rem 0.9rem;
+      text-align: left;
+      text-decoration: none;
+      color: var(--ink-dark);
+      background: rgba(190, 202, 203, 0.55);
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
+      border-left: 1px solid rgba(255, 255, 255, 0.28);
+      border-right: 1px solid rgba(96, 100, 103, 0.45);
+      border-bottom: 1px solid rgba(53, 53, 51, 0.45);
+      box-shadow: 2px 2px 0 rgba(9, 10, 12, 0.12);
+      transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .file-card:hover,
+    .file-card:focus-visible {
+      background: rgba(190, 202, 203, 0.72);
+      box-shadow: 3px 3px 0 rgba(9, 10, 12, 0.16);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .file-card .file-label {
+      margin: 0 0 0.4rem;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(28, 28, 28, 0.5);
+      text-shadow: none;
+    }
+
+    .file-card .file-title {
+      margin: 0 0 0.45rem;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-dark);
+    }
+
+    .file-card .file-desc {
+      margin: 0 0 0.7rem;
+      font-family: var(--serif);
+      font-size: clamp(0.98rem, 2.2vw, 1.08rem);
+      font-style: italic;
+      line-height: 1.45;
+      color: rgba(28, 28, 28, 0.78);
+    }
+
+    .file-card .file-open {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #000080;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease, letter-spacing 0.2s ease;
+    }
+
+    .file-card:hover .file-open,
+    .file-card:focus-visible .file-open {
+      border-bottom-color: rgba(0, 0, 128, 0.45);
+      letter-spacing: 0.18em;
+    }
   </style>
 </head>
 <body>
@@ -28,14 +101,22 @@
       <p data-reveal>He fell in love with it the way hopeless souls fall into <span class="mark">religion</span>. Dressing-room heat clung to his skin. Powder settled into the hollow of his throat. Tight fabric pulled against his body. Music throbbed through the walls while he waited for his name, pulse high, mouth dry, already half-gone for the <span class="mark">applause</span>.</p>
       <p data-reveal>Winning was never quite enough. He desired <span class="mark">perfection</span>. He wanted to be unforgettable, strange enough in his beauty to leave people unsettled. Fashion became <span class="mark">ritual</span>. Then the body did. <span class="mark">Théoden</span> was a scientist with an appetite for experimentation, and he saw more possibility in Mireille than a conventional body could offer. If something could be perfected, leaving it alone felt like cowardice.</p>
       <p data-reveal>So he reconstructed himself to realise his vision. <span class="mark">Chrome</span> beneath skin. A silhouette built to cut. Nobody moved like he did after that. Nobody tore a runway the same way, because nobody else went that far for fashion. He became exacting about the face in the mirror, the line of his body, the way tight fabric caught against new <span class="mark">metal</span>, the way eyes travelled over him and stayed.</p>
-      <p data-reveal>In his spare time, he <span class="mark">researches</span>. A face, a silhouette, some detail he cannot leave alone. He brings it to Théoden, and talks through the <span class="mark">procedure</span> while he sits in the chair. What caught his eye. What stayed with him. What he wants looking back at him.</p>
+      <p data-reveal>In his spare time, he <span class="mark">researches</span>. A face, a silhouette, some detail he cannot leave alone. He sketches it, brings it to Théoden, and talks through the <span class="mark">procedure</span> while he sits in the chair. What caught his eye. What stayed with him. What he wants looking back at him.</p>
       <p data-reveal>There is always something else worth <span class="mark">modifying</span>.</p>
     </article>
-   <div class="footer-back">
-  <nav class="footer-nav" aria-label="Page navigation">
-    <a href="index.html" data-nav-home>Back</a>
-  </nav>
-</div>
+
+    <a class="file-card" href="body.html" data-reveal aria-label="Open file: The Body He Made">
+      <p class="file-label">Supplementary File / Anatomy</p>
+      <p class="file-title">The Body He Made</p>
+      <p class="file-desc">A closer look at Mireille's cybernetic anatomy and sensory systems.</p>
+      <span class="file-open">Open File ►</span>
+    </a>
+
+    <div class="footer-back">
+      <nav class="footer-nav" aria-label="Page navigation">
+        <a href="home.html" data-nav-home>Back</a>
+      </nav>
+    </div>
   </main>
   <script src="shared.js"></script>
 </body>

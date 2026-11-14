@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mireille — Enter</title>
+<title>Mireille — Twist of Fate (Now Playing)</title>
   <link rel="stylesheet" href="shared.css" />
   <style>
     html, body {
@@ -146,35 +146,49 @@
 
   <iframe class="app" id="app" title="Mireille" src="about:blank"></iframe>
 
-  <script>
-    (() => {
-      const btn = document.getElementById("enter-btn");
-      const splash = document.getElementById("splash");
-      const app = document.getElementById("app");
-      const bgm = document.getElementById("bgm");
-      if (!btn || !splash || !app || !bgm) return;
+<script>
+  (() => {
+    const btn = document.getElementById("enter-btn");
+    const splash = document.getElementById("splash");
+    const app = document.getElementById("app");
+    const bgm = document.getElementById("bgm");
+    if (!btn || !splash || !app || !bgm) return;
 
-      window.__mireilleBgm = bgm;
+    window.__mireilleBgm = bgm;
 
-      const enter = () => {
-        try {
-          sessionStorage.setItem("mireille-bgm", "1");
-        } catch (_) {}
+    const setNowPlaying = () => {
+      document.title = "Mireille — Twist of Fate (Now Playing)";
+      if (!("mediaSession" in navigator)) return;
+      try {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: "Mireille — Twist of Fate (Now Playing)",
+          artist: "Olivia Newton-John",
+          album: "Fashion as Body Modification",
+        });
+        navigator.mediaSession.playbackState = "playing";
+      } catch (_) {}
+    };
 
-        bgm.play().catch(() => {});
+    const enter = () => {
+      try {
+        sessionStorage.setItem("mireille-bgm", "1");
+      } catch (_) {}
 
-        splash.classList.add("is-gone");
-        app.classList.add("is-on");
-        app.src = "home.html";
-      };
+      bgm.play().then(setNowPlaying).catch(() => {});
+      setNowPlaying();
 
-      btn.addEventListener("click", enter);
+      splash.classList.add("is-gone");
+      app.classList.add("is-on");
+      app.src = "home.html";
+    };
 
-      window.addEventListener("message", (e) => {
-        if (!e || !e.data || e.data.type !== "mireille-bgm-ping") return;
-        bgm.play().catch(() => {});
-      });
-    })();
-  </script>
+    btn.addEventListener("click", enter);
+
+    window.addEventListener("message", (e) => {
+      if (!e || !e.data || e.data.type !== "mireille-bgm-ping") return;
+      bgm.play().then(setNowPlaying).catch(() => {});
+    });
+  })();
+</script>
 </body>
 </html>

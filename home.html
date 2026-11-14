@@ -205,17 +205,20 @@
     }
 
     .home-nav {
-      width: min(88vw, 20.5rem);
+      width: max-content;
+      max-width: min(86vw, 18.5rem);
+      margin: 0 auto;
       background: rgba(190, 202, 203, 0.55);
       border-top: 1px solid rgba(255, 255, 255, 0.4);
       border-left: 1px solid rgba(255, 255, 255, 0.28);
       border-right: 1px solid rgba(96, 100, 103, 0.45);
       border-bottom: 1px solid rgba(53, 53, 51, 0.45);
       box-shadow: 2px 2px 0 rgba(9, 10, 12, 0.18);
-      padding: 0.55rem 0.4rem;
+      padding: 0.4rem 0.35rem;
       display: flex;
       flex-direction: column;
-      gap: 0.12rem;
+      align-items: stretch;
+      gap: 0.08rem;
       text-align: center;
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
@@ -224,7 +227,9 @@
     .home-nav a {
       position: relative;
       display: block;
-      padding: 0.48rem 1.55rem 0.48rem 1.7rem;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 0.42rem 1.35rem 0.42rem 1.45rem;
       color: var(--ink-dark);
       text-decoration: none;
       font-family: "Cormorant Garamond", "Times New Roman", serif;
@@ -233,6 +238,7 @@
       font-style: italic;
       line-height: 1.3;
       letter-spacing: 0.03em;
+      white-space: nowrap;
       background: transparent;
       transition: background 0.12s ease, color 0.12s ease, letter-spacing 0.18s ease;
     }
@@ -240,7 +246,7 @@
     .home-nav a::before {
       content: "►";
       position: absolute;
-      left: 0.45rem;
+      left: 0.35rem;
       top: 50%;
       transform: translateY(-50%);
       font-style: normal;

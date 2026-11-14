@@ -49,7 +49,6 @@
       perspective: 1200px;
     }
 
-    /* Fixed box crops PNG padding, mild scale so card edges stay visible */
     .id-card {
       width: 100%;
       aspect-ratio: 1.52 / 1;
@@ -101,6 +100,79 @@
       flex: 0 0 auto;
       margin: 0;
     }
+
+    .file-card {
+      display: block;
+      width: 100%;
+      flex: 0 0 auto;
+      margin: 0;
+      padding: 0.85rem 0.95rem 0.9rem;
+      text-align: left;
+      text-decoration: none;
+      color: var(--ink-dark);
+      background: rgba(190, 202, 203, 0.55);
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
+      border-left: 1px solid rgba(255, 255, 255, 0.28);
+      border-right: 1px solid rgba(96, 100, 103, 0.45);
+      border-bottom: 1px solid rgba(53, 53, 51, 0.45);
+      box-shadow: 2px 2px 0 rgba(9, 10, 12, 0.12);
+      transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .file-card:hover,
+    .file-card:focus-visible {
+      background: rgba(190, 202, 203, 0.72);
+      box-shadow: 3px 3px 0 rgba(9, 10, 12, 0.16);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .file-card .file-label {
+      margin: 0 0 0.4rem;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(28, 28, 28, 0.5);
+      text-shadow: none;
+    }
+
+    .file-card .file-title {
+      margin: 0 0 0.45rem;
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-dark);
+    }
+
+    .file-card .file-desc {
+      margin: 0 0 0.7rem;
+      font-family: var(--serif);
+      font-size: clamp(0.98rem, 2.2vw, 1.08rem);
+      font-style: italic;
+      line-height: 1.45;
+      color: rgba(28, 28, 28, 0.78);
+    }
+
+    .file-card .file-open {
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #000080;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s ease, letter-spacing 0.2s ease;
+    }
+
+    .file-card:hover .file-open,
+    .file-card:focus-visible .file-open {
+      border-bottom-color: rgba(0, 0, 128, 0.45);
+      letter-spacing: 0.18em;
+    }
   </style>
 </head>
 <body>
@@ -126,9 +198,16 @@
       <p>He likes beautiful things. He likes being <span class="mark">seen</span>.</p>
     </section>
 
+    <a class="file-card" href="house.html" data-reveal aria-label="Open file: House d'Épine">
+      <p class="file-label">Ballroom Archive</p>
+      <p class="file-title">House d'Épine</p>
+      <p class="file-desc">An inside look at Mireille's ballroom house and its history.</p>
+      <span class="file-open">Open File ►</span>
+    </a>
+
     <div class="footer-back">
       <nav class="footer-nav" aria-label="Page navigation">
-        <a href="index.html" data-nav-home>Back</a>
+        <a href="home.html" data-nav-home>Back</a>
       </nav>
     </div>
   </main>

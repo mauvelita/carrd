@@ -6,15 +6,16 @@
   <title>How Do I Get Backstage?</title>
   <link rel="stylesheet" href="shared.css" />
   <style>
-    .shell {
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding-top: var(--page-pad);
-      padding-bottom: var(--page-pad);
+    .head {
+      width: 100%;
+      max-width: 34rem;
+      text-align: center;
+    }
+
+    .head h1 {
+      font-size: clamp(2.2rem, 6.8vw, 3.3rem);
+      font-weight: 500;
+      margin-top: 0.35rem;
     }
 
     .stage {
@@ -24,24 +25,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: clamp(1.15rem, 3.2vw, 1.55rem);
-      flex: 0 0 auto;
-    }
-
-    .head {
-      width: 100%;
-      text-align: center;
-    }
-
-    .head .label {
-      margin: 0;
-    }
-
-    .head h1 {
-      font-size: clamp(2rem, 6.2vw, 2.85rem);
-      font-weight: 500;
-      margin: 0.3rem 0 0;
-      line-height: 1.1;
+      gap: clamp(1.1rem, 3vw, 1.45rem);
     }
 
     .panel {
@@ -114,20 +98,20 @@
     }
 
     .footer-back {
-      margin-top: clamp(1.35rem, 3.5vh, 1.85rem);
-      flex: 0 0 auto;
+      margin-top: clamp(2.25rem, 5vh, 3.25rem);
     }
   </style>
 </head>
 <body>
   <div class="page-bg" aria-hidden="true"></div>
   <main class="shell">
-    <div class="stage">
-      <header class="head" data-reveal>
-        <p class="label">Access</p>
-        <h1 class="display">How Do I Get Backstage?</h1>
-      </header>
+    <header class="head" data-reveal>
+      <p class="label">Access</p>
+      <h1 class="display">How Do I Get Backstage?</h1>
+      <hr class="hairline" />
+    </header>
 
+    <div class="stage">
       <section class="panel" data-reveal>
         <p class="label">Main contacts</p>
         <div class="links">
@@ -144,7 +128,7 @@
       </section>
     </div>
 
-    <div class="footer-back" data-reveal>
+    <div class="footer-back">
       <nav class="footer-nav" aria-label="Page navigation">
         <a href="home.html" data-nav-home>Back</a>
       </nav>

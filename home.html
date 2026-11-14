@@ -7,55 +7,18 @@
   <link rel="stylesheet" href="shared.css" />
   <style>
     html, body {
-      background: #090a0c;
+      background: var(--win-face);
       height: 100%;
       overflow: hidden;
     }
 
-    .photo-bg {
+    /* Fixed full-screen Notepad — stays put while titles scroll */
+    .notepad {
       position: fixed;
-      inset: 0;
       z-index: 0;
-      background:
-        radial-gradient(ellipse at 50% 45%, rgba(9, 10, 12, 0.22) 0%, rgba(9, 10, 12, 0.42) 70%, rgba(9, 10, 12, 0.58) 100%),
-        #090a0c url("mireille.jpg") center / cover no-repeat;
-      transform: scale(1.02);
-    }
-
-    .home-scroll {
-      position: relative;
-      z-index: 1;
-      height: 100vh;
-      height: 100dvh;
-      overflow-x: hidden;
-      overflow-y: auto;
-      scroll-snap-type: y mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .shot {
-      position: relative;
-      min-height: 100%;
-      height: 100%;
-      scroll-snap-align: start;
-      scroll-snap-stop: always;
+      inset: clamp(0.55rem, 2.2vw, 0.9rem);
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: clamp(1.5rem, 5vw, 2.5rem);
-      text-align: center;
-    }
-
-    /* —— Main: Win95 Notepad frame (first screen only) —— */
-    .shot-main {
-      background: var(--win-face);
-      justify-content: center;
-      gap: 0.85rem;
-    }
-
-    .notepad {
-      width: min(88vw, 22rem);
       background: var(--win-face);
       border-top: 2px solid var(--win-light);
       border-left: 2px solid var(--win-light);
@@ -63,6 +26,7 @@
       border-bottom: 2px solid var(--win-darker);
       box-shadow: 3px 3px 0 rgba(9, 10, 12, 0.28);
       user-select: none;
+      pointer-events: none;
     }
 
     .np-title {
@@ -78,6 +42,7 @@
       font-size: 11px;
       font-weight: 700;
       line-height: 1.2;
+      flex-shrink: 0;
     }
 
     .np-title span {
@@ -115,6 +80,7 @@
       font-size: 11px;
       color: #000;
       background: var(--win-face);
+      flex-shrink: 0;
     }
 
     .np-menu span::first-letter {
@@ -122,27 +88,25 @@
     }
 
     .np-body {
+      flex: 1;
       display: flex;
+      min-height: 0;
       margin: 0 2px 2px;
       border-top: 1px solid var(--win-dark);
       border-left: 1px solid var(--win-dark);
       border-right: 1px solid var(--win-light);
       border-bottom: 1px solid var(--win-light);
-      background: #fff;
+      background: #000;
     }
 
     .np-view {
       flex: 1;
       min-width: 0;
-      background: #000;
+      min-height: 0;
       overflow: hidden;
-    }
-
-    .np-view img {
-      width: 100%;
-      height: auto;
-      display: block;
-      vertical-align: top;
+      background:
+        radial-gradient(ellipse at 50% 45%, rgba(9, 10, 12, 0.12) 0%, rgba(9, 10, 12, 0.28) 70%, rgba(9, 10, 12, 0.4) 100%),
+        #090a0c url("mireille.jpg") center / cover no-repeat;
     }
 
     .np-scroll {
@@ -188,7 +152,7 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 28%;
+      height: 22%;
       background: var(--win-face);
       border-top: 1px solid var(--win-light);
       border-left: 1px solid var(--win-light);
@@ -196,13 +160,31 @@
       border-bottom: 1px solid var(--win-darker);
     }
 
-    .shot-main .shot-hint {
-      margin-top: 0;
-      color: rgba(28, 28, 28, 0.45);
-      text-shadow: none;
+    .home-scroll {
+      position: relative;
+      z-index: 1;
+      height: 100vh;
+      height: 100dvh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
     }
 
-    /* —— Scroll pages: unchanged —— */
+    .shot {
+      position: relative;
+      min-height: 100%;
+      height: 100%;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(1.5rem, 5vw, 2.5rem);
+      text-align: center;
+    }
+
     .shot-brand {
       font-family: "Cormorant Garamond", "Times New Roman", serif;
       font-size: clamp(0.7rem, 1.9vw, 0.78rem);
@@ -259,38 +241,36 @@
   </style>
 </head>
 <body>
-  <div class="photo-bg" aria-hidden="true"></div>
+  <div class="notepad" aria-hidden="true">
+    <div class="np-title">
+      <span>--- Notepad</span>
+      <div class="np-btns">
+        <span class="np-btn">_</span>
+        <span class="np-btn">□</span>
+        <span class="np-btn">×</span>
+      </div>
+    </div>
+    <div class="np-menu">
+      <span>File</span>
+      <span>Edit</span>
+      <span>Search</span>
+      <span>Help</span>
+    </div>
+    <div class="np-body">
+      <div class="np-view"></div>
+      <div class="np-scroll">
+        <span class="np-arrow">▲</span>
+        <div class="np-track">
+          <span class="np-thumb"></span>
+        </div>
+        <span class="np-arrow">▼</span>
+      </div>
+    </div>
+  </div>
 
   <main class="home-scroll" aria-label="Mireille">
-    <section class="shot shot-main" data-reveal>
-      <div class="notepad" aria-hidden="true">
-        <div class="np-title">
-          <span>--- Notepad</span>
-          <div class="np-btns">
-            <span class="np-btn">_</span>
-            <span class="np-btn">□</span>
-            <span class="np-btn">×</span>
-          </div>
-        </div>
-        <div class="np-menu">
-          <span>File</span>
-          <span>Edit</span>
-          <span>Search</span>
-          <span>Help</span>
-        </div>
-        <div class="np-body">
-          <div class="np-view">
-            <img src="mireille.jpg" alt="" />
-          </div>
-          <div class="np-scroll">
-            <span class="np-arrow">▲</span>
-            <div class="np-track">
-              <span class="np-thumb"></span>
-            </div>
-            <span class="np-arrow">▼</span>
-          </div>
-        </div>
-      </div>
+    <section class="shot" data-reveal>
+      <p class="shot-brand">Mireille</p>
       <p class="shot-hint">Scroll</p>
     </section>
 

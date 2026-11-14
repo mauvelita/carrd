@@ -6,20 +6,21 @@
   <title>How Do I Get Backstage?</title>
   <link rel="stylesheet" href="shared.css" />
   <style>
-    .shell {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      min-height: 100vh;
-      min-height: 100dvh;
-      padding-top: clamp(1rem, 3vw, 1.75rem);
-      padding-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+    .head {
+      width: 100%;
+      max-width: 34rem;
+      text-align: center;
+    }
+
+    .head h1 {
+      font-size: clamp(2.2rem, 6.8vw, 3.3rem);
+      font-weight: 500;
+      margin-top: 0.35rem;
     }
 
     .app {
       width: min(100%, 26rem);
+      margin: clamp(1.25rem, 3.5vw, 1.75rem) auto 0;
       background: var(--win-face);
       border-top: 2px solid var(--win-light);
       border-left: 2px solid var(--win-light);
@@ -131,7 +132,7 @@
 
     .app-body {
       margin: 0 2px 2px;
-      padding: clamp(0.85rem, 3vw, 1.15rem);
+      padding: clamp(0.7rem, 2.8vw, 0.95rem);
       background: rgba(190, 202, 203, 0.72);
       border-top: 1px solid var(--win-dark);
       border-left: 1px solid var(--win-dark);
@@ -141,45 +142,8 @@
       -webkit-backdrop-filter: blur(8px);
     }
 
-    .head {
-      text-align: center;
-      margin-bottom: 0.95rem;
-    }
-
-    .head .label {
-      margin: 0;
-      color: rgba(28, 28, 28, 0.62);
-      text-shadow: none;
-    }
-
-    .head h1 {
-      font-family: var(--serif);
-      font-size: clamp(1.7rem, 5.6vw, 2.35rem);
-      font-weight: 500;
-      line-height: 1.12;
-      margin: 0.3rem 0 0;
-      color: var(--ink-dark);
-      text-shadow: none;
-    }
-
-    .head .hairline {
-      width: min(100%, 11rem);
-      margin: 0.7rem auto 0.55rem;
-      background: linear-gradient(90deg, transparent, rgba(96, 100, 103, 0.55), transparent);
-    }
-
-    .head .sys-label {
-      margin: 0;
-      font-family: var(--sans);
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(28, 28, 28, 0.48);
-    }
-
     .module {
-      margin-bottom: 0.7rem;
+      margin-bottom: 0.65rem;
       background: rgba(255, 255, 255, 0.34);
       border-top: 1px solid rgba(255, 255, 255, 0.5);
       border-left: 1px solid rgba(255, 255, 255, 0.38);
@@ -288,8 +252,8 @@
       justify-content: space-between;
       align-items: center;
       gap: 0.75rem;
-      margin-top: 0.75rem;
-      padding-top: 0.55rem;
+      margin-top: 0.7rem;
+      padding-top: 0.5rem;
       border-top: 1px solid rgba(96, 100, 103, 0.28);
       font-family: var(--sans);
       font-size: 9px;
@@ -314,31 +278,20 @@
       box-shadow: 0 0 0 1px rgba(28, 28, 28, 0.25);
     }
 
-    .cursor-blink {
-      display: inline-block;
-      width: 0.45em;
-      margin-left: 1px;
-      border-right: 1px solid rgba(28, 28, 28, 0.45);
-      animation: cursor-blink 1s steps(1) infinite;
-    }
-
-    @keyframes cursor-blink {
-      50% { border-color: transparent; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .cursor-blink { animation: none; border-color: rgba(28, 28, 28, 0.45); }
-    }
-
     .footer-back {
-      margin: 0;
-      flex: 0 0 auto;
+      margin-top: clamp(2.25rem, 5vh, 3.25rem);
     }
   </style>
 </head>
 <body>
   <div class="page-bg" aria-hidden="true"></div>
   <main class="shell">
+    <header class="head" data-reveal>
+      <p class="label">Access</p>
+      <h1 class="display">How Do I Get Backstage?</h1>
+      <hr class="hairline" />
+    </header>
+
     <section class="app" data-reveal aria-label="Backstage directory">
       <div class="app-title">
         <div class="app-title-left">
@@ -362,13 +315,6 @@
       </div>
 
       <div class="app-body">
-        <header class="head">
-          <p class="label">Access</p>
-          <h1>How Do I Get Backstage?</h1>
-          <hr class="hairline" />
-          <p class="sys-label">Backstage Directory / Contact Terminal<span class="cursor-blink" aria-hidden="true"></span></p>
-        </header>
-
         <section class="module" aria-labelledby="dir-01">
           <div class="module-head">
             <p class="module-dir">Directory / 01</p>

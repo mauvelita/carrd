@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>House d'Épine</title>
+  <link rel="stylesheet" href="shared.css" />
+  <style>
+    .head {
+      width: 100%;
+      max-width: 34rem;
+      text-align: center;
+    }
+
+    .head h1 {
+      font-size: clamp(2.2rem, 6.8vw, 3.3rem);
+      font-weight: 500;
+      margin-top: 0.35rem;
+    }
+
+    .archive {
+      width: 100%;
+      max-width: 34rem;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(1.15rem, 3.2vw, 1.55rem);
+      text-align: left;
+    }
+
+    .panel {
+      background: rgba(190, 202, 203, 0.55);
+      border-top: 1px solid rgba(255, 255, 255, 0.35);
+      border-left: 1px solid rgba(255, 255, 255, 0.28);
+      border-right: 1px solid rgba(96, 100, 103, 0.45);
+      border-bottom: 1px solid rgba(53, 53, 51, 0.45);
+      box-shadow: 2px 2px 0 rgba(9, 10, 12, 0.12);
+      overflow: hidden;
+    }
+
+    .panel-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
+      padding: 0.55rem 0.75rem;
+      border-bottom: 1px solid rgba(96, 100, 103, 0.28);
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(28, 28, 28, 0.5);
+    }
+
+    .panel-title {
+      margin: 0;
+      padding: 0.65rem 0.75rem 0.2rem;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-dark);
+    }
+
+    .collage {
+      position: relative;
+      margin: 0.55rem 0.65rem 1.35rem;
+      min-height: 17.5rem;
+    }
+
+    .shot {
+      position: relative;
+      background: #090a0c;
+      border-top: 1px solid var(--win-dark);
+      border-left: 1px solid var(--win-dark);
+      border-right: 1px solid var(--win-light);
+      border-bottom: 1px solid var(--win-light);
+      overflow: hidden;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .shot img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .shot:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 18px rgba(9, 10, 12, 0.28);
+    }
+
+    .shot-main {
+      width: 78%;
+      aspect-ratio: 3 / 4;
+      z-index: 1;
+    }
+
+    .shot-main img {
+      object-position: center 20%;
+    }
+
+    .shot-offset {
+      position: absolute;
+      right: 0;
+      bottom: -0.55rem;
+      width: 48%;
+      aspect-ratio: 3 / 4;
+      z-index: 2;
+      box-shadow: -4px 6px 0 rgba(9, 10, 12, 0.18);
+      transform: rotate(2.5deg);
+    }
+
+    .shot-offset img {
+      object-position: center 15%;
+    }
+
+    .shot-offset:hover {
+      transform: rotate(1deg) translateY(-2px);
+    }
+
+    .shot-tag {
+      position: absolute;
+      left: 0.4rem;
+      bottom: 0.4rem;
+      padding: 0.2rem 0.35rem;
+      font-family: var(--sans);
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(242, 244, 244, 0.85);
+      background: rgba(9, 10, 12, 0.45);
+      pointer-events: none;
+    }
+
+    .strip {
+      margin: 0.45rem 0.65rem 0.75rem;
+    }
+
+    .strip .shot {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+    }
+
+    .strip .shot img {
+      object-position: center 25%;
+      transition: transform 0.35s ease;
+    }
+
+    .strip .shot:hover img {
+      transform: scale(1.04);
+    }
+
+    .caption-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-top: 0.45rem;
+      font-family: var(--sans);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(28, 28, 28, 0.5);
+    }
+
+    .ephemera {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0.45rem;
+      margin: 0 0.65rem 0.85rem;
+      font-family: var(--sans);
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(28, 28, 28, 0.55);
+      text-align: center;
+    }
+
+    .ephemera span {
+      padding: 0.45rem 0.3rem;
+      background: rgba(255, 255, 255, 0.28);
+      border-top: 1px solid rgba(255, 255, 255, 0.4);
+      border-left: 1px solid rgba(255, 255, 255, 0.3);
+      border-right: 1px solid rgba(96, 100, 103, 0.35);
+      border-bottom: 1px solid rgba(53, 53, 51, 0.35);
+    }
+
+    .footer-back {
+      margin-top: clamp(2.25rem, 5vh, 3.25rem);
+    }
+  </style>
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+  <main class="shell">
+    <header class="head" data-reveal>
+      <p class="label">Ballroom</p>
+      <h1 class="display">House d'Épine</h1>
+      <hr class="hairline" />
+    </header>
+
+    <div class="archive">
+      <section class="panel" data-reveal aria-label="House archive">
+        <div class="panel-meta">
+          <span>File / HSE-01</span>
+          <span>Private Collection</span>
+        </div>
+        <h2 class="panel-title">House Record</h2>
+        <div class="collage">
+          <figure class="shot shot-main">
+            <img src="house1.jpeg" alt="House d'Épine archival photograph" width="900" height="1200" loading="lazy" />
+            <span class="shot-tag">Print 01</span>
+          </figure>
+          <figure class="shot shot-offset">
+            <img src="house2.jpeg" alt="House d'Épine backstage photograph" width="900" height="1200" loading="lazy" />
+            <span class="shot-tag">Print 02</span>
+          </figure>
+        </div>
+        <div class="ephemera" aria-hidden="true">
+          <span>Category</span>
+          <span>Loyalty</span>
+          <span>Floor</span>
+        </div>
+      </section>
+
+      <article class="prose" data-reveal aria-label="The House">
+        <p>House d'Épine is a ballroom house with its own name to uphold. Its members compete together, represent one another at balls, and take pride in the recognition they earn. There is a strong sense of <span class="mark">loyalty</span> within the House, though that does little to soften the competitive streak.</p>
+      </article>
+
+      <section class="panel" data-reveal aria-label="Competition record">
+        <div class="panel-meta">
+          <span>File / HSE-02</span>
+          <span>Performance Still</span>
+        </div>
+        <h2 class="panel-title">On the Floor</h2>
+        <div class="strip">
+          <figure class="shot">
+            <img src="house3.jpeg" alt="House d'Épine performance photograph" width="1200" height="750" loading="lazy" />
+            <span class="shot-tag">Print 03</span>
+          </figure>
+          <div class="caption-row">
+            <span>Archive Entry</span>
+            <span>Ballroom Floor</span>
+          </div>
+        </div>
+      </section>
+
+      <article class="prose" data-reveal aria-label="Categories">
+        <p>They take their categories seriously. <span class="mark">Trophies</span> are coveted, rivalries are personal, and losing can make for a rather unpleasant evening. Their ambitions have occasionally extended beyond the ballroom floor, with certain garments and accessories acquired through questionable means. Mireille has never been particularly troubled by the distinction between borrowing and <span class="mark">stealing</span> when a good look is at stake.</p>
+      </article>
+
+      <article class="prose" data-reveal aria-label="Sisterhood">
+        <p>The House has its own routines outside competitions. Rehearsals, fittings, preparations, and gatherings keep its members occupied. They have their disagreements, and Mireille can be demanding about how things are done, but there is a genuine <span class="mark">sisterhood</span> between the people who make up the House.</p>
+      </article>
+    </div>
+
+    <div class="footer-back">
+      <nav class="footer-nav" aria-label="Page navigation">
+        <a href="who.html">Back to File</a>
+      </nav>
+    </div>
+  </main>
+  <script src="shared.js"></script>
+</body>
+</html>

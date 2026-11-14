@@ -44,7 +44,49 @@
       flex-shrink: 0;
     }
 
-    .np-title span { white-space: nowrap; }
+.np-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  margin: 2px;
+  padding: 2px 3px 2px 5px;
+  background: var(--win-title);
+  color: #fff;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.np-marquee {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 0.4rem, #000 calc(100% - 0.4rem), transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 0.4rem, #000 calc(100% - 0.4rem), transparent);
+}
+
+.np-marquee-track {
+  display: inline-flex;
+  width: max-content;
+  white-space: nowrap;
+  animation: np-marquee 14s linear infinite;
+}
+
+.np-marquee-track span {
+  padding-right: 2.75rem;
+}
+
+@keyframes np-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .np-marquee-track { animation: none; }
+}
 
     .np-btns {
       display: flex;
@@ -223,7 +265,19 @@
 <body>
   <div class="notepad" aria-hidden="true">
     <div class="np-title">
-      <span>--- Notepad</span>
+<div class="np-title">
+  <div class="np-marquee" aria-label="Mireille — Twist of Fate (Now Playing)">
+    <div class="np-marquee-track">
+      <span>Mireille — Twist of Fate (Now Playing) — Olivia Newton-John — Fashion as Body Modification</span>
+      <span aria-hidden="true">Mireille — Twist of Fate (Now Playing) — Olivia Newton-John — Fashion as Body Modification</span>
+    </div>
+  </div>
+  <div class="np-btns">
+    <span class="np-btn">_</span>
+    <span class="np-btn">□</span>
+    <span class="np-btn">×</span>
+  </div>
+</div>
       <div class="np-btns">
         <span class="np-btn">_</span>
         <span class="np-btn">□</span>

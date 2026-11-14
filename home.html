@@ -6,16 +6,31 @@
   <title>Mireille</title>
   <link rel="stylesheet" href="shared.css" />
   <style>
+    html {
+      background: #090a0c;
+    }
+
     html, body {
-      background: var(--win-face);
+      background: #090a0c;
       height: 100%;
       overflow: hidden;
+    }
+
+    body {
+      max-width: var(--phone-w);
+      margin: 0 auto;
+      background: var(--win-face);
     }
 
     .notepad {
       position: fixed;
       z-index: 0;
-      inset: clamp(0.55rem, 2.2vw, 0.9rem);
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: min(100%, var(--phone-w));
+      height: 100%;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
       background: var(--win-face);
@@ -205,15 +220,19 @@
     }
 
     .home-nav-wrap {
-      position: relative;
+      position: fixed;
       z-index: 1;
-      height: 100vh;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: min(100%, var(--phone-w));
+      height: 100%;
       height: 100dvh;
       display: flex;
       align-items: flex-end;
       justify-content: center;
       padding: clamp(1.5rem, 5vw, 2.5rem);
-      padding-bottom: clamp(3.25rem, 12vh, 5.5rem);
+      padding-bottom: clamp(1.85rem, 6.5vh, 3rem);
     }
 
     .home-nav {
@@ -419,9 +438,7 @@
       <div class="np-marquee">
         <div class="np-marquee-track">
           <span>Mireille d'Épine — Twist of Fate (Now Playing) — Olivia Newton-John — Fashion as Body Modification</span>
-          <span>Mireille d'Épine — Twist of Fate (Now Playing) — Olivia Newton-John — Fashion as Body Modification</span>      
-          
-          
+          <span>Mireille d'Épine — Twist of Fate (Now Playing) — Olivia Newton-John — Fashion as Body Modification</span>
         </div>
       </div>
     </div>

@@ -27,7 +27,7 @@
 
   --serif: "Cormorant Garamond", "Times New Roman", Times, serif;
   --sans: Tahoma, "MS Sans Serif", sans-serif;
-  --rail: min(92vw, 40rem);
+  --rail: min(92vw, 26rem);
   --page-pad: clamp(1.25rem, 4vw, 2.5rem);
   --bottom-safe: max(4.5rem, calc(env(safe-area-inset-bottom, 0px) + 3.5rem));
 }

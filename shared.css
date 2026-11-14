@@ -46,14 +46,76 @@ html, body {
 a, button { cursor: pointer; }
 img { max-width: 100%; height: auto; display: block; }
 
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap");
+
+:root {
+  --ice: #c5cccd;
+  --steel-pale: #a2acb0;
+  --surface: #becacb;
+  --metal: #b8b8b7;
+  --slate: #606467;
+  --charcoal: #353533;
+  --ink-dark: #1c1c1c;
+  --void: #090a0c;
+  --taupe: #968279;
+  --chrome: #e8ecec;
+
+  --ink: #1c1c1c;
+  --ink-on-dark: #f2f4f4;
+  --ink-dim: rgba(28, 28, 28, 0.62);
+  --ink-dim-dark: rgba(242, 244, 244, 0.62);
+  --line: rgba(28, 28, 28, 0.18);
+  --line-on-dark: rgba(242, 244, 244, 0.2);
+
+  --win-face: #c0c0c0;
+  --win-light: #ffffff;
+  --win-dark: #808080;
+  --win-darker: #404040;
+  --win-title: #000080;
+
+  --serif: "Cormorant Garamond", "Times New Roman", Times, serif;
+  --sans: Tahoma, "MS Sans Serif", sans-serif;
+  --phone-w: 430px;
+  --rail: min(92vw, 24.5rem);
+  --page-pad: clamp(1.25rem, 4vw, 2rem);
+  --bottom-safe: max(4.5rem, calc(env(safe-area-inset-bottom, 0px) + 3.5rem));
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  width: 100%;
+  min-height: 100%;
+  background: #090a0c;
+}
+
+body {
+  width: 100%;
+  max-width: var(--phone-w);
+  min-height: 100%;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: var(--ice);
+  color: var(--ink);
+  font-family: var(--serif);
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+a, button { cursor: pointer; }
+img { max-width: 100%; height: auto; display: block; }
+
 .page-bg {
   position: fixed;
-  inset: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: min(100%, var(--phone-w));
   z-index: 0;
   background:
     linear-gradient(180deg, rgba(9, 10, 12, 0.35) 0%, rgba(9, 10, 12, 0.22) 45%, rgba(9, 10, 12, 0.48) 100%),
     #090a0c url("mireille.jpg") center / cover no-repeat;
-  transform: scale(1.02);
+  transform: translateX(-50%) scale(1.02);
 }
 
 .page-bg::before {

@@ -6,127 +6,410 @@
   <title>How Do I Get Backstage?</title>
   <link rel="stylesheet" href="shared.css" />
   <style>
-    .head {
-      width: 100%;
-      max-width: 34rem;
-      text-align: center;
-    }
-
-    .head h1 {
-      font-size: clamp(2.2rem, 6.8vw, 3.3rem);
-      font-weight: 500;
-      margin-top: 0.35rem;
-    }
-
-    .stage {
-      width: 100%;
-      max-width: 22rem;
-      margin: 0 auto;
+    .shell {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: clamp(1.1rem, 3vw, 1.45rem);
+      justify-content: center;
+      gap: 1rem;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding-top: clamp(1rem, 3vw, 1.75rem);
+      padding-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
     }
 
-    .panel {
-      width: 100%;
-      background: rgba(190, 202, 203, 0.55);
-      border-top: 1px solid rgba(255, 255, 255, 0.4);
-      border-left: 1px solid rgba(255, 255, 255, 0.28);
-      border-right: 1px solid rgba(96, 100, 103, 0.45);
-      border-bottom: 1px solid rgba(53, 53, 51, 0.45);
-      box-shadow: 2px 2px 0 rgba(9, 10, 12, 0.12);
-      padding: 0.75rem 0.55rem 0.3rem;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+    .app {
+      width: min(100%, 26rem);
+      background: var(--win-face);
+      border-top: 2px solid var(--win-light);
+      border-left: 2px solid var(--win-light);
+      border-right: 2px solid var(--win-darker);
+      border-bottom: 2px solid var(--win-darker);
+      box-shadow: 3px 3px 0 rgba(9, 10, 12, 0.28);
+      text-align: left;
     }
 
-    .panel .label {
-      margin: 0 0 0.5rem;
-      padding: 0 0.25rem 0.5rem;
-      color: var(--slate);
-      text-shadow: none;
-      border-bottom: 1px solid rgba(96, 100, 103, 0.28);
-      text-align: center;
-    }
-
-    .links {
+    .app-title {
       display: flex;
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .links a {
-      position: relative;
-      display: block;
-      padding: 0.65rem 1.4rem;
-      font-family: var(--serif);
-      font-size: clamp(1.15rem, 3.4vw, 1.35rem);
-      font-style: italic;
-      font-weight: 500;
-      color: var(--ink-dark);
-      text-decoration: none;
-      text-align: center;
-      letter-spacing: 0.02em;
-      transition: background 0.12s ease, color 0.12s ease, letter-spacing 0.18s ease;
-    }
-
-    .links a::before {
-      content: "►";
-      position: absolute;
-      left: 0.4rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-style: normal;
-      font-size: 0.55em;
-      opacity: 0;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      margin: 2px;
+      padding: 2px 3px 2px 5px;
+      background: var(--win-title);
       color: #fff;
-      transition: opacity 0.12s ease;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.2;
     }
 
-    .links a:hover,
-    .links a:focus-visible {
+    .app-title-left {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-width: 0;
+    }
+
+    .app-icon {
+      width: 12px;
+      height: 10px;
+      flex-shrink: 0;
+      background:
+        linear-gradient(180deg, #c0c0c0 0 2px, transparent 2px),
+        linear-gradient(90deg, #808080 0 1px, #fff 1px 2px, #808080 2px 3px, transparent 3px),
+        #000080;
+      border: 1px solid #fff;
+      box-shadow: 0 0 0 1px #404040;
+    }
+
+    .app-title-name {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 0.04em;
+    }
+
+    .app-btns {
+      display: flex;
+      gap: 2px;
+      flex-shrink: 0;
+    }
+
+    .app-btn {
+      width: 16px;
+      height: 14px;
+      display: grid;
+      place-items: center;
+      background: var(--win-face);
+      color: #000;
+      border-top: 1px solid var(--win-light);
+      border-left: 1px solid var(--win-light);
+      border-right: 1px solid var(--win-darker);
+      border-bottom: 1px solid var(--win-darker);
+      font-size: 9px;
+      line-height: 1;
+      font-family: var(--sans);
+      font-weight: 700;
+    }
+
+    .app-now {
+      margin: 0 2px;
+      padding: 4px 6px;
+      background: #000080;
+      border-top: 1px solid var(--win-darker);
+      border-left: 1px solid var(--win-darker);
+      border-right: 1px solid var(--win-light);
+      border-bottom: 1px solid var(--win-light);
+      overflow: hidden;
+    }
+
+    .app-marquee { width: 100%; overflow: hidden; }
+
+    .app-marquee-track {
+      display: inline-flex;
+      width: max-content;
+      white-space: nowrap;
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      animation: app-marquee 16s linear infinite;
+    }
+
+    .app-marquee-track span { padding-right: 3rem; }
+
+    @keyframes app-marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .app-marquee-track { animation: none; }
+    }
+
+    .app-body {
+      margin: 0 2px 2px;
+      padding: clamp(0.85rem, 3vw, 1.15rem);
+      background: rgba(190, 202, 203, 0.72);
+      border-top: 1px solid var(--win-dark);
+      border-left: 1px solid var(--win-dark);
+      border-right: 1px solid var(--win-light);
+      border-bottom: 1px solid var(--win-light);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    .head {
+      text-align: center;
+      margin-bottom: 0.95rem;
+    }
+
+    .head .label {
+      margin: 0;
+      color: rgba(28, 28, 28, 0.62);
+      text-shadow: none;
+    }
+
+    .head h1 {
+      font-family: var(--serif);
+      font-size: clamp(1.7rem, 5.6vw, 2.35rem);
+      font-weight: 500;
+      line-height: 1.12;
+      margin: 0.3rem 0 0;
+      color: var(--ink-dark);
+      text-shadow: none;
+    }
+
+    .head .hairline {
+      width: min(100%, 11rem);
+      margin: 0.7rem auto 0.55rem;
+      background: linear-gradient(90deg, transparent, rgba(96, 100, 103, 0.55), transparent);
+    }
+
+    .head .sys-label {
+      margin: 0;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(28, 28, 28, 0.48);
+    }
+
+    .module {
+      margin-bottom: 0.7rem;
+      background: rgba(255, 255, 255, 0.34);
+      border-top: 1px solid rgba(255, 255, 255, 0.5);
+      border-left: 1px solid rgba(255, 255, 255, 0.38);
+      border-right: 1px solid rgba(96, 100, 103, 0.38);
+      border-bottom: 1px solid rgba(53, 53, 51, 0.38);
+      box-shadow: 1px 1px 0 rgba(9, 10, 12, 0.08);
+    }
+
+    .module:last-of-type { margin-bottom: 0; }
+
+    .module-head {
+      padding: 0.55rem 0.7rem 0.5rem;
+      border-bottom: 1px solid rgba(96, 100, 103, 0.22);
+    }
+
+    .module-dir {
+      margin: 0 0 0.2rem;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(28, 28, 28, 0.45);
+    }
+
+    .module-title {
+      margin: 0;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-dark);
+    }
+
+    .dest {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.65rem;
+      width: 100%;
+      padding: 0.72rem 0.7rem;
+      text-decoration: none;
+      color: var(--ink-dark);
+      border-bottom: 1px solid rgba(96, 100, 103, 0.16);
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+
+    .dest:last-child { border-bottom: 0; }
+
+    .dest-main {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      min-width: 0;
+    }
+
+    .dest-arrow {
+      flex-shrink: 0;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      color: rgba(28, 28, 28, 0.35);
+      transition: color 0.12s ease, transform 0.12s ease;
+    }
+
+    .dest-name {
+      font-family: var(--serif);
+      font-size: clamp(1.12rem, 3.4vw, 1.3rem);
+      font-weight: 500;
+      font-style: italic;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    .dest-meta {
+      flex-shrink: 0;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(28, 28, 28, 0.38);
+    }
+
+    .dest:hover,
+    .dest:focus-visible {
       background: #000080;
       color: #fff;
-      letter-spacing: 0.05em;
       outline: none;
     }
 
-    .links a:hover::before,
-    .links a:focus-visible::before {
-      opacity: 1;
+    .dest:hover .dest-arrow,
+    .dest:focus-visible .dest-arrow {
+      color: #fff;
+      transform: translateX(2px);
+    }
+
+    .dest:hover .dest-meta,
+    .dest:focus-visible .dest-meta {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .app-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.75rem;
+      padding-top: 0.55rem;
+      border-top: 1px solid rgba(96, 100, 103, 0.28);
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(28, 28, 28, 0.48);
+    }
+
+    .app-status .online {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .app-status .online::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #c5cccd;
+      box-shadow: 0 0 0 1px rgba(28, 28, 28, 0.25);
+    }
+
+    .cursor-blink {
+      display: inline-block;
+      width: 0.45em;
+      margin-left: 1px;
+      border-right: 1px solid rgba(28, 28, 28, 0.45);
+      animation: cursor-blink 1s steps(1) infinite;
+    }
+
+    @keyframes cursor-blink {
+      50% { border-color: transparent; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cursor-blink { animation: none; border-color: rgba(28, 28, 28, 0.45); }
     }
 
     .footer-back {
-      margin-top: clamp(2.25rem, 5vh, 3.25rem);
+      margin: 0;
+      flex: 0 0 auto;
     }
   </style>
 </head>
 <body>
   <div class="page-bg" aria-hidden="true"></div>
   <main class="shell">
-    <header class="head" data-reveal>
-      <p class="label">Access</p>
-      <h1 class="display">How Do I Get Backstage?</h1>
-      <hr class="hairline" />
-    </header>
-
-    <div class="stage">
-      <section class="panel" data-reveal>
-        <p class="label">Main contacts</p>
-        <div class="links">
-          <a href="https://www.instagram.com/mauvelita" target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a href="https://x.com/asphyxielle" target="_blank" rel="noopener noreferrer">Twitter</a>
+    <section class="app" data-reveal aria-label="Backstage directory">
+      <div class="app-title">
+        <div class="app-title-left">
+          <span class="app-icon" aria-hidden="true"></span>
+          <span class="app-title-name">BACKSTAGE.EXE</span>
         </div>
-      </section>
-
-      <section class="panel" data-reveal>
-        <p class="label">Ask me anything</p>
-        <div class="links">
-          <a href="https://tellonym.me/principesssa" target="_blank" rel="noopener noreferrer">Tellonym</a>
+        <div class="app-btns" aria-hidden="true">
+          <span class="app-btn">_</span>
+          <span class="app-btn">□</span>
+          <span class="app-btn">×</span>
         </div>
-      </section>
-    </div>
+      </div>
+
+      <div class="app-now" aria-hidden="true">
+        <div class="app-marquee">
+          <div class="app-marquee-track">
+            <span>Mireille d'épine — Twist of Fate (Now Playing) — Olivia Newton-John — Fashion as Body Modification</span>
+            <span>Mireille d'épine — Twist of Fate (Now Playing) — Olivia Newton-John — Fashion as Body Modification</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-body">
+        <header class="head">
+          <p class="label">Access</p>
+          <h1>How Do I Get Backstage?</h1>
+          <hr class="hairline" />
+          <p class="sys-label">Backstage Directory / Contact Terminal<span class="cursor-blink" aria-hidden="true"></span></p>
+        </header>
+
+        <section class="module" aria-labelledby="dir-01">
+          <div class="module-head">
+            <p class="module-dir">Directory / 01</p>
+            <h2 class="module-title" id="dir-01">Main Contacts</h2>
+          </div>
+          <a class="dest" href="https://www.instagram.com/mauvelita" target="_blank" rel="noopener noreferrer">
+            <span class="dest-main">
+              <span class="dest-arrow" aria-hidden="true">►</span>
+              <span class="dest-name">Instagram</span>
+            </span>
+            <span class="dest-meta">External</span>
+          </a>
+          <a class="dest" href="https://x.com/asphyxielle" target="_blank" rel="noopener noreferrer">
+            <span class="dest-main">
+              <span class="dest-arrow" aria-hidden="true">►</span>
+              <span class="dest-name">Twitter</span>
+            </span>
+            <span class="dest-meta">External</span>
+          </a>
+        </section>
+
+        <section class="module" aria-labelledby="dir-02">
+          <div class="module-head">
+            <p class="module-dir">Directory / 02</p>
+            <h2 class="module-title" id="dir-02">Communication</h2>
+          </div>
+          <a class="dest" href="https://tellonym.me/principesssa" target="_blank" rel="noopener noreferrer">
+            <span class="dest-main">
+              <span class="dest-arrow" aria-hidden="true">►</span>
+              <span class="dest-name">Tellonym</span>
+            </span>
+            <span class="dest-meta">Channel</span>
+          </a>
+        </section>
+
+        <div class="app-status" aria-hidden="true">
+          <span>3 Destinations</span>
+          <span class="online">System Online</span>
+        </div>
+      </div>
+    </section>
 
     <div class="footer-back">
       <nav class="footer-nav" aria-label="Page navigation">

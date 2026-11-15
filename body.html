@@ -67,6 +67,9 @@
     .entry-frame {
       position: relative;
       margin: 0.55rem 0.65rem 0.75rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background: #090a0c;
       border-top: 1px solid var(--win-dark);
       border-left: 1px solid var(--win-dark);
@@ -76,23 +79,25 @@
     }
 
     .entry-frame img {
-      width: 100%;
-      height: auto;
       display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: min(48vh, 20rem);
       vertical-align: top;
     }
 
-    .entry-eyes .entry-frame {
-      aspect-ratio: 4 / 3;
-      min-height: 12rem;
+    .entry-eyes .entry-frame img {
+      max-height: min(46vh, 19rem);
     }
 
-    .entry-eyes .entry-frame img {
-      width: 100%;
-      height: 100%;
-      min-height: 12rem;
-      object-fit: cover;
-      object-position: center 40%;
+    .entry-xray .entry-frame img {
+      max-height: min(40vh, 16.5rem);
+      filter: contrast(1.05);
+    }
+
+    .entry-machine .entry-frame img {
+      max-height: min(48vh, 20rem);
     }
 
     .scan-tags {
@@ -150,41 +155,18 @@
     }
 
     .entry-xray .xray-grid {
-      display: grid;
-      grid-template-columns: 1.35fr 0.9fr;
+      display: flex;
+      flex-direction: column;
       gap: 0;
-      align-items: stretch;
-    }
-
-    @media (max-width: 520px) {
-      .entry-xray .xray-grid { grid-template-columns: 1fr; }
     }
 
     .entry-xray .entry-frame {
-      margin: 0.55rem 0.35rem 0.75rem 0.65rem;
-      aspect-ratio: 3 / 4;
-      min-height: 14rem;
-    }
-
-    @media (max-width: 520px) {
-      .entry-xray .entry-frame {
-        margin: 0.55rem 0.65rem 0.35rem;
-        aspect-ratio: 4 / 5;
-      }
-    }
-
-    .entry-xray .entry-frame img {
-      width: 100%;
-      height: 100%;
-      min-height: 14rem;
-      object-fit: cover;
-      object-position: center top;
-      filter: contrast(1.05);
+      margin: 0.55rem 0.65rem 0.35rem;
     }
 
     .diag {
-      margin: 0.55rem 0.65rem 0.75rem 0.35rem;
-      padding: 0.65rem 0.6rem;
+      margin: 0 0.65rem 0.75rem;
+      padding: 0.55rem 0.6rem;
       background: rgba(255, 255, 255, 0.28);
       border-top: 1px solid rgba(255, 255, 255, 0.4);
       border-left: 1px solid rgba(255, 255, 255, 0.3);
@@ -197,10 +179,6 @@
       text-transform: uppercase;
       color: rgba(28, 28, 28, 0.58);
       line-height: 1.55;
-    }
-
-    @media (max-width: 520px) {
-      .diag { margin: 0 0.65rem 0.75rem; }
     }
 
     .diag strong {
@@ -218,17 +196,7 @@
     .diag p:last-child { margin-bottom: 0; }
 
     .entry-machine .entry-frame {
-      aspect-ratio: 16 / 10;
       margin-top: 0.45rem;
-      min-height: 10rem;
-    }
-
-    .entry-machine .entry-frame img {
-      width: 100%;
-      height: 100%;
-      min-height: 10rem;
-      object-fit: cover;
-      object-position: center;
     }
 
     .footer-back {
@@ -280,7 +248,7 @@
         <h2 class="entry-title">Internal Structure</h2>
         <div class="xray-grid">
           <div class="entry-frame">
-            <img src="xray.jpeg" alt="X-ray of Mireille's cybernetic anatomy" width="900" height="1200" decoding="async" onerror="this.onerror=null;this.src='xray.jpg'" />
+            <img src="xray.jpeg" alt="X-ray of Mireille's cybernetic anatomy" width="1200" height="900" decoding="async" onerror="this.onerror=null;this.src='xray.jpg'" />
             <div class="scan-tags" aria-hidden="true">
               <span class="tl">X-Ray</span>
               <span class="tr">Exposure 02</span>
@@ -309,7 +277,7 @@
         </div>
         <h2 class="entry-title">Cybernetic Devices</h2>
         <div class="entry-frame">
-          <img src="machine.jpeg" alt="Mireille's cybernetic devices" width="1200" height="750" decoding="async" onerror="this.onerror=null;this.src='machine.jpg'" />
+          <img src="machine.jpeg" alt="Mireille's cybernetic devices" width="900" height="1200" decoding="async" onerror="this.onerror=null;this.src='machine.jpg'" />
           <div class="scan-tags" aria-hidden="true">
             <span class="tl">Archive Entry</span>
             <span class="tr">DEV-03</span>

@@ -3,11 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Frame · 4:3 cutout</title>
+  <title>Frame · Biometric Archive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="shared.css" />
   <style>
     :root {
-      --term: "Lucida Console", "Courier New", Courier, monospace;
+      --black: #08090B;
+      --charcoal: #151618;
+      --indigo: #1710A8;
+      --silver: #A6A8AA;
+      --chrome: #D8DADB;
+      --white: #F0F0ED;
+      --mute: #777A7D;
+      --line: rgba(216, 218, 219, 0.22);
+      --line-soft: rgba(166, 168, 170, 0.18);
+      --mono: "IBM Plex Mono", "Lucida Console", monospace;
+      --display: "Cormorant Garamond", "Times New Roman", serif;
     }
 
     html, body {
@@ -24,10 +37,11 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.85rem;
+      gap: 1rem;
       padding: clamp(1rem, 4vw, 2rem);
       padding-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
-      font-family: var(--term);
+      font-family: var(--mono);
+      color: var(--white);
     }
 
     .page-bg { display: none !important; }
@@ -35,176 +49,363 @@
     .unit {
       position: relative;
       z-index: 1;
-      width: min(100%, 26rem);
+      width: min(100%, 30rem);
       background: transparent;
-      border: 1px solid rgba(232, 236, 236, 0.28);
-      box-shadow:
-        0 0 0 1px rgba(0, 0, 0, 0.85),
-        8px 12px 28px rgba(0, 0, 0, 0.55);
-      overflow: hidden;
-      font-family: var(--term);
+      border: 1px solid var(--line);
+      box-sizing: border-box;
+      overflow: visible;
     }
 
-    .chrome {
-      display: flex;
+    .reg {
+      position: absolute;
+      width: 0.55rem;
+      height: 0.55rem;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .reg::before,
+    .reg::after {
+      content: "";
+      position: absolute;
+      background: var(--silver);
+    }
+
+    .reg::before { width: 1px; height: 100%; left: 50%; transform: translateX(-50%); }
+    .reg::after { height: 1px; width: 100%; top: 50%; transform: translateY(-50%); }
+
+    .reg-tl { top: -0.28rem; left: -0.28rem; }
+    .reg-tr { top: -0.28rem; right: -0.28rem; }
+    .reg-bl { bottom: -0.28rem; left: -0.28rem; }
+    .reg-br { bottom: -0.28rem; right: -0.28rem; }
+
+    .mast {
+      display: grid;
+      grid-template-columns: 1fr auto 1.55rem;
+      grid-template-rows: auto auto;
+      column-gap: 0.75rem;
+      row-gap: 0.35rem;
       align-items: center;
-      justify-content: space-between;
-      gap: 0.6rem;
-      padding: 0.55rem 0.65rem;
-      border-bottom: 1px solid rgba(232, 236, 236, 0.18);
-      background:
-        linear-gradient(180deg, rgba(232, 236, 236, 0.06), transparent 70%),
-        linear-gradient(90deg, rgba(190, 202, 203, 0.14), rgba(9, 10, 12, 0.55)),
-        #141516;
+      padding: 0.7rem 0.75rem 0.65rem;
+      background: var(--charcoal);
+      border-bottom: 1px solid var(--line-soft);
     }
 
-    .chrome-id { min-width: 0; }
-
-    .chrome-kicker {
+    .mast-kicker {
+      grid-column: 1;
+      grid-row: 1;
       margin: 0;
-      font-family: var(--term);
-      font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      font-size: 7px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: rgba(232, 236, 236, 0.55);
+      color: var(--mute);
     }
 
-    .chrome-name {
-      margin: 0.2rem 0 0;
-      font-family: var(--term);
-      font-size: clamp(0.95rem, 3.4vw, 1.1rem);
-      font-weight: 700;
-      font-style: normal;
+    .mast-title {
+      grid-column: 1;
+      grid-row: 2;
+      margin: 0;
+      font-family: var(--display);
+      font-size: clamp(1.35rem, 5vw, 1.75rem);
+      font-weight: 500;
       letter-spacing: 0.04em;
+      line-height: 1;
       text-transform: uppercase;
-      color: #f2f4f4;
+      color: var(--white);
       white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
-    .chrome-close {
-      flex-shrink: 0;
+    .mast-id {
+      grid-column: 2;
+      grid-row: 1 / 3;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0.2rem;
+      text-align: right;
+    }
+
+    .mast-id span {
+      font-size: 7px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+
+    .mast-id .subj {
+      color: var(--silver);
+      letter-spacing: 0.12em;
+    }
+
+    .mast-close {
+      grid-column: 3;
+      grid-row: 1 / 3;
       width: 1.55rem;
       height: 1.55rem;
-      display: grid;
-      place-items: center;
-      background: rgba(232, 236, 236, 0.08);
-      color: #f2f4f4;
-      border: 1px solid rgba(232, 236, 236, 0.28);
-      font-family: var(--term);
-      font-size: 11px;
-      font-weight: 700;
-      line-height: 1;
-    }
-
-    .rail {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      padding: 0.4rem 0.65rem;
-      border-bottom: 1px solid rgba(232, 236, 236, 0.12);
-      background: #0c0d0e;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      border: 1px solid var(--line);
+      background: rgba(240, 240, 237, 0.04);
+      color: var(--chrome);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1;
+      box-sizing: border-box;
     }
 
-    .rail span {
-      padding: 0.28rem 0.55rem;
-      font-family: var(--term);
+    .nav {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      background: var(--black);
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .nav span {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 2rem;
+      padding: 0.45rem 0.25rem;
       font-size: 8px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      font-weight: 500;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(232, 236, 236, 0.62);
+      color: var(--mute);
+      border-right: 1px solid var(--line-soft);
     }
 
-    .rail span.is-on {
-      color: #090a0c;
-      background: rgba(232, 236, 236, 0.88);
+    .nav span:last-child { border-right: 0; }
+
+    .nav span.is-on {
+      color: var(--black);
+      background: var(--chrome);
+      font-weight: 600;
+    }
+
+    .nav span.is-on::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 1.1rem;
+      height: 1px;
+      transform: translateX(-50%);
+      background: var(--indigo);
+    }
+
+    .aperture-wrap {
+      position: relative;
+      background: transparent;
+    }
+
+    .rail-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.75rem;
+      background: var(--black);
+      font-size: 6.5px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mute);
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .rail-meta.below {
+      border-bottom: 0;
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .rail-meta .accent { color: var(--silver); }
+
+    .dot {
+      display: inline-block;
+      width: 0.35rem;
+      height: 0.35rem;
+      border-radius: 50%;
+      background: var(--indigo);
+      margin-right: 0.35rem;
+      vertical-align: middle;
+      box-shadow: 0 0 0 1px rgba(23, 16, 168, 0.35);
     }
 
     .viewport {
+      position: relative;
       width: 100%;
       aspect-ratio: 4 / 3;
       margin: 0;
       padding: 0;
       border: 0;
-      background: #00ff00;
+      background: transparent;
       line-height: 0;
     }
 
-    .actions {
-      display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap: 0.45rem;
-      padding: 0.65rem;
-      border-top: 1px solid rgba(232, 236, 236, 0.14);
-      background: #0c0d0e;
+    .viewport-marks {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
     }
 
-    .act {
-      min-height: 2.35rem;
-      padding: 0.45rem 0.55rem;
+    .viewport-marks i {
+      position: absolute;
+      width: 0.7rem;
+      height: 0.7rem;
+      border-color: rgba(216, 218, 219, 0.55);
+      border-style: solid;
+      border-width: 0;
+    }
+
+    .viewport-marks .tl { top: 0.35rem; left: 0.35rem; border-top-width: 1px; border-left-width: 1px; }
+    .viewport-marks .tr { top: 0.35rem; right: 0.35rem; border-top-width: 1px; border-right-width: 1px; }
+    .viewport-marks .bl { bottom: 0.35rem; left: 0.35rem; border-bottom-width: 1px; border-left-width: 1px; }
+    .viewport-marks .br { bottom: 0.35rem; right: 0.35rem; border-bottom-width: 1px; border-right-width: 1px; }
+
+    .console {
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 0;
+      background: var(--charcoal);
+      border-top: 1px solid var(--line-soft);
+    }
+
+    .console-cell {
+      padding: 0.7rem 0.75rem;
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
       justify-content: center;
-      gap: 0.18rem;
-      border: 1px solid rgba(232, 236, 236, 0.22);
-      background: rgba(232, 236, 236, 0.06);
-      color: #f2f4f4;
-      font-family: var(--term);
+      gap: 0.28rem;
+      min-height: 3.4rem;
+      box-sizing: border-box;
     }
 
-    .act strong {
-      font-family: var(--term);
+    .console-cell + .console-cell {
+      border-left: 1px solid var(--line-soft);
+    }
+
+    .console-label {
+      margin: 0;
+      font-size: 7px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+
+    .console-value {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
       font-size: 9px;
-      font-weight: 700;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .console-sub {
+      margin: 0;
+      font-size: 7px;
+      font-weight: 400;
       letter-spacing: 0.1em;
       text-transform: uppercase;
+      color: var(--silver);
     }
 
-    .act em {
-      font-family: var(--term);
-      font-style: normal;
-      font-size: 0.72rem;
-      font-weight: 400;
-      letter-spacing: 0.02em;
-      color: rgba(242, 244, 244, 0.62);
+    .bio-ring {
+      width: 0.7rem;
+      height: 0.7rem;
+      border: 1px solid var(--chrome);
+      border-radius: 50%;
+      position: relative;
+      flex-shrink: 0;
     }
 
-    .act-enter {
-      background: #000080;
-      border-color: #000080;
-      color: #fff;
+    .bio-ring::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      border-radius: 50%;
+      background: var(--indigo);
     }
 
-    .act-enter em { color: rgba(255, 255, 255, 0.7); }
-
-    .status {
-      display: grid;
-      grid-template-columns: 1.15fr 1.05fr 0.95fr;
-      gap: 1px;
-      background: rgba(232, 236, 236, 0.12);
-      border-top: 1px solid rgba(232, 236, 236, 0.12);
+    .access-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
     }
 
-    .status span {
-      padding: 0.4rem 0.45rem;
-      background: #090a0c;
-      font-family: var(--term);
+    .access-chip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 3.4rem;
+      height: 1.35rem;
+      padding: 0 0.45rem;
+      background: var(--indigo);
+      color: var(--white);
       font-size: 7px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      font-weight: 600;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(232, 236, 236, 0.7);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
     }
+
+    .console-note {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.4rem 0.75rem;
+      border-top: 1px solid var(--line-soft);
+      background: var(--black);
+      font-size: 6.5px;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mute);
+    }
+
+    .console-note strong {
+      font-weight: 500;
+      color: var(--silver);
+    }
+
+    .footstrip {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border-top: 1px solid var(--line-soft);
+      background: var(--black);
+    }
+
+    .footstrip span {
+      padding: 0.45rem 0.5rem;
+      text-align: center;
+      font-size: 7px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--silver);
+      border-right: 1px solid var(--line-soft);
+    }
+
+    .footstrip span:last-child { border-right: 0; }
 
     .tools {
-      width: min(100%, 26rem);
+      width: min(100%, 30rem);
       display: flex;
       flex-wrap: wrap;
       gap: 0.45rem;
@@ -215,47 +416,46 @@
       appearance: none;
       min-height: 2.1rem;
       padding: 0.45rem 0.85rem;
-      border: 1px solid rgba(232, 236, 236, 0.35);
-      background: rgba(232, 236, 236, 0.08);
-      color: #f2f4f4;
-      font-family: var(--term);
+      border: 1px solid rgba(216, 218, 219, 0.35);
+      background: rgba(216, 218, 219, 0.08);
+      color: var(--white);
+      font-family: var(--mono);
       font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       cursor: pointer;
     }
 
     .tools button:hover,
     .tools button:focus-visible {
-      background: rgba(232, 236, 236, 0.16);
+      background: rgba(216, 218, 219, 0.16);
       outline: none;
     }
 
     .tools button.primary {
-      background: #000080;
-      border-color: #000080;
-      color: #fff;
+      background: var(--indigo);
+      border-color: var(--indigo);
+      color: var(--white);
     }
 
     .hint {
-      max-width: 26rem;
+      max-width: 30rem;
       text-align: center;
-      font-family: var(--term);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       line-height: 1.55;
-      color: rgba(242, 244, 244, 0.45);
+      color: var(--mute);
     }
 
-    .hint b { color: #00ff00; }
+    .hint b { color: var(--silver); font-weight: 500; }
 
     .foot .footer-nav a {
-      font-family: var(--term);
+      font-family: var(--mono);
       text-shadow: none;
-      color: rgba(242, 244, 244, 0.85);
+      color: rgba(240, 240, 237, 0.85);
       letter-spacing: 0.2em;
     }
 
@@ -267,50 +467,88 @@
   </style>
 </head>
 <body>
-  <section class="unit" id="frame" aria-label="4:3 overlay frame">
-    <header class="chrome" id="chrome">
-      <div class="chrome-id">
-        <p class="chrome-kicker">Biometric Lock · File / SUB-01</p>
-        <p class="chrome-name">Mireille d'Épine</p>
+  <section class="unit" id="frame" aria-label="Biometric archive overlay">
+    <span class="reg reg-tl" aria-hidden="true"></span>
+    <span class="reg reg-tr" aria-hidden="true"></span>
+    <span class="reg reg-bl" aria-hidden="true"></span>
+    <span class="reg reg-br" aria-hidden="true"></span>
+
+    <header class="mast" id="mast">
+      <p class="mast-kicker">Biometric Access / Private File</p>
+      <h1 class="mast-title">Mireille d'Épine</h1>
+      <div class="mast-id">
+        <span class="subj">Subject 01</span>
+        <span>File / Sub-01</span>
       </div>
-      <span class="chrome-close" aria-hidden="true">×</span>
+      <span class="mast-close" aria-hidden="true">×</span>
     </header>
 
-    <div class="rail" id="rail" aria-hidden="true">
+    <nav class="nav" id="nav" aria-hidden="true">
       <span class="is-on">Scan</span>
       <span>Identity</span>
       <span>Optics</span>
       <span>Archive</span>
+    </nav>
+
+    <div class="aperture-wrap">
+      <div class="rail-meta" id="rail-top" aria-hidden="true">
+        <span><span class="dot"></span><span class="accent">Session Record</span></span>
+        <span>Modification Record</span>
+        <span>Opt-01.A</span>
+      </div>
+
+      <div class="viewport" id="cutout" aria-label="Transparent 4:3 video aperture">
+        <div class="viewport-marks" aria-hidden="true">
+          <i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i>
+        </div>
+      </div>
+
+      <div class="rail-meta below" id="rail-bot" aria-hidden="true">
+        <span>Optical System</span>
+        <span class="accent">Synthetic Integration</span>
+        <span>Body Configuration</span>
+      </div>
     </div>
 
-    <div class="viewport" id="cutout" aria-label="Green screen 4:3"></div>
-
-    <div class="actions" id="actions" aria-hidden="true">
-      <div class="act">
-        <strong>Verify</strong>
-        <em>I'm not a robot</em>
+    <div class="console" id="console" aria-hidden="true">
+      <div class="console-cell">
+        <p class="console-label">Biometric Match</p>
+        <p class="console-value">
+          <span class="bio-ring" aria-hidden="true"></span>
+          Identity Verified
+        </p>
+        <p class="console-sub">Access Restricted</p>
       </div>
-      <div class="act act-enter">
-        <strong>Enter</strong>
-        <em>Open archive</em>
+      <div class="console-cell">
+        <p class="console-label">Archive Access</p>
+        <div class="access-row">
+          <p class="console-value" style="margin:0">Granted</p>
+          <span class="access-chip">Enter</span>
+        </div>
+        <p class="console-sub">Facility / Private Lab</p>
+      </div>
+      <div class="console-note">
+        <span>Status · <strong>Live Feed</strong></span>
+        <span>Operator · <strong>Théoden</strong></span>
+        <span>Ref · <strong>SUB-01 / MOD</strong></span>
       </div>
     </div>
 
-    <div class="status" id="status" aria-hidden="true">
+    <div class="footstrip" id="footstrip" aria-hidden="true">
       <span>House d'Épine</span>
-      <span>Cyborg · Active</span>
-      <span>NY · Modified</span>
+      <span>Cyborg / Active</span>
+      <span>New York / Modified</span>
     </div>
   </section>
 
   <div class="tools">
-    <button type="button" class="primary" id="btn-png">Download PNG (transparent hole)</button>
+    <button type="button" class="primary" id="btn-png">Download PNG</button>
     <button type="button" id="btn-shot">Hide UI for screenshot</button>
   </div>
 
   <p class="hint">
-    Prefer Download PNG — middle is already transparent for CapCut.<br />
-    Screenshot route: CapCut → Remove Background → Chroma Key → tap the <b>#00FF00</b> green.
+    Download PNG — frame opaque, center fully transparent for CapCut.<br />
+    Overlay only. Your video stays separate.
   </p>
 
   <div class="foot">
@@ -322,7 +560,20 @@
   <script src="shared.js"></script>
   <script>
     (() => {
-      const TERM = '"Lucida Console", "Courier New", Courier, monospace';
+      const MONO = '"IBM Plex Mono", "Lucida Console", monospace';
+      const DISPLAY = '"Cormorant Garamond", "Times New Roman", serif';
+
+      const C = {
+        black: "#08090B",
+        charcoal: "#151618",
+        indigo: "#1710A8",
+        silver: "#A6A8AA",
+        chrome: "#D8DADB",
+        white: "#F0F0ED",
+        mute: "#777A7D",
+        line: "rgba(216,218,219,0.35)",
+        lineSoft: "rgba(166,168,170,0.22)",
+      };
 
       if (new URLSearchParams(location.search).has("shot")) {
         document.body.classList.add("shot");
@@ -333,23 +584,26 @@
         history.replaceState(null, "", "?shot=1");
       });
 
-      document.getElementById("btn-png")?.addEventListener("click", () => {
+      const waitFonts = () =>
+        document.fonts && document.fonts.ready
+          ? document.fonts.ready.catch(() => {})
+          : Promise.resolve();
+
+      document.getElementById("btn-png")?.addEventListener("click", async () => {
+        await waitFonts();
+
         const frame = document.getElementById("frame");
         const cutout = document.getElementById("cutout");
-        const chrome = document.getElementById("chrome");
-        const rail = document.getElementById("rail");
-        const actions = document.getElementById("actions");
-        const status = document.getElementById("status");
-        if (!frame || !cutout || !chrome || !rail || !actions || !status) return;
+        const mast = document.getElementById("mast");
+        const nav = document.getElementById("nav");
+        const railTop = document.getElementById("rail-top");
+        const railBot = document.getElementById("rail-bot");
+        const consoleEl = document.getElementById("console");
+        const footstrip = document.getElementById("footstrip");
+        if (!frame || !cutout || !mast || !nav || !railTop || !railBot || !consoleEl || !footstrip) return;
 
         const scale = 3;
         const fr = frame.getBoundingClientRect();
-        const cr = cutout.getBoundingClientRect();
-        const topBar = chrome.getBoundingClientRect();
-        const railBar = rail.getBoundingClientRect();
-        const actBar = actions.getBoundingClientRect();
-        const stBar = status.getBoundingClientRect();
-
         const w = Math.round(fr.width * scale);
         const h = Math.round(fr.height * scale);
         const canvas = document.createElement("canvas");
@@ -358,97 +612,227 @@
         const ctx = canvas.getContext("2d", { alpha: true });
         if (!ctx) return;
 
-        const rx = (r) => ({
-          x: (r.left - fr.left) * scale,
-          y: (r.top - fr.top) * scale,
-          w: r.width * scale,
-          h: r.height * scale,
-        });
+        const rx = (el) => {
+          const r = el.getBoundingClientRect();
+          return {
+            x: (r.left - fr.left) * scale,
+            y: (r.top - fr.top) * scale,
+            w: r.width * scale,
+            h: r.height * scale,
+          };
+        };
 
-        const font = (size, bold) =>
-          `${bold ? "bold " : ""}${size}px ${TERM}`;
+        const font = (size, family, weight = "500") =>
+          `${weight} ${size}px ${family}`;
 
         ctx.clearRect(0, 0, w, h);
 
-        const top = rx(topBar);
-        const mid = rx(railBar);
-        const hole = rx(cr);
-        const bot = rx(actBar);
-        const foot = rx(stBar);
+        const top = rx(mast);
+        const mid = rx(nav);
+        const rt = rx(railTop);
+        const hole = rx(cutout);
+        const rb = rx(railBot);
+        const bot = rx(consoleEl);
+        const foot = rx(footstrip);
+        const s = scale;
 
-        ctx.fillStyle = "#141516";
+        ctx.strokeStyle = C.line;
+        ctx.lineWidth = 1 * s;
+        ctx.strokeRect(0.5 * s, 0.5 * s, w - s, h - s);
+
+        ctx.fillStyle = C.charcoal;
         ctx.fillRect(top.x, top.y, top.w, top.h);
-        ctx.fillStyle = "#0c0d0e";
+
+        ctx.fillStyle = C.mute;
+        ctx.font = font(7 * s, MONO, "500");
+        ctx.textBaseline = "alphabetic";
+        ctx.fillText("BIOMETRIC ACCESS / PRIVATE FILE", 12 * s, top.y + 16 * s);
+
+        ctx.fillStyle = C.white;
+        ctx.font = font(22 * s, DISPLAY, "500");
+        ctx.fillText("MIREILLE D'ÉPINE", 12 * s, top.y + 42 * s);
+
+        ctx.textAlign = "right";
+        ctx.fillStyle = C.silver;
+        ctx.font = font(7 * s, MONO, "500");
+        ctx.fillText("SUBJECT 01", w - 36 * s, top.y + 20 * s);
+        ctx.fillStyle = C.mute;
+        ctx.fillText("FILE / SUB-01", w - 36 * s, top.y + 34 * s);
+        ctx.textAlign = "left";
+
+        const cx = w - 12 * s - 15.5 * s;
+        const cy = top.y + (top.h - 15.5 * s) / 2;
+        const cs = 15.5 * s;
+        ctx.strokeStyle = C.line;
+        ctx.lineWidth = 1 * s;
+        ctx.strokeRect(cx, cy, cs, cs);
+        ctx.fillStyle = C.chrome;
+        ctx.font = font(12 * s, MONO, "400");
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("×", cx + cs / 2, cy + cs / 2 + 0.5 * s);
+        ctx.textAlign = "left";
+        ctx.textBaseline = "alphabetic";
+
+        ctx.fillStyle = C.black;
         ctx.fillRect(mid.x, mid.y, mid.w, mid.h);
-
-        ctx.fillStyle = "#0c0d0e";
-        ctx.fillRect(bot.x, bot.y, bot.w, bot.h);
-        ctx.fillStyle = "#090a0c";
-        ctx.fillRect(foot.x, foot.y, foot.w, foot.h);
-
-        ctx.strokeStyle = "rgba(232,236,236,0.35)";
-        ctx.lineWidth = 2 * (scale / 3);
-        ctx.strokeRect(1, 1, w - 2, h - 2);
-
-        ctx.fillStyle = "rgba(232,236,236,0.55)";
-        ctx.font = font(8 * scale, true);
-        ctx.fillText("BIOMETRIC LOCK · FILE / SUB-01", 12 * scale, top.y + 16 * scale);
-        ctx.fillStyle = "#f2f4f4";
-        ctx.font = font(15 * scale, true);
-        ctx.fillText("MIREILLE D'ÉPINE", 12 * scale, top.y + 36 * scale);
-
-        ctx.strokeStyle = "rgba(232,236,236,0.35)";
-        ctx.strokeRect(w - 28 * scale, top.y + 10 * scale, 16 * scale, 14 * scale);
-        ctx.fillStyle = "#f2f4f4";
-        ctx.font = font(11 * scale, true);
-        ctx.fillText("×", w - 24 * scale, top.y + 21 * scale);
-
         const tabs = ["SCAN", "IDENTITY", "OPTICS", "ARCHIVE"];
-        let tx = 10 * scale;
+        const tw = mid.w / 4;
         tabs.forEach((t, i) => {
-          ctx.font = font(8 * scale, true);
-          const tw = ctx.measureText(t).width + 16 * scale;
+          const x = mid.x + i * tw;
           if (i === 0) {
-            ctx.fillStyle = "rgba(232,236,236,0.88)";
-            ctx.fillRect(tx, mid.y + 8 * scale, tw, 16 * scale);
-            ctx.fillStyle = "#090a0c";
+            ctx.fillStyle = C.chrome;
+            ctx.fillRect(x, mid.y, tw, mid.h);
+            ctx.fillStyle = C.black;
+            ctx.font = font(8 * s, MONO, "600");
           } else {
-            ctx.fillStyle = "rgba(232,236,236,0.62)";
+            ctx.fillStyle = C.mute;
+            ctx.font = font(8 * s, MONO, "500");
           }
-          ctx.fillText(t, tx + 8 * scale, mid.y + 19 * scale);
-          tx += tw + 8 * scale;
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(t, x + tw / 2, mid.y + mid.h / 2);
+          if (i === 0) {
+            ctx.fillStyle = C.indigo;
+            ctx.fillRect(x + tw / 2 - 5.5 * s, mid.y + mid.h - s, 11 * s, s);
+          }
+          if (i < 3) {
+            ctx.strokeStyle = C.lineSoft;
+            ctx.beginPath();
+            ctx.moveTo(x + tw, mid.y);
+            ctx.lineTo(x + tw, mid.y + mid.h);
+            ctx.stroke();
+          }
         });
+        ctx.textAlign = "left";
+        ctx.textBaseline = "alphabetic";
 
-        const gap = 0.45 * 16 * scale;
-        const cardW = (bot.w - 0.65 * 32 * scale - gap) / 2;
-        const cardH = 2.35 * 16 * scale;
-        const cardY = bot.y + 0.65 * 16 * scale;
-        const cardX1 = bot.x + 0.65 * 16 * scale;
-        const cardX2 = cardX1 + cardW + gap;
+        const drawRail = (box, left, midLabel, right) => {
+          ctx.fillStyle = C.black;
+          ctx.fillRect(box.x, box.y, box.w, box.h);
+          ctx.fillStyle = C.mute;
+          ctx.font = font(6.5 * s, MONO, "500");
+          ctx.textBaseline = "middle";
+          ctx.fillText(left, box.x + 12 * s, box.y + box.h / 2);
+          ctx.fillStyle = C.silver;
+          ctx.textAlign = "center";
+          ctx.fillText(midLabel, box.x + box.w / 2, box.y + box.h / 2);
+          ctx.textAlign = "right";
+          ctx.fillStyle = C.mute;
+          ctx.fillText(right, box.x + box.w - 12 * s, box.y + box.h / 2);
+          ctx.textAlign = "left";
+          ctx.textBaseline = "alphabetic";
+        };
 
-        ctx.strokeStyle = "rgba(232,236,236,0.22)";
-        ctx.fillStyle = "rgba(232,236,236,0.06)";
-        ctx.fillRect(cardX1, cardY, cardW, cardH);
-        ctx.strokeRect(cardX1, cardY, cardW, cardH);
-        ctx.fillStyle = "#000080";
-        ctx.fillRect(cardX2, cardY, cardW, cardH);
+        drawRail(rt, "SESSION RECORD", "MODIFICATION RECORD", "OPT-01.A");
+        drawRail(rb, "OPTICAL SYSTEM", "SYNTHETIC INTEGRATION", "BODY CONFIGURATION");
 
-        ctx.fillStyle = "#f2f4f4";
-        ctx.font = font(9 * scale, true);
-        ctx.fillText("VERIFY", cardX1 + 10 * scale, cardY + 18 * scale);
-        ctx.fillStyle = "#ffffff";
-        ctx.fillText("ENTER", cardX2 + 10 * scale, cardY + 18 * scale);
-        ctx.font = font(11 * scale, false);
-        ctx.fillStyle = "rgba(242,244,244,0.62)";
-        ctx.fillText("I'm not a robot", cardX1 + 10 * scale, cardY + 34 * scale);
-        ctx.fillStyle = "rgba(255,255,255,0.7)";
-        ctx.fillText("Open archive", cardX2 + 10 * scale, cardY + 34 * scale);
+        ctx.fillStyle = C.indigo;
+        ctx.beginPath();
+        ctx.arc(rt.x + 12 * s + 3 * s, rt.y + rt.h / 2, 2.2 * s, 0, Math.PI * 2);
+        ctx.fill();
 
-        ctx.fillStyle = "rgba(232,236,236,0.7)";
-        ctx.font = font(7 * scale, true);
-        ctx.fillText("HOUSE D'ÉPINE", foot.x + 8 * scale, foot.y + 14 * scale);
-        ctx.fillText("CYBORG · ACTIVE", foot.x + foot.w * 0.38, foot.y + 14 * scale);
-        ctx.fillText("NY · MODIFIED", foot.x + foot.w * 0.72, foot.y + 14 * scale);
+        ctx.fillStyle = C.charcoal;
+        ctx.fillRect(bot.x, bot.y, bot.w, bot.h);
+
+        const noteH = 22 * s;
+        const cellH = bot.h - noteH;
+        const leftW = bot.w * (1.35 / 2.35);
+
+        ctx.strokeStyle = C.lineSoft;
+        ctx.beginPath();
+        ctx.moveTo(bot.x + leftW, bot.y);
+        ctx.lineTo(bot.x + leftW, bot.y + cellH);
+        ctx.stroke();
+
+        ctx.fillStyle = C.mute;
+        ctx.font = font(7 * s, MONO, "500");
+        ctx.fillText("BIOMETRIC MATCH", bot.x + 12 * s, bot.y + 16 * s);
+        ctx.fillText("ARCHIVE ACCESS", bot.x + leftW + 12 * s, bot.y + 16 * s);
+
+        const brx = bot.x + 12 * s + 5 * s;
+        const bry = bot.y + 28 * s;
+        ctx.strokeStyle = C.chrome;
+        ctx.lineWidth = 1 * s;
+        ctx.beginPath();
+        ctx.arc(brx, bry, 5 * s, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.fillStyle = C.indigo;
+        ctx.beginPath();
+        ctx.arc(brx, bry, 2.5 * s, 0, Math.PI * 2);
+        ctx.fill();
+
+        ctx.fillStyle = C.white;
+        ctx.font = font(9 * s, MONO, "600");
+        ctx.fillText("IDENTITY VERIFIED", brx + 12 * s, bry + 3 * s);
+        ctx.fillStyle = C.silver;
+        ctx.font = font(7 * s, MONO, "400");
+        ctx.fillText("ACCESS RESTRICTED", bot.x + 12 * s, bot.y + 48 * s);
+
+        ctx.fillStyle = C.white;
+        ctx.font = font(9 * s, MONO, "600");
+        ctx.fillText("GRANTED", bot.x + leftW + 12 * s, bry + 3 * s);
+
+        const chipW = 42 * s;
+        const chipH = 14 * s;
+        const chipX = bot.x + bot.w - 12 * s - chipW;
+        const chipY = bry - chipH / 2;
+        ctx.fillStyle = C.indigo;
+        ctx.fillRect(chipX, chipY, chipW, chipH);
+        ctx.fillStyle = C.white;
+        ctx.font = font(7 * s, MONO, "600");
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText("ENTER", chipX + chipW / 2, chipY + chipH / 2);
+        ctx.textAlign = "left";
+        ctx.textBaseline = "alphabetic";
+
+        ctx.fillStyle = C.silver;
+        ctx.font = font(7 * s, MONO, "400");
+        ctx.fillText("FACILITY / PRIVATE LAB", bot.x + leftW + 12 * s, bot.y + 48 * s);
+
+        ctx.fillStyle = C.black;
+        ctx.fillRect(bot.x, bot.y + cellH, bot.w, noteH);
+        ctx.fillStyle = C.mute;
+        ctx.font = font(6.5 * s, MONO, "400");
+        ctx.textBaseline = "middle";
+        const ny = bot.y + cellH + noteH / 2;
+        ctx.fillText("STATUS · ", bot.x + 12 * s, ny);
+        let nw = ctx.measureText("STATUS · ").width;
+        ctx.fillStyle = C.silver;
+        ctx.font = font(6.5 * s, MONO, "500");
+        ctx.fillText("LIVE FEED", bot.x + 12 * s + nw, ny);
+
+        ctx.fillStyle = C.mute;
+        ctx.font = font(6.5 * s, MONO, "400");
+        ctx.textAlign = "center";
+        ctx.fillText("OPERATOR · THÉODEN", bot.x + bot.w / 2, ny);
+        ctx.textAlign = "right";
+        ctx.fillText("REF · SUB-01 / MOD", bot.x + bot.w - 12 * s, ny);
+        ctx.textAlign = "left";
+        ctx.textBaseline = "alphabetic";
+
+        ctx.fillStyle = C.black;
+        ctx.fillRect(foot.x, foot.y, foot.w, foot.h);
+        const cols = ["HOUSE D'ÉPINE", "CYBORG / ACTIVE", "NEW YORK / MODIFIED"];
+        const fw = foot.w / 3;
+        cols.forEach((t, i) => {
+          const x = foot.x + i * fw;
+          ctx.fillStyle = C.silver;
+          ctx.font = font(7 * s, MONO, "500");
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillText(t, x + fw / 2, foot.y + foot.h / 2);
+          if (i < 2) {
+            ctx.strokeStyle = C.lineSoft;
+            ctx.beginPath();
+            ctx.moveTo(x + fw, foot.y);
+            ctx.lineTo(x + fw, foot.y + foot.h);
+            ctx.stroke();
+          }
+        });
+        ctx.textAlign = "left";
+        ctx.textBaseline = "alphabetic";
 
         ctx.clearRect(
           Math.floor(hole.x),
@@ -457,11 +841,33 @@
           Math.ceil(hole.h),
         );
 
+        const inset = 0.35 * 16 * s;
+        const arm = 0.7 * 16 * s;
+        ctx.strokeStyle = "rgba(216,218,219,0.55)";
+        ctx.lineWidth = 1 * s;
+        const hx = hole.x;
+        const hy = hole.y;
+        const hw = hole.w;
+        const hh = hole.h;
+
+        const corner = (x1, y1, x2, y2, x3, y3) => {
+          ctx.beginPath();
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+          ctx.lineTo(x3, y3);
+          ctx.stroke();
+        };
+
+        corner(hx + inset, hy + inset + arm, hx + inset, hy + inset, hx + inset + arm, hy + inset);
+        corner(hx + hw - inset - arm, hy + inset, hx + hw - inset, hy + inset, hx + hw - inset, hy + inset + arm);
+        corner(hx + inset, hy + hh - inset - arm, hx + inset, hy + hh - inset, hx + inset + arm, hy + hh - inset);
+        corner(hx + hw - inset - arm, hy + hh - inset, hx + hw - inset, hy + hh - inset, hx + hw - inset, hy + hh - inset - arm);
+
         canvas.toBlob((blob) => {
           if (!blob) return;
           const a = document.createElement("a");
           a.href = URL.createObjectURL(blob);
-          a.download = "mireille-frame-4x3.png";
+          a.download = "mireille-biometric-frame-4x3.png";
           a.click();
           setTimeout(() => URL.revokeObjectURL(a.href), 2000);
         }, "image/png");

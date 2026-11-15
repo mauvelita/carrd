@@ -215,6 +215,17 @@
   vertical-align: top;
 }
 
+.reel-frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  background: #090a0c;
+  vertical-align: top;
+  pointer-events: none;
+}
+
 .reel-tag {
   position: absolute;
   left: 0.4rem;
@@ -301,18 +312,21 @@
   </div>
   <h2 class="panel-title">Floor Work</h2>
   <div class="reel">
-    <div class="reel-frame">
-      <video
-        src="mire.mov"
-        controls
-        playsinline
-        preload="metadata"
-        poster="house3.jpeg"
-      >
-        Your browser does not support this video.
-      </video>
-      <span class="reel-tag">Reel 01</span>
-    </div>
+<div class="reel-frame">
+  <video
+    id="floor-reel"
+    src="mire.mov"
+    muted
+    loop
+    playsinline
+    autoplay
+    preload="auto"
+    disablepictureinpicture
+    disableremoteplayback
+    aria-label="Mireille floor performance reel"
+  ></video>
+  <span class="reel-tag">Reel 01</span>
+</div>
     <div class="caption-row">
       <span>Archive Entry</span>
       <span>Mireille · Live</span>
@@ -332,5 +346,53 @@
     </div>
   </main>
   <script src="shared.js"></script>
+  <script>
+  (() => {
+    const reel = document.getElementById("floor-reel");
+    if (!reel) return;
+
+    reel.muted = true;
+    reel.defaultMuted = true;
+    reel.volume = 0;
+    reel.setAttribute("muted", "");
+
+    const playSafe = () => {
+      reel.muted = true;
+      reel.volume = 0;
+      const p = reel.play();
+      if (p && typeof p.catch === "function") p.catch(() => {});
+    };
+
+    const pauseSafe = () => {
+      if (!reel.paused) reel.pause();
+    };
+
+    if ("IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+              playSafe();
+            } else {
+              pauseSafe();
+            }
+          });
+        },
+        { threshold: [0, 0.35, 0.6] },
+      );
+      io.observe(reel);
+    } else {
+      playSafe();
+    }
+
+    document.addEventListener(
+      "pointerdown",
+      () => {
+        playSafe();
+      },
+      { passive: true, once: true },
+    );
+  })();
+</script>
 </body>
 </html>

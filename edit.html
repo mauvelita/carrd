@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MIREILLE.BMP</title>
+  <title>Subject — Mireille d'Épine</title>
   <link rel="stylesheet" href="shared.css" />
   <style>
     html, body {
@@ -22,199 +22,153 @@
       justify-content: center;
       padding: clamp(1rem, 4vw, 2rem);
       padding-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
+      font-family: var(--sans);
     }
 
     .page-bg { display: none !important; }
 
-    .win {
+    .unit {
       position: relative;
       z-index: 1;
       width: min(100%, 26rem);
-      display: flex;
-      flex-direction: column;
-      background: var(--win-face);
-      border-top: 2px solid var(--win-light);
-      border-left: 2px solid var(--win-light);
-      border-right: 2px solid var(--win-darker);
-      border-bottom: 2px solid var(--win-darker);
+      background: linear-gradient(165deg, #2a2c2e 0%, #141516 48%, #0c0d0e 100%);
+      border: 1px solid rgba(232, 236, 236, 0.28);
       box-shadow:
-        4px 4px 0 rgba(0, 0, 0, 0.65),
-        0 0 0 1px rgba(0, 0, 0, 0.35);
-      user-select: none;
+        0 0 0 1px rgba(9, 10, 12, 0.85),
+        8px 12px 28px rgba(0, 0, 0, 0.55);
+      overflow: hidden;
     }
 
-    .win-title {
+    .unit::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(232, 236, 236, 0.06), transparent 18%),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.08) 2px,
+          rgba(0, 0, 0, 0.08) 3px
+        );
+      opacity: 0.55;
+      z-index: 2;
+    }
+
+    .chrome {
+      position: relative;
+      z-index: 3;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 0.4rem;
-      margin: 2px;
-      padding: 3px 3px 3px 6px;
-      background: linear-gradient(90deg, #000080 0%, #1084d0 100%);
-      color: #fff;
-      font-family: var(--sans);
-      font-size: 11px;
+      gap: 0.6rem;
+      padding: 0.55rem 0.65rem;
+      border-bottom: 1px solid rgba(232, 236, 236, 0.18);
+      background: linear-gradient(90deg, rgba(190, 202, 203, 0.12), rgba(9, 10, 12, 0.35));
+    }
+
+    .chrome-id { min-width: 0; }
+
+    .chrome-kicker {
+      margin: 0;
+      font-size: 8px;
       font-weight: 700;
-      line-height: 1.2;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(232, 236, 236, 0.55);
     }
 
-    .win-title-left {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      min-width: 0;
-    }
-
-    .win-icon {
-      width: 12px;
-      height: 12px;
-      flex-shrink: 0;
-      background:
-        linear-gradient(135deg, #fff 0 35%, transparent 35%),
-        linear-gradient(225deg, #c0c0c0 0 40%, #808080 40%);
-      border: 1px solid rgba(255, 255, 255, 0.55);
-      box-shadow: inset 0 0 0 1px #000080;
-    }
-
-    .win-title-label {
+    .chrome-name {
+      margin: 0.15rem 0 0;
+      font-family: var(--serif);
+      font-size: clamp(1.05rem, 3.8vw, 1.25rem);
+      font-weight: 500;
+      font-style: italic;
+      letter-spacing: 0.02em;
+      color: #f2f4f4;
+      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
-      letter-spacing: 0.02em;
     }
 
-    .win-btns {
-      display: flex;
-      gap: 2px;
+    .chrome-close {
       flex-shrink: 0;
-    }
-
-    .win-btn {
-      width: 16px;
-      height: 14px;
+      width: 1.55rem;
+      height: 1.55rem;
       display: grid;
       place-items: center;
       padding: 0;
-      background: var(--win-face);
-      color: #000;
-      border-top: 1px solid var(--win-light);
-      border-left: 1px solid var(--win-light);
-      border-right: 1px solid var(--win-darker);
-      border-bottom: 1px solid var(--win-darker);
-      font-size: 9px;
-      line-height: 1;
-      font-family: var(--sans);
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .win-btn:active {
-      border-top: 1px solid var(--win-darker);
-      border-left: 1px solid var(--win-darker);
-      border-right: 1px solid var(--win-light);
-      border-bottom: 1px solid var(--win-light);
-      transform: translate(1px, 1px);
-    }
-
-    .win-menu {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.15rem 0.85rem;
-      padding: 2px 8px 3px;
+      appearance: none;
+      background: rgba(232, 236, 236, 0.08);
+      color: #f2f4f4;
+      border: 1px solid rgba(232, 236, 236, 0.28);
       font-family: var(--sans);
       font-size: 11px;
-      color: #000;
-      background: var(--win-face);
-    }
-
-    .win-menu button {
-      appearance: none;
-      border: 0;
-      background: transparent;
-      font: inherit;
-      color: inherit;
-      padding: 1px 3px;
+      font-weight: 700;
+      line-height: 1;
       cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
 
-    .win-menu button:hover,
-    .win-menu button:focus-visible {
-      background: var(--win-title);
-      color: #fff;
+    .chrome-close:hover,
+    .chrome-close:focus-visible {
+      background: rgba(232, 236, 236, 0.18);
+      border-color: rgba(232, 236, 236, 0.5);
       outline: none;
     }
 
-    .win-menu button::first-letter { text-decoration: underline; }
-
-    .win-toolbar {
+    .rail {
+      position: relative;
+      z-index: 3;
       display: flex;
-      align-items: center;
-      gap: 3px;
-      padding: 3px 5px 4px;
-      border-top: 1px solid var(--win-light);
-      border-bottom: 1px solid var(--win-dark);
-      background: var(--win-face);
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      padding: 0.4rem 0.65rem;
+      border-bottom: 1px solid rgba(232, 236, 236, 0.12);
+      background: rgba(9, 10, 12, 0.35);
     }
 
-    .tb {
-      width: 22px;
-      height: 20px;
-      display: grid;
-      place-items: center;
-      background: var(--win-face);
-      border-top: 1px solid var(--win-light);
-      border-left: 1px solid var(--win-light);
-      border-right: 1px solid var(--win-darker);
-      border-bottom: 1px solid var(--win-darker);
+    .rail button {
+      appearance: none;
+      padding: 0.28rem 0.55rem;
+      border: 1px solid transparent;
+      background: transparent;
+      color: rgba(232, 236, 236, 0.62);
       font-family: var(--sans);
       font-size: 8px;
       font-weight: 700;
-      color: #000;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
       cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
     }
 
-    .tb:active {
-      border-top-color: var(--win-darker);
-      border-left-color: var(--win-darker);
-      border-right-color: var(--win-light);
-      border-bottom-color: var(--win-light);
+    .rail button:hover,
+    .rail button:focus-visible {
+      color: #f2f4f4;
+      border-color: rgba(232, 236, 236, 0.28);
+      background: rgba(232, 236, 236, 0.06);
+      outline: none;
     }
 
-    .tb-sep {
-      width: 1px;
-      height: 16px;
-      margin: 0 3px;
-      background: var(--win-dark);
-      box-shadow: 1px 0 0 var(--win-light);
+    .rail button.is-on {
+      color: #090a0c;
+      background: rgba(232, 236, 236, 0.88);
+      border-color: rgba(232, 236, 236, 0.88);
     }
 
-    .tb-path {
-      flex: 1;
-      min-width: 0;
-      margin-left: 4px;
-      padding: 2px 5px;
-      font-family: var(--sans);
-      font-size: 10px;
-      color: #000;
-      background: #fff;
-      border-top: 1px solid var(--win-dark);
-      border-left: 1px solid var(--win-dark);
-      border-right: 1px solid var(--win-light);
-      border-bottom: 1px solid var(--win-light);
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .win-body {
-      margin: 0 2px;
-      border: 1px solid #000;
+    .viewport {
+      position: relative;
+      z-index: 1;
+      margin: 0;
       background: #000;
       line-height: 0;
       overflow: hidden;
     }
 
-    .win-body img {
+    .viewport img {
       width: 100%;
       height: auto;
       display: block;
@@ -225,24 +179,137 @@
       transform-origin: center center;
     }
 
-    .win-status {
-      display: grid;
-      grid-template-columns: 1.4fr 0.9fr 0.85fr;
-      gap: 2px;
-      margin: 2px;
-      padding: 0;
+    .viewport-marks {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
       font-family: var(--sans);
-      font-size: 10px;
-      color: #000;
-      background: var(--win-face);
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(242, 244, 244, 0.72);
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
     }
 
-    .win-status span {
-      padding: 2px 5px;
-      border-top: 1px solid var(--win-dark);
-      border-left: 1px solid var(--win-dark);
-      border-right: 1px solid var(--win-light);
-      border-bottom: 1px solid var(--win-light);
+    .viewport-marks span { position: absolute; }
+    .viewport-marks .tl { top: 0.55rem; left: 0.55rem; }
+    .viewport-marks .tr { top: 0.55rem; right: 0.55rem; }
+    .viewport-marks .bl { bottom: 0.55rem; left: 0.55rem; }
+
+    .corner {
+      position: absolute;
+      width: 0.85rem;
+      height: 0.85rem;
+      border: 1px solid rgba(232, 236, 236, 0.55);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .corner.nw { top: 0.4rem; left: 0.4rem; border-right: 0; border-bottom: 0; }
+    .corner.ne { top: 0.4rem; right: 0.4rem; border-left: 0; border-bottom: 0; }
+    .corner.sw { bottom: 0.4rem; left: 0.4rem; border-right: 0; border-top: 0; }
+    .corner.se { bottom: 0.4rem; right: 0.4rem; border-left: 0; border-top: 0; }
+
+    .actions {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 0.45rem;
+      padding: 0.65rem;
+      border-top: 1px solid rgba(232, 236, 236, 0.14);
+      background: rgba(9, 10, 12, 0.55);
+    }
+
+    .act {
+      appearance: none;
+      min-height: 2.35rem;
+      padding: 0.45rem 0.55rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0.12rem;
+      text-align: left;
+      cursor: pointer;
+      border: 1px solid rgba(232, 236, 236, 0.22);
+      background: rgba(232, 236, 236, 0.06);
+      color: #f2f4f4;
+      font-family: var(--sans);
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .act strong {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .act em {
+      font-family: var(--serif);
+      font-style: italic;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: rgba(242, 244, 244, 0.62);
+    }
+
+    .act:hover:not(:disabled),
+    .act:focus-visible:not(:disabled) {
+      background: rgba(232, 236, 236, 0.14);
+      border-color: rgba(232, 236, 236, 0.45);
+      outline: none;
+    }
+
+    .act.is-checked {
+      background: rgba(232, 236, 236, 0.9);
+      border-color: rgba(232, 236, 236, 0.9);
+      color: #090a0c;
+    }
+
+    .act.is-checked em { color: rgba(9, 10, 12, 0.62); }
+
+    .act-enter:disabled {
+      opacity: 0.38;
+      cursor: not-allowed;
+    }
+
+    .act-enter:not(:disabled) {
+      background: #000080;
+      border-color: #000080;
+      color: #fff;
+    }
+
+    .act-enter:not(:disabled) em { color: rgba(255, 255, 255, 0.7); }
+
+    .act-enter:not(:disabled):hover,
+    .act-enter:not(:disabled):focus-visible {
+      background: #1010a0;
+      border-color: #2a2acc;
+    }
+
+    .status {
+      position: relative;
+      z-index: 3;
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr 0.9fr;
+      gap: 1px;
+      padding: 0;
+      background: rgba(232, 236, 236, 0.12);
+      border-top: 1px solid rgba(232, 236, 236, 0.12);
+    }
+
+    .status span {
+      padding: 0.35rem 0.5rem;
+      background: rgba(9, 10, 12, 0.72);
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(232, 236, 236, 0.58);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -263,45 +330,50 @@
   </style>
 </head>
 <body>
-  <section class="win" role="application" aria-label="Image viewer">
-    <div class="win-title">
-      <div class="win-title-left">
-        <span class="win-icon" aria-hidden="true"></span>
-        <span class="win-title-label">MIREILLE.BMP — Archive Viewer</span>
+  <section class="unit" role="application" aria-label="Subject biometric lock">
+    <header class="chrome">
+      <div class="chrome-id">
+        <p class="chrome-kicker">Biometric Lock · File / SUB-01</p>
+        <p class="chrome-name">Mireille d'Épine</p>
       </div>
-      <div class="win-btns">
-        <button type="button" class="win-btn" aria-label="Minimize">_</button>
-        <button type="button" class="win-btn" aria-label="Maximize">□</button>
-        <button type="button" class="win-btn" aria-label="Close">×</button>
-      </div>
-    </div>
+      <button type="button" class="chrome-close" id="btn-close" aria-label="Close">×</button>
+    </header>
 
-    <nav class="win-menu" aria-label="Viewer menu">
-      <button type="button">File</button>
-      <button type="button">Edit</button>
-      <button type="button">View</button>
-      <button type="button">Image</button>
-      <button type="button">Help</button>
+    <nav class="rail" aria-label="System modules">
+      <button type="button" class="is-on" data-rail>Scan</button>
+      <button type="button" data-rail>Identity</button>
+      <button type="button" data-rail>Optics</button>
+      <button type="button" data-rail>Archive</button>
     </nav>
 
-    <div class="win-toolbar" aria-hidden="true">
-      <button type="button" class="tb" title="Open">Op</button>
-      <button type="button" class="tb" title="Save">Sv</button>
-      <span class="tb-sep"></span>
-      <button type="button" class="tb" title="Zoom in">+</button>
-      <button type="button" class="tb" title="Fit">[]</button>
-      <span class="tb-sep"></span>
-      <div class="tb-path">C:\ARCHIVE\MIREILLE\edit.jpg</div>
-    </div>
-
-    <div class="win-body">
+    <figure class="viewport">
+      <span class="corner nw" aria-hidden="true"></span>
+      <span class="corner ne" aria-hidden="true"></span>
+      <span class="corner sw" aria-hidden="true"></span>
+      <span class="corner se" aria-hidden="true"></span>
       <img src="edit.jpg" alt="Mireille d'Épine" width="1206" height="872" decoding="async" />
+      <div class="viewport-marks" aria-hidden="true">
+        <span class="tl">Live feed</span>
+        <span class="tr">Fashion / Body</span>
+        <span class="bl">Subject locked</span>
+      </div>
+    </figure>
+
+    <div class="actions">
+      <button type="button" class="act" id="btn-verify" aria-pressed="false">
+        <strong>Verify</strong>
+        <em>I’m not a robot</em>
+      </button>
+      <button type="button" class="act act-enter" id="btn-enter" disabled>
+        <strong>Enter</strong>
+        <em>Open archive</em>
+      </button>
     </div>
 
-    <div class="win-status">
-      <span>Ready · not a robot</span>
+    <div class="status" aria-hidden="true">
+      <span id="status-line">Awaiting verification</span>
+      <span>Optics · Online</span>
       <span>1206 × 872</span>
-      <span>24-bit BMP</span>
     </div>
   </section>
 
@@ -313,9 +385,40 @@
 
   <script src="shared.js"></script>
   <script>
-    if (new URLSearchParams(location.search).has("png")) {
-      document.body.classList.add("png-export");
-    }
+    (() => {
+      if (new URLSearchParams(location.search).has("png")) {
+        document.body.classList.add("png-export");
+      }
+
+      const verify = document.getElementById("btn-verify");
+      const enter = document.getElementById("btn-enter");
+      const close = document.getElementById("btn-close");
+      const status = document.getElementById("status-line");
+      if (!verify || !enter || !close) return;
+
+      verify.addEventListener("click", () => {
+        const on = verify.classList.toggle("is-checked");
+        verify.setAttribute("aria-pressed", on ? "true" : "false");
+        enter.disabled = !on;
+        if (status) status.textContent = on ? "Identity confirmed" : "Awaiting verification";
+      });
+
+      enter.addEventListener("click", () => {
+        if (enter.disabled) return;
+        window.location.assign("home.html");
+      });
+
+      close.addEventListener("click", () => {
+        window.location.assign("home.html");
+      });
+
+      document.querySelectorAll("[data-rail]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("[data-rail]").forEach((b) => b.classList.remove("is-on"));
+          btn.classList.add("is-on");
+        });
+      });
+    })();
   </script>
 </body>
 </html>

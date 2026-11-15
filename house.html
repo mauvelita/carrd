@@ -72,12 +72,9 @@
 
     .shot {
       position: relative;
+      background: #090a0c;
       border: 0;
       box-shadow: inset 0 0 0 1px #090a0c;
-      border-top: 1px solid var(--win-dark);
-      border-left: 1px solid var(--win-dark);
-      border-right: 1px solid var(--win-light);
-      border-bottom: 1px solid var(--win-light);
       overflow: hidden;
       isolation: isolate;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -88,7 +85,6 @@
       height: 100%;
       display: block;
       object-fit: cover;
-        /* bleed past frame — clips JPEG white edge / “ring” */
       transform: scale(1.16);
       transform-origin: center center;
       backface-visibility: hidden;
@@ -98,7 +94,8 @@
       transform: translateY(-2px);
       box-shadow:
         inset 0 0 0 1px #090a0c,
-        0 8px 18px rgba(9, 10, 12, 0.28);    }
+        0 8px 18px rgba(9, 10, 12, 0.28);
+    }
 
     .shot-main {
       width: 78%;
@@ -125,7 +122,7 @@
 
     .shot-offset img {
       object-position: center 18%;
-          transform: scale(1.2);
+      transform: scale(1.2);
     }
 
     .shot-offset:hover {
@@ -203,55 +200,46 @@
     }
 
     .reel {
-  margin: 0.45rem 0.65rem 0.75rem;
-}
+      margin: 0.45rem 0.65rem 0.75rem;
+    }
 
-.reel-frame {
-  position: relative;
-  width: 100%;
-  margin: 0 auto;
-  background: #090a0c;
-  border: 1px solid #090a0c;
-  overflow: hidden;
-  line-height: 0;
-}
+    .reel-frame {
+      position: relative;
+      width: 100%;
+      margin: 0 auto;
+      background: #090a0c;
+      border: 1px solid #090a0c;
+      overflow: hidden;
+      line-height: 0;
+    }
 
-.reel-frame video {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  margin: 0 auto;
-  background: #090a0c;
-  vertical-align: top;
-}
+    .reel-frame video {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-width: 100%;
+      margin: 0 auto;
+      background: #090a0c;
+      vertical-align: top;
+      pointer-events: none;
+    }
 
-.reel-frame video {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  margin: 0 auto;
-  background: #090a0c;
-  vertical-align: top;
-  pointer-events: none;
-}
+    .reel-tag {
+      position: absolute;
+      left: 0.4rem;
+      bottom: 0.4rem;
+      z-index: 1;
+      padding: 0.2rem 0.35rem;
+      font-family: var(--sans);
+      font-size: 7px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(242, 244, 244, 0.85);
+      background: rgba(9, 10, 12, 0.45);
+      pointer-events: none;
+    }
 
-.reel-tag {
-  position: absolute;
-  left: 0.4rem;
-  bottom: 0.4rem;
-  z-index: 1;
-  padding: 0.2rem 0.35rem;
-  font-family: var(--sans);
-  font-size: 7px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(242, 244, 244, 0.85);
-  background: rgba(9, 10, 12, 0.45);
-  pointer-events: none;
-}
     .footer-back {
       margin-top: clamp(2.25rem, 5vh, 3.25rem);
     }
@@ -313,36 +301,38 @@
       </section>
 
       <article class="prose" data-reveal aria-label="Categories">
-<p>They take their categories seriously. <span class="mark">Trophies</span> are coveted, rivalries are personal, and losing can make for a rather unpleasant evening. If the <span class="mark">category</span> requires a look, they tend to find a way to make it happen.</p>      </article>
+        <p>They take their categories seriously. <span class="mark">Trophies</span> are coveted, rivalries are personal, and losing can make for a rather unpleasant evening. If the <span class="mark">category</span> requires a look, they tend to find a way to make it happen.</p>
+      </article>
+
       <section class="panel" data-reveal aria-label="Performance reel">
-  <div class="panel-meta">
-    <span>File / HSE-03</span>
-    <span>Performance Reel</span>
-  </div>
-  <h2 class="panel-title">Ballroom darling</h2>
-  <div class="reel">
-<div class="reel-frame">
-  <video
-    id="floor-reel"
-    src="mire.mov"
-    muted
-    loop
-    playsinline
-    autoplay
-    preload="auto"
-    disablepictureinpicture
-    disableremoteplayback
-    aria-label="Mireille performance reel"
-  ></video>
-  <span class="reel-tag">Reel 01</span>
-</div>
-    <div class="caption-row">
-      <span>Archive Entry</span>
-      <span>Mireille · Live</span>
-    </div>
-  </div>
-</section>
-      
+        <div class="panel-meta">
+          <span>File / HSE-03</span>
+          <span>Performance Reel</span>
+        </div>
+        <h2 class="panel-title">Ballroom darling</h2>
+        <div class="reel">
+          <div class="reel-frame">
+            <video
+              id="floor-reel"
+              src="mire.mov"
+              muted
+              loop
+              playsinline
+              autoplay
+              preload="auto"
+              disablepictureinpicture
+              disableremoteplayback
+              aria-label="Mireille performance reel"
+            ></video>
+            <span class="reel-tag">Reel 01</span>
+          </div>
+          <div class="caption-row">
+            <span>Archive Entry</span>
+            <span>Mireille · Live</span>
+          </div>
+        </div>
+      </section>
+
       <article class="prose" data-reveal aria-label="Sisterhood">
         <p>The House has its own routines outside competitions. Rehearsals, fittings, preparations, and gatherings keep its members occupied. They have their disagreements, and Mireille can be demanding about how things are done, but there is a genuine <span class="mark">sisterhood</span> between the people who make up the House.</p>
       </article>
@@ -356,52 +346,52 @@
   </main>
   <script src="shared.js"></script>
   <script>
-  (() => {
-    const reel = document.getElementById("floor-reel");
-    if (!reel) return;
+    (() => {
+      const reel = document.getElementById("floor-reel");
+      if (!reel) return;
 
-    reel.muted = true;
-    reel.defaultMuted = true;
-    reel.volume = 0;
-    reel.setAttribute("muted", "");
-
-    const playSafe = () => {
       reel.muted = true;
+      reel.defaultMuted = true;
       reel.volume = 0;
-      const p = reel.play();
-      if (p && typeof p.catch === "function") p.catch(() => {});
-    };
+      reel.setAttribute("muted", "");
 
-    const pauseSafe = () => {
-      if (!reel.paused) reel.pause();
-    };
+      const playSafe = () => {
+        reel.muted = true;
+        reel.volume = 0;
+        const p = reel.play();
+        if (p && typeof p.catch === "function") p.catch(() => {});
+      };
 
-    if ("IntersectionObserver" in window) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
-              playSafe();
-            } else {
-              pauseSafe();
-            }
-          });
-        },
-        { threshold: [0, 0.35, 0.6] },
-      );
-      io.observe(reel);
-    } else {
-      playSafe();
-    }
+      const pauseSafe = () => {
+        if (!reel.paused) reel.pause();
+      };
 
-    document.addEventListener(
-      "pointerdown",
-      () => {
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+                playSafe();
+              } else {
+                pauseSafe();
+              }
+            });
+          },
+          { threshold: [0, 0.35, 0.6] },
+        );
+        io.observe(reel);
+      } else {
         playSafe();
-      },
-      { passive: true, once: true },
-    );
-  })();
-</script>
+      }
+
+      document.addEventListener(
+        "pointerdown",
+        () => {
+          playSafe();
+        },
+        { passive: true, once: true },
+      );
+    })();
+  </script>
 </body>
 </html>

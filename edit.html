@@ -535,7 +535,7 @@
     </div>
 
     <div class="footstrip" id="footstrip" aria-hidden="true">
-      <span>Impossible Bodies</span>
+      <span>House d'Épine</span>
       <span>Cyborg / Active</span>
       <span>New York / Modified</span>
     </div>
@@ -547,8 +547,8 @@
   </div>
 
   <p class="hint">
-    Download PNG — frame opaque, center fully transparent for CapCut.<br />
-    Overlay only. Your video stays separate.
+    Download PNG snapshots <b>this</b> frame (not a cached redraw).<br />
+    Center stays transparent for CapCut. Hard-refresh if an old file appears.
   </p>
 
   <div class="foot">
@@ -557,23 +557,11 @@
     </nav>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
   <script src="shared.js"></script>
   <script>
     (() => {
-      const MONO = '"IBM Plex Mono", "Lucida Console", monospace';
-      const DISPLAY = '"Cormorant Garamond", "Times New Roman", serif';
-
-      const C = {
-        black: "#08090B",
-        charcoal: "#151618",
-        indigo: "#1710A8",
-        silver: "#A6A8AA",
-        chrome: "#D8DADB",
-        white: "#F0F0ED",
-        mute: "#777A7D",
-        line: "rgba(216,218,219,0.35)",
-        lineSoft: "rgba(166,168,170,0.22)",
-      };
+      const EXPORT_VER = "v3";
 
       if (new URLSearchParams(location.search).has("shot")) {
         document.body.classList.add("shot");
@@ -589,288 +577,107 @@
           ? document.fonts.ready.catch(() => {})
           : Promise.resolve();
 
-      document.getElementById("btn-png")?.addEventListener("click", async () => {
-        await waitFonts();
+      const saveBlob = (blob, name) => {
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 2500);
+      };
 
+      document.getElementById("btn-png")?.addEventListener("click", async () => {
+        const btn = document.getElementById("btn-png");
         const frame = document.getElementById("frame");
         const cutout = document.getElementById("cutout");
-        const mast = document.getElementById("mast");
-        const nav = document.getElementById("nav");
-        const railTop = document.getElementById("rail-top");
-        const railBot = document.getElementById("rail-bot");
-        const consoleEl = document.getElementById("console");
-        const footstrip = document.getElementById("footstrip");
-        if (!frame || !cutout || !mast || !nav || !railTop || !railBot || !consoleEl || !footstrip) return;
+        if (!frame || !cutout) return;
 
-        const scale = 3;
-        const fr = frame.getBoundingClientRect();
-        const w = Math.round(fr.width * scale);
-        const h = Math.round(fr.height * scale);
-        const canvas = document.createElement("canvas");
-        canvas.width = w;
-        canvas.height = h;
-        const ctx = canvas.getContext("2d", { alpha: true });
-        if (!ctx) return;
+        const lib = window.htmlToImage;
+        if (!lib || typeof lib.toBlob !== "function") {
+          alert("Export library failed to load. Hard-refresh the page and try again.");
+          return;
+        }
 
-        const rx = (el) => {
-          const r = el.getBoundingClientRect();
-          return {
-            x: (r.left - fr.left) * scale,
-            y: (r.top - fr.top) * scale,
-            w: r.width * scale,
-            h: r.height * scale,
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = "Exporting…";
+        }
+
+        try {
+          await waitFonts();
+          await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
+
+          const fr = frame.getBoundingClientRect();
+          const hole = cutout.getBoundingClientRect();
+          const pixelRatio = 3;
+
+          const blob = await lib.toBlob(frame, {
+            pixelRatio,
+            cacheBust: true,
+            backgroundColor: null,
+            skipFonts: false,
+            filter: (node) => node.tagName !== "SCRIPT",
+            style: {
+              transform: "none",
+              margin: "0",
+            },
+          });
+
+          if (!blob) throw new Error("empty blob");
+
+          const bmp = await createImageBitmap(blob);
+          const canvas = document.createElement("canvas");
+          canvas.width = bmp.width;
+          canvas.height = bmp.height;
+          const ctx = canvas.getContext("2d", { alpha: true });
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(bmp, 0, 0);
+          bmp.close();
+
+          const scaleX = canvas.width / fr.width;
+          const scaleY = canvas.height / fr.height;
+          const hx = Math.floor((hole.left - fr.left) * scaleX);
+          const hy = Math.floor((hole.top - fr.top) * scaleY);
+          const hw = Math.ceil(hole.width * scaleX);
+          const hh = Math.ceil(hole.height * scaleY);
+          ctx.clearRect(hx, hy, hw, hh);
+
+          const inset = Math.max(4, Math.round(0.35 * 16 * pixelRatio));
+          const arm = Math.max(8, Math.round(0.7 * 16 * pixelRatio));
+          ctx.strokeStyle = "rgba(216,218,219,0.55)";
+          ctx.lineWidth = Math.max(1, pixelRatio * 0.35);
+          const corner = (x1, y1, x2, y2, x3, y3) => {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.lineTo(x3, y3);
+            ctx.stroke();
           };
-        };
+          corner(hx + inset, hy + inset + arm, hx + inset, hy + inset, hx + inset + arm, hy + inset);
+          corner(hx + hw - inset - arm, hy + inset, hx + hw - inset, hy + inset, hx + hw - inset, hy + inset + arm);
+          corner(hx + inset, hy + hh - inset - arm, hx + inset, hy + hh - inset, hx + inset + arm, hy + hh - inset);
+          corner(hx + hw - inset - arm, hy + hh - inset, hx + hw - inset, hy + hh - inset, hx + hw - inset, hy + hh - inset - arm);
 
-        const font = (size, family, weight = "500") =>
-          `${weight} ${size}px ${family}`;
+          const out = await new Promise((resolve) =>
+            canvas.toBlob(resolve, "image/png"),
+          );
+          if (!out) throw new Error("png failed");
 
-        ctx.clearRect(0, 0, w, h);
-
-        const top = rx(mast);
-        const mid = rx(nav);
-        const rt = rx(railTop);
-        const hole = rx(cutout);
-        const rb = rx(railBot);
-        const bot = rx(consoleEl);
-        const foot = rx(footstrip);
-        const s = scale;
-
-        ctx.strokeStyle = C.line;
-        ctx.lineWidth = 1 * s;
-        ctx.strokeRect(0.5 * s, 0.5 * s, w - s, h - s);
-
-        ctx.fillStyle = C.charcoal;
-        ctx.fillRect(top.x, top.y, top.w, top.h);
-
-        ctx.fillStyle = C.mute;
-        ctx.font = font(7 * s, MONO, "500");
-        ctx.textBaseline = "alphabetic";
-        ctx.fillText("BIOMETRIC ACCESS / PRIVATE FILE", 12 * s, top.y + 16 * s);
-
-        ctx.fillStyle = C.white;
-        ctx.font = font(22 * s, DISPLAY, "500");
-        ctx.fillText("MIREILLE D'ÉPINE", 12 * s, top.y + 42 * s);
-
-        ctx.textAlign = "right";
-        ctx.fillStyle = C.silver;
-        ctx.font = font(7 * s, MONO, "500");
-        ctx.fillText("SUBJECT 01", w - 36 * s, top.y + 20 * s);
-        ctx.fillStyle = C.mute;
-        ctx.fillText("FILE / SUB-01", w - 36 * s, top.y + 34 * s);
-        ctx.textAlign = "left";
-
-        const cx = w - 12 * s - 15.5 * s;
-        const cy = top.y + (top.h - 15.5 * s) / 2;
-        const cs = 15.5 * s;
-        ctx.strokeStyle = C.line;
-        ctx.lineWidth = 1 * s;
-        ctx.strokeRect(cx, cy, cs, cs);
-        ctx.fillStyle = C.chrome;
-        ctx.font = font(12 * s, MONO, "400");
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText("×", cx + cs / 2, cy + cs / 2 + 0.5 * s);
-        ctx.textAlign = "left";
-        ctx.textBaseline = "alphabetic";
-
-        ctx.fillStyle = C.black;
-        ctx.fillRect(mid.x, mid.y, mid.w, mid.h);
-        const tabs = ["SCAN", "IDENTITY", "OPTICS", "ARCHIVE"];
-        const tw = mid.w / 4;
-        tabs.forEach((t, i) => {
-          const x = mid.x + i * tw;
-          if (i === 0) {
-            ctx.fillStyle = C.chrome;
-            ctx.fillRect(x, mid.y, tw, mid.h);
-            ctx.fillStyle = C.black;
-            ctx.font = font(8 * s, MONO, "600");
-          } else {
-            ctx.fillStyle = C.mute;
-            ctx.font = font(8 * s, MONO, "500");
+          const stamp = new Date()
+            .toISOString()
+            .replace(/[-:TZ.]/g, "")
+            .slice(0, 14);
+          saveBlob(out, `mireille-frame-${EXPORT_VER}-${stamp}.png`);
+        } catch (err) {
+          console.error(err);
+          alert("PNG export failed. Hard-refresh (clear cache) and try again.");
+        } finally {
+          if (btn) {
+            btn.disabled = false;
+            btn.textContent = "Download PNG";
           }
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          ctx.fillText(t, x + tw / 2, mid.y + mid.h / 2);
-          if (i === 0) {
-            ctx.fillStyle = C.indigo;
-            ctx.fillRect(x + tw / 2 - 5.5 * s, mid.y + mid.h - s, 11 * s, s);
-          }
-          if (i < 3) {
-            ctx.strokeStyle = C.lineSoft;
-            ctx.beginPath();
-            ctx.moveTo(x + tw, mid.y);
-            ctx.lineTo(x + tw, mid.y + mid.h);
-            ctx.stroke();
-          }
-        });
-        ctx.textAlign = "left";
-        ctx.textBaseline = "alphabetic";
-
-        const drawRail = (box, left, midLabel, right) => {
-          ctx.fillStyle = C.black;
-          ctx.fillRect(box.x, box.y, box.w, box.h);
-          ctx.fillStyle = C.mute;
-          ctx.font = font(6.5 * s, MONO, "500");
-          ctx.textBaseline = "middle";
-          ctx.fillText(left, box.x + 12 * s, box.y + box.h / 2);
-          ctx.fillStyle = C.silver;
-          ctx.textAlign = "center";
-          ctx.fillText(midLabel, box.x + box.w / 2, box.y + box.h / 2);
-          ctx.textAlign = "right";
-          ctx.fillStyle = C.mute;
-          ctx.fillText(right, box.x + box.w - 12 * s, box.y + box.h / 2);
-          ctx.textAlign = "left";
-          ctx.textBaseline = "alphabetic";
-        };
-
-        drawRail(rt, "SESSION RECORD", "MODIFICATION RECORD", "OPT-01.A");
-        drawRail(rb, "OPTICAL SYSTEM", "SYNTHETIC INTEGRATION", "BODY CONFIGURATION");
-
-        ctx.fillStyle = C.indigo;
-        ctx.beginPath();
-        ctx.arc(rt.x + 12 * s + 3 * s, rt.y + rt.h / 2, 2.2 * s, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = C.charcoal;
-        ctx.fillRect(bot.x, bot.y, bot.w, bot.h);
-
-        const noteH = 22 * s;
-        const cellH = bot.h - noteH;
-        const leftW = bot.w * (1.35 / 2.35);
-
-        ctx.strokeStyle = C.lineSoft;
-        ctx.beginPath();
-        ctx.moveTo(bot.x + leftW, bot.y);
-        ctx.lineTo(bot.x + leftW, bot.y + cellH);
-        ctx.stroke();
-
-        ctx.fillStyle = C.mute;
-        ctx.font = font(7 * s, MONO, "500");
-        ctx.fillText("BIOMETRIC MATCH", bot.x + 12 * s, bot.y + 16 * s);
-        ctx.fillText("ARCHIVE ACCESS", bot.x + leftW + 12 * s, bot.y + 16 * s);
-
-        const brx = bot.x + 12 * s + 5 * s;
-        const bry = bot.y + 28 * s;
-        ctx.strokeStyle = C.chrome;
-        ctx.lineWidth = 1 * s;
-        ctx.beginPath();
-        ctx.arc(brx, bry, 5 * s, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.fillStyle = C.indigo;
-        ctx.beginPath();
-        ctx.arc(brx, bry, 2.5 * s, 0, Math.PI * 2);
-        ctx.fill();
-
-        ctx.fillStyle = C.white;
-        ctx.font = font(9 * s, MONO, "600");
-        ctx.fillText("IDENTITY VERIFIED", brx + 12 * s, bry + 3 * s);
-        ctx.fillStyle = C.silver;
-        ctx.font = font(7 * s, MONO, "400");
-        ctx.fillText("ACCESS RESTRICTED", bot.x + 12 * s, bot.y + 48 * s);
-
-        ctx.fillStyle = C.white;
-        ctx.font = font(9 * s, MONO, "600");
-        ctx.fillText("GRANTED", bot.x + leftW + 12 * s, bry + 3 * s);
-
-        const chipW = 42 * s;
-        const chipH = 14 * s;
-        const chipX = bot.x + bot.w - 12 * s - chipW;
-        const chipY = bry - chipH / 2;
-        ctx.fillStyle = C.indigo;
-        ctx.fillRect(chipX, chipY, chipW, chipH);
-        ctx.fillStyle = C.white;
-        ctx.font = font(7 * s, MONO, "600");
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText("ENTER", chipX + chipW / 2, chipY + chipH / 2);
-        ctx.textAlign = "left";
-        ctx.textBaseline = "alphabetic";
-
-        ctx.fillStyle = C.silver;
-        ctx.font = font(7 * s, MONO, "400");
-        ctx.fillText("FACILITY / PRIVATE LAB", bot.x + leftW + 12 * s, bot.y + 48 * s);
-
-        ctx.fillStyle = C.black;
-        ctx.fillRect(bot.x, bot.y + cellH, bot.w, noteH);
-        ctx.fillStyle = C.mute;
-        ctx.font = font(6.5 * s, MONO, "400");
-        ctx.textBaseline = "middle";
-        const ny = bot.y + cellH + noteH / 2;
-        ctx.fillText("STATUS · ", bot.x + 12 * s, ny);
-        let nw = ctx.measureText("STATUS · ").width;
-        ctx.fillStyle = C.silver;
-        ctx.font = font(6.5 * s, MONO, "500");
-        ctx.fillText("LIVE FEED", bot.x + 12 * s + nw, ny);
-
-        ctx.fillStyle = C.mute;
-        ctx.font = font(6.5 * s, MONO, "400");
-        ctx.textAlign = "center";
-        ctx.fillText("OPERATOR · THÉODEN", bot.x + bot.w / 2, ny);
-        ctx.textAlign = "right";
-        ctx.fillText("REF · SUB-01 / MOD", bot.x + bot.w - 12 * s, ny);
-        ctx.textAlign = "left";
-        ctx.textBaseline = "alphabetic";
-
-        ctx.fillStyle = C.black;
-        ctx.fillRect(foot.x, foot.y, foot.w, foot.h);
-        const cols = ["HOUSE D'ÉPINE", "CYBORG / ACTIVE", "NEW YORK / MODIFIED"];
-        const fw = foot.w / 3;
-        cols.forEach((t, i) => {
-          const x = foot.x + i * fw;
-          ctx.fillStyle = C.silver;
-          ctx.font = font(7 * s, MONO, "500");
-          ctx.textAlign = "center";
-          ctx.textBaseline = "middle";
-          ctx.fillText(t, x + fw / 2, foot.y + foot.h / 2);
-          if (i < 2) {
-            ctx.strokeStyle = C.lineSoft;
-            ctx.beginPath();
-            ctx.moveTo(x + fw, foot.y);
-            ctx.lineTo(x + fw, foot.y + foot.h);
-            ctx.stroke();
-          }
-        });
-        ctx.textAlign = "left";
-        ctx.textBaseline = "alphabetic";
-
-        ctx.clearRect(
-          Math.floor(hole.x),
-          Math.floor(hole.y),
-          Math.ceil(hole.w),
-          Math.ceil(hole.h),
-        );
-
-        const inset = 0.35 * 16 * s;
-        const arm = 0.7 * 16 * s;
-        ctx.strokeStyle = "rgba(216,218,219,0.55)";
-        ctx.lineWidth = 1 * s;
-        const hx = hole.x;
-        const hy = hole.y;
-        const hw = hole.w;
-        const hh = hole.h;
-
-        const corner = (x1, y1, x2, y2, x3, y3) => {
-          ctx.beginPath();
-          ctx.moveTo(x1, y1);
-          ctx.lineTo(x2, y2);
-          ctx.lineTo(x3, y3);
-          ctx.stroke();
-        };
-
-        corner(hx + inset, hy + inset + arm, hx + inset, hy + inset, hx + inset + arm, hy + inset);
-        corner(hx + hw - inset - arm, hy + inset, hx + hw - inset, hy + inset, hx + hw - inset, hy + inset + arm);
-        corner(hx + inset, hy + hh - inset - arm, hx + inset, hy + hh - inset, hx + inset + arm, hy + hh - inset);
-        corner(hx + hw - inset - arm, hy + hh - inset, hx + hw - inset, hy + hh - inset, hx + hw - inset, hy + hh - inset - arm);
-
-        canvas.toBlob((blob) => {
-          if (!blob) return;
-          const a = document.createElement("a");
-          a.href = URL.createObjectURL(blob);
-          a.download = "mireille-biometric-frame-4x3.png";
-          a.click();
-          setTimeout(() => URL.revokeObjectURL(a.href), 2000);
-        }, "image/png");
+        }
       });
     })();
   </script>

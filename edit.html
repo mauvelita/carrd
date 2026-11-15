@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Subject — Mireille d'Épine</title>
+  <title>Frame · 4:3 cutout</title>
   <link rel="stylesheet" href="shared.css" />
   <style>
     html, body {
@@ -20,6 +20,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      gap: 0.85rem;
       padding: clamp(1rem, 4vw, 2rem);
       padding-bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
       font-family: var(--sans);
@@ -31,42 +32,25 @@
       position: relative;
       z-index: 1;
       width: min(100%, 26rem);
-      background: linear-gradient(165deg, #2a2c2e 0%, #141516 48%, #0c0d0e 100%);
+      background: transparent;
       border: 1px solid rgba(232, 236, 236, 0.28);
       box-shadow:
-        0 0 0 1px rgba(9, 10, 12, 0.85),
+        0 0 0 1px rgba(0, 0, 0, 0.85),
         8px 12px 28px rgba(0, 0, 0, 0.55);
       overflow: hidden;
     }
 
-    .unit::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        linear-gradient(180deg, rgba(232, 236, 236, 0.06), transparent 18%),
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 2px,
-          rgba(0, 0, 0, 0.08) 2px,
-          rgba(0, 0, 0, 0.08) 3px
-        );
-      opacity: 0.55;
-      z-index: 2;
-    }
-
     .chrome {
-      position: relative;
-      z-index: 3;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 0.6rem;
       padding: 0.55rem 0.65rem;
       border-bottom: 1px solid rgba(232, 236, 236, 0.18);
-      background: linear-gradient(90deg, rgba(190, 202, 203, 0.12), rgba(9, 10, 12, 0.35));
+      background:
+        linear-gradient(180deg, rgba(232, 236, 236, 0.06), transparent 70%),
+        linear-gradient(90deg, rgba(190, 202, 203, 0.14), rgba(9, 10, 12, 0.55)),
+        #141516;
     }
 
     .chrome-id { min-width: 0; }
@@ -99,132 +83,61 @@
       height: 1.55rem;
       display: grid;
       place-items: center;
-      padding: 0;
-      appearance: none;
       background: rgba(232, 236, 236, 0.08);
       color: #f2f4f4;
       border: 1px solid rgba(232, 236, 236, 0.28);
-      font-family: var(--sans);
       font-size: 11px;
       font-weight: 700;
       line-height: 1;
-      cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease;
-    }
-
-    .chrome-close:hover,
-    .chrome-close:focus-visible {
-      background: rgba(232, 236, 236, 0.18);
-      border-color: rgba(232, 236, 236, 0.5);
-      outline: none;
     }
 
     .rail {
-      position: relative;
-      z-index: 3;
       display: flex;
       flex-wrap: wrap;
       gap: 0.35rem;
       padding: 0.4rem 0.65rem;
       border-bottom: 1px solid rgba(232, 236, 236, 0.12);
-      background: rgba(9, 10, 12, 0.35);
+      background: #0c0d0e;
     }
 
-    .rail button {
-      appearance: none;
+    .rail span {
       padding: 0.28rem 0.55rem;
-      border: 1px solid transparent;
-      background: transparent;
-      color: rgba(232, 236, 236, 0.62);
-      font-family: var(--sans);
       font-size: 8px;
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      cursor: pointer;
-      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      color: rgba(232, 236, 236, 0.62);
     }
 
-    .rail button:hover,
-    .rail button:focus-visible {
-      color: #f2f4f4;
-      border-color: rgba(232, 236, 236, 0.28);
-      background: rgba(232, 236, 236, 0.06);
-      outline: none;
-    }
-
-    .rail button.is-on {
+    .rail span.is-on {
       color: #090a0c;
       background: rgba(232, 236, 236, 0.88);
-      border-color: rgba(232, 236, 236, 0.88);
     }
 
+    /*
+      PURE #00FF00 — no text, no corners, no overlays.
+      CapCut: Effects → Remove Background → Chroma Key → pick green.
+    */
     .viewport {
-      position: relative;
-      z-index: 1;
-      margin: 0;
-      background: #000;
-      line-height: 0;
-      overflow: hidden;
-    }
-
-    .viewport img {
       width: 100%;
-      height: auto;
-      display: block;
-      aspect-ratio: 1206 / 872;
-      object-fit: cover;
-      object-position: center;
-      transform: scale(1.04);
-      transform-origin: center center;
+      aspect-ratio: 4 / 3;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: #00ff00;
+      line-height: 0;
     }
-
-    .viewport-marks {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      z-index: 2;
-      font-family: var(--sans);
-      font-size: 7px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: rgba(242, 244, 244, 0.72);
-      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
-    }
-
-    .viewport-marks span { position: absolute; }
-    .viewport-marks .tl { top: 0.55rem; left: 0.55rem; }
-    .viewport-marks .tr { top: 0.55rem; right: 0.55rem; }
-    .viewport-marks .bl { bottom: 0.55rem; left: 0.55rem; }
-
-    .corner {
-      position: absolute;
-      width: 0.85rem;
-      height: 0.85rem;
-      border: 1px solid rgba(232, 236, 236, 0.55);
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .corner.nw { top: 0.4rem; left: 0.4rem; border-right: 0; border-bottom: 0; }
-    .corner.ne { top: 0.4rem; right: 0.4rem; border-left: 0; border-bottom: 0; }
-    .corner.sw { bottom: 0.4rem; left: 0.4rem; border-right: 0; border-top: 0; }
-    .corner.se { bottom: 0.4rem; right: 0.4rem; border-left: 0; border-top: 0; }
 
     .actions {
-      position: relative;
-      z-index: 3;
       display: grid;
       grid-template-columns: 1.15fr 1fr;
       gap: 0.45rem;
       padding: 0.65rem;
       border-top: 1px solid rgba(232, 236, 236, 0.14);
-      background: rgba(9, 10, 12, 0.55);
+      background: #0c0d0e;
     }
 
     .act {
-      appearance: none;
       min-height: 2.35rem;
       padding: 0.45rem 0.55rem;
       display: flex;
@@ -232,13 +145,9 @@
       align-items: flex-start;
       justify-content: center;
       gap: 0.12rem;
-      text-align: left;
-      cursor: pointer;
       border: 1px solid rgba(232, 236, 236, 0.22);
       background: rgba(232, 236, 236, 0.06);
       color: #f2f4f4;
-      font-family: var(--sans);
-      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
     }
 
     .act strong {
@@ -253,58 +162,28 @@
       font-style: italic;
       font-size: 0.78rem;
       font-weight: 400;
-      letter-spacing: 0.01em;
       color: rgba(242, 244, 244, 0.62);
     }
 
-    .act:hover:not(:disabled),
-    .act:focus-visible:not(:disabled) {
-      background: rgba(232, 236, 236, 0.14);
-      border-color: rgba(232, 236, 236, 0.45);
-      outline: none;
-    }
-
-    .act.is-checked {
-      background: rgba(232, 236, 236, 0.9);
-      border-color: rgba(232, 236, 236, 0.9);
-      color: #090a0c;
-    }
-
-    .act.is-checked em { color: rgba(9, 10, 12, 0.62); }
-
-    .act-enter:disabled {
-      opacity: 0.38;
-      cursor: not-allowed;
-    }
-
-    .act-enter:not(:disabled) {
+    .act-enter {
       background: #000080;
       border-color: #000080;
       color: #fff;
     }
 
-    .act-enter:not(:disabled) em { color: rgba(255, 255, 255, 0.7); }
-
-    .act-enter:not(:disabled):hover,
-    .act-enter:not(:disabled):focus-visible {
-      background: #1010a0;
-      border-color: #2a2acc;
-    }
+    .act-enter em { color: rgba(255, 255, 255, 0.7); }
 
     .status {
-      position: relative;
-      z-index: 3;
       display: grid;
-      grid-template-columns: 1.2fr 0.9fr 0.9fr;
+      grid-template-columns: 1.35fr 0.85fr 0.8fr;
       gap: 1px;
-      padding: 0;
       background: rgba(232, 236, 236, 0.12);
       border-top: 1px solid rgba(232, 236, 236, 0.12);
     }
 
     .status span {
       padding: 0.35rem 0.5rem;
-      background: rgba(9, 10, 12, 0.72);
+      background: #090a0c;
       font-size: 7px;
       font-weight: 700;
       letter-spacing: 0.12em;
@@ -315,67 +194,114 @@
       white-space: nowrap;
     }
 
-    .foot {
-      position: relative;
-      z-index: 1;
-      margin-top: 1.1rem;
+    .tools {
+      width: min(100%, 26rem);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      justify-content: center;
     }
+
+    .tools button {
+      appearance: none;
+      min-height: 2.1rem;
+      padding: 0.45rem 0.85rem;
+      border: 1px solid rgba(232, 236, 236, 0.35);
+      background: rgba(232, 236, 236, 0.08);
+      color: #f2f4f4;
+      font-family: var(--sans);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .tools button:hover,
+    .tools button:focus-visible {
+      background: rgba(232, 236, 236, 0.16);
+      outline: none;
+    }
+
+    .tools button.primary {
+      background: #000080;
+      border-color: #000080;
+      color: #fff;
+    }
+
+    .hint {
+      max-width: 26rem;
+      text-align: center;
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      line-height: 1.55;
+      color: rgba(242, 244, 244, 0.45);
+    }
+
+    .hint b { color: #00ff00; }
 
     .foot .footer-nav a {
       text-shadow: none;
       color: rgba(242, 244, 244, 0.85);
     }
 
-    body.png-export .foot { display: none; }
+    body.shot .hint,
+    body.shot .tools,
+    body.shot .foot {
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <section class="unit" role="application" aria-label="Subject biometric lock">
-    <header class="chrome">
+  <section class="unit" id="frame" aria-label="4:3 overlay frame">
+    <header class="chrome" id="chrome">
       <div class="chrome-id">
         <p class="chrome-kicker">Biometric Lock · File / SUB-01</p>
         <p class="chrome-name">Mireille d'Épine</p>
       </div>
-      <button type="button" class="chrome-close" id="btn-close" aria-label="Close">×</button>
+      <span class="chrome-close" aria-hidden="true">×</span>
     </header>
 
-    <nav class="rail" aria-label="System modules">
-      <button type="button" class="is-on" data-rail>Scan</button>
-      <button type="button" data-rail>Identity</button>
-      <button type="button" data-rail>Optics</button>
-      <button type="button" data-rail>Archive</button>
-    </nav>
+    <div class="rail" id="rail" aria-hidden="true">
+      <span class="is-on">Scan</span>
+      <span>Identity</span>
+      <span>Optics</span>
+      <span>Archive</span>
+    </div>
 
-    <figure class="viewport">
-      <span class="corner nw" aria-hidden="true"></span>
-      <span class="corner ne" aria-hidden="true"></span>
-      <span class="corner sw" aria-hidden="true"></span>
-      <span class="corner se" aria-hidden="true"></span>
-      <img src="edit.jpg" alt="Mireille d'Épine" width="1206" height="872" decoding="async" />
-      <div class="viewport-marks" aria-hidden="true">
-        <span class="tl">Live feed</span>
-        <span class="tr">Fashion / Body</span>
-        <span class="bl">Subject locked</span>
-      </div>
-    </figure>
+    <!-- Flat green only — CapCut chroma key auto-picks this -->
+    <div class="viewport" id="cutout" aria-label="Green screen 4:3"></div>
 
-    <div class="actions">
-      <button type="button" class="act" id="btn-verify" aria-pressed="false">
+    <div class="actions" id="actions" aria-hidden="true">
+      <div class="act">
         <strong>Verify</strong>
         <em>I’m not a robot</em>
-      </button>
-      <button type="button" class="act act-enter" id="btn-enter" disabled>
+      </div>
+      <div class="act act-enter">
         <strong>Enter</strong>
         <em>Open archive</em>
-      </button>
+      </div>
     </div>
 
-    <div class="status" aria-hidden="true">
-      <span id="status-line">Awaiting verification</span>
+    <div class="status" id="status" aria-hidden="true">
+      <span>Green screen · #00FF00</span>
       <span>Optics · Online</span>
-      <span>1206 × 872</span>
+      <span>4:3</span>
     </div>
   </section>
+
+  <div class="tools">
+    <button type="button" class="primary" id="btn-png">Download PNG (transparent hole)</button>
+    <button type="button" id="btn-shot">Hide UI for screenshot</button>
+  </div>
+
+  <p class="hint">
+    Prefer Download PNG — middle is already transparent for CapCut.<br />
+    Screenshot route: CapCut → Remove Background → Chroma Key → tap the <b>#00FF00</b> green.
+  </p>
 
   <div class="foot">
     <nav class="footer-nav" aria-label="Page navigation">
@@ -386,38 +312,150 @@
   <script src="shared.js"></script>
   <script>
     (() => {
-      if (new URLSearchParams(location.search).has("png")) {
-        document.body.classList.add("png-export");
+      if (new URLSearchParams(location.search).has("shot")) {
+        document.body.classList.add("shot");
       }
 
-      const verify = document.getElementById("btn-verify");
-      const enter = document.getElementById("btn-enter");
-      const close = document.getElementById("btn-close");
-      const status = document.getElementById("status-line");
-      if (!verify || !enter || !close) return;
-
-      verify.addEventListener("click", () => {
-        const on = verify.classList.toggle("is-checked");
-        verify.setAttribute("aria-pressed", on ? "true" : "false");
-        enter.disabled = !on;
-        if (status) status.textContent = on ? "Identity confirmed" : "Awaiting verification";
+      document.getElementById("btn-shot")?.addEventListener("click", () => {
+        document.body.classList.add("shot");
+        history.replaceState(null, "", "?shot=1");
       });
 
-      enter.addEventListener("click", () => {
-        if (enter.disabled) return;
-        window.location.assign("home.html");
-      });
+      document.getElementById("btn-png")?.addEventListener("click", () => {
+        const frame = document.getElementById("frame");
+        const cutout = document.getElementById("cutout");
+        const chrome = document.getElementById("chrome");
+        const rail = document.getElementById("rail");
+        const actions = document.getElementById("actions");
+        const status = document.getElementById("status");
+        if (!frame || !cutout || !chrome || !rail || !actions || !status) return;
 
-      close.addEventListener("click", () => {
-        window.location.assign("home.html");
-      });
+        const scale = 3;
+        const fr = frame.getBoundingClientRect();
+        const cr = cutout.getBoundingClientRect();
+        const topBar = chrome.getBoundingClientRect();
+        const railBar = rail.getBoundingClientRect();
+        const actBar = actions.getBoundingClientRect();
+        const stBar = status.getBoundingClientRect();
 
-      document.querySelectorAll("[data-rail]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          document.querySelectorAll("[data-rail]").forEach((b) => b.classList.remove("is-on"));
-          btn.classList.add("is-on");
+        const w = Math.round(fr.width * scale);
+        const h = Math.round(fr.height * scale);
+        const canvas = document.createElement("canvas");
+        canvas.width = w;
+        canvas.height = h;
+        const ctx = canvas.getContext("2d", { alpha: true });
+        if (!ctx) return;
+
+        const rx = (r) => ({
+          x: (r.left - fr.left) * scale,
+          y: (r.top - fr.top) * scale,
+          w: r.width * scale,
+          h: r.height * scale,
         });
+
+        ctx.clearRect(0, 0, w, h);
+
+        const top = rx(topBar);
+        const mid = rx(railBar);
+        const hole = rx(cr);
+        const bot = rx(actBar);
+        const foot = rx(stBar);
+
+        ctx.fillStyle = "#141516";
+        ctx.fillRect(top.x, top.y, top.w, top.h);
+        ctx.fillStyle = "#0c0d0e";
+        ctx.fillRect(mid.x, mid.y, mid.w, mid.h);
+
+        ctx.fillStyle = "#0c0d0e";
+        ctx.fillRect(bot.x, bot.y, bot.w, bot.h);
+        ctx.fillStyle = "#090a0c";
+        ctx.fillRect(foot.x, foot.y, foot.w, foot.h);
+
+        ctx.strokeStyle = "rgba(232,236,236,0.35)";
+        ctx.lineWidth = 2 * (scale / 3);
+        ctx.strokeRect(1, 1, w - 2, h - 2);
+
+        ctx.fillStyle = "rgba(232,236,236,0.55)";
+        ctx.font = `bold ${8 * scale}px Tahoma, sans-serif`;
+        ctx.fillText("BIOMETRIC LOCK · FILE / SUB-01", 12 * scale, top.y + 16 * scale);
+        ctx.fillStyle = "#f2f4f4";
+        ctx.font = italicSerif(18 * scale);
+        ctx.fillText("Mireille d'Épine", 12 * scale, top.y + 36 * scale);
+
+        ctx.strokeStyle = "rgba(232,236,236,0.35)";
+        ctx.strokeRect(w - 28 * scale, top.y + 10 * scale, 16 * scale, 14 * scale);
+        ctx.fillStyle = "#f2f4f4";
+        ctx.font = `bold ${11 * scale}px Tahoma, sans-serif`;
+        ctx.fillText("×", w - 24 * scale, top.y + 21 * scale);
+
+        const tabs = ["SCAN", "IDENTITY", "OPTICS", "ARCHIVE"];
+        let tx = 10 * scale;
+        tabs.forEach((t, i) => {
+          ctx.font = `bold ${8 * scale}px Tahoma, sans-serif`;
+          const tw = ctx.measureText(t).width + 16 * scale;
+          if (i === 0) {
+            ctx.fillStyle = "rgba(232,236,236,0.88)";
+            ctx.fillRect(tx, mid.y + 8 * scale, tw, 16 * scale);
+            ctx.fillStyle = "#090a0c";
+          } else {
+            ctx.fillStyle = "rgba(232,236,236,0.62)";
+          }
+          ctx.fillText(t, tx + 8 * scale, mid.y + 19 * scale);
+          tx += tw + 8 * scale;
+        });
+
+        const gap = 0.45 * 16 * scale;
+        const cardW = (bot.w - 0.65 * 32 * scale - gap) / 2;
+        const cardH = 2.35 * 16 * scale;
+        const cardY = bot.y + 0.65 * 16 * scale;
+        const cardX1 = bot.x + 0.65 * 16 * scale;
+        const cardX2 = cardX1 + cardW + gap;
+
+        ctx.strokeStyle = "rgba(232,236,236,0.22)";
+        ctx.fillStyle = "rgba(232,236,236,0.06)";
+        ctx.fillRect(cardX1, cardY, cardW, cardH);
+        ctx.strokeRect(cardX1, cardY, cardW, cardH);
+        ctx.fillStyle = "#000080";
+        ctx.fillRect(cardX2, cardY, cardW, cardH);
+
+        ctx.fillStyle = "#f2f4f4";
+        ctx.font = `bold ${9 * scale}px Tahoma, sans-serif`;
+        ctx.fillText("VERIFY", cardX1 + 10 * scale, cardY + 18 * scale);
+        ctx.fillStyle = "#ffffff";
+        ctx.fillText("ENTER", cardX2 + 10 * scale, cardY + 18 * scale);
+        ctx.font = italicSerif(12 * scale);
+        ctx.fillStyle = "rgba(242,244,244,0.62)";
+        ctx.fillText("I'm not a robot", cardX1 + 10 * scale, cardY + 34 * scale);
+        ctx.fillStyle = "rgba(255,255,255,0.7)";
+        ctx.fillText("Open archive", cardX2 + 10 * scale, cardY + 34 * scale);
+
+        ctx.fillStyle = "rgba(232,236,236,0.58)";
+        ctx.font = `bold ${7 * scale}px Tahoma, sans-serif`;
+        ctx.fillText("TRANSPARENT CUTOUT", foot.x + 8 * scale, foot.y + 14 * scale);
+        ctx.fillText("OPTICS · ONLINE", foot.x + foot.w * 0.48, foot.y + 14 * scale);
+        ctx.fillText("4:3", foot.x + foot.w * 0.82, foot.y + 14 * scale);
+
+        /* Punch transparent 4:3 hole */
+        ctx.clearRect(
+          Math.floor(hole.x),
+          Math.floor(hole.y),
+          Math.ceil(hole.w),
+          Math.ceil(hole.h),
+        );
+
+        canvas.toBlob((blob) => {
+          if (!blob) return;
+          const a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "mireille-frame-4x3.png";
+          a.click();
+          setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+        }, "image/png");
       });
+
+      function italicSerif(size) {
+        return `italic ${size}px "Cormorant Garamond", "Times New Roman", serif`;
+      }
     })();
   </script>
 </body>

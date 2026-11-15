@@ -89,20 +89,21 @@
       backface-visibility: hidden;
     }
 
-    .entry-eyes .entry-frame {
-      aspect-ratio: 4 / 3;
-      max-height: min(46vh, 19rem);
-    }
+   .entry-eyes .entry-frame {
+  aspect-ratio: 4 / 3;
+  max-height: min(52vh, 22rem);
+}
 
-    .entry-eyes .entry-frame img {
-      width: 100%;
-      height: 100%;
-      max-width: none;
-      max-height: none;
-      object-fit: cover;
-      object-position: center 40%;
-      transform: scale(1.16);
-    }
+.entry-eyes .entry-frame img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  object-position: center center;
+  /* tiny bleed only — was scale(1.16), which over-zoomed the face */
+  transform: scale(1.02);
+}
 
     /* X-ray is a wide panoramic collage — do not force 4:3 cover */
     .entry-xray .entry-frame {

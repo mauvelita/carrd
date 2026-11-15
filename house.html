@@ -191,6 +191,45 @@
       border-bottom: 1px solid rgba(53, 53, 51, 0.35);
     }
 
+    .reel {
+  margin: 0.45rem 0.65rem 0.75rem;
+}
+
+.reel-frame {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  background: #090a0c;
+  border: 1px solid #090a0c;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.reel-frame video {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto;
+  background: #090a0c;
+  vertical-align: top;
+}
+
+.reel-tag {
+  position: absolute;
+  left: 0.4rem;
+  bottom: 0.4rem;
+  z-index: 1;
+  padding: 0.2rem 0.35rem;
+  font-family: var(--sans);
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(242, 244, 244, 0.85);
+  background: rgba(9, 10, 12, 0.45);
+  pointer-events: none;
+}
     .footer-back {
       margin-top: clamp(2.25rem, 5vh, 3.25rem);
     }
@@ -255,6 +294,32 @@
         <p>They take their categories seriously. <span class="mark">Trophies</span> are coveted, rivalries are personal, and losing can make for a rather unpleasant evening. Their ambitions have occasionally extended beyond the ballroom floor, with certain garments and accessories acquired through questionable means. Mireille has never been particularly troubled by the distinction between borrowing and <span class="mark">stealing</span> when a good look is at stake.</p>
       </article>
 
+      <section class="panel" data-reveal aria-label="Performance reel">
+  <div class="panel-meta">
+    <span>File / HSE-03</span>
+    <span>Performance Reel</span>
+  </div>
+  <h2 class="panel-title">Floor Work</h2>
+  <div class="reel">
+    <div class="reel-frame">
+      <video
+        src="mire.mov"
+        controls
+        playsinline
+        preload="metadata"
+        poster="house3.jpeg"
+      >
+        Your browser does not support this video.
+      </video>
+      <span class="reel-tag">Reel 01</span>
+    </div>
+    <div class="caption-row">
+      <span>Archive Entry</span>
+      <span>Mireille · Live</span>
+    </div>
+  </div>
+</section>
+      
       <article class="prose" data-reveal aria-label="Sisterhood">
         <p>The House has its own routines outside competitions. Rehearsals, fittings, preparations, and gatherings keep its members occupied. They have their disagreements, and Mireille can be demanding about how things are done, but there is a genuine <span class="mark">sisterhood</span> between the people who make up the House.</p>
       </article>

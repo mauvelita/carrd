@@ -111,64 +111,34 @@
       filter: contrast(1.05);
     }
 
-   /* Eyes — landscape 3:2 portrait */
-.entry-eyes .entry-frame {
-  aspect-ratio: 3 / 2;
-  height: auto;
-  max-height: none;
-  background: #f4f4f4;
-}
-
-.entry-eyes .entry-frame img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  max-height: none;
-  object-fit: contain;
-  object-position: center center;
-  transform: none;
-}
-
-/* Devices — landscape 3:2 studio shot with companion unit */
+/* Eyes + devices — flush landscape frames, no black ring */
+.entry-eyes .entry-frame,
 .entry-machine .entry-frame {
-  width: calc(100% - 1.3rem);
-  margin: 0.45rem auto 0.75rem;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: auto;
   height: auto;
   max-height: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f4f4f4;
+  margin: 0.55rem 0.65rem 0.75rem;
+  display: block;
+  line-height: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  overflow: hidden;
 }
 
+.entry-eyes .entry-frame img,
 .entry-machine .entry-frame img {
   display: block;
   width: 100%;
   height: auto;
   max-width: 100%;
   max-height: none;
-  margin: 0 auto;
+  margin: 0;
+  padding: 0;
   object-fit: contain;
   object-position: center center;
   transform: none;
-}
-
-/* Light studio shots — dark overlays so tags stay readable */
-.entry-eyes .scan-tags,
-.entry-machine .scan-tags {
-  color: rgba(28, 28, 28, 0.58);
-  text-shadow: none;
-}
-
-.entry-eyes .crosshair {
-  border-color: rgba(28, 28, 28, 0.35);
-}
-
-.entry-eyes .crosshair::before,
-.entry-eyes .crosshair::after {
-  background: rgba(28, 28, 28, 0.35);
+  vertical-align: top;
 }
 
     .scan-tags {

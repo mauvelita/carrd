@@ -218,7 +218,9 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .label {
+  font-family: var(--serif);
   font-size: 0.7rem;
+  font-weight: 400;
   letter-spacing: 0.34em;
   text-transform: uppercase;
   color: rgba(242, 244, 244, 0.72);

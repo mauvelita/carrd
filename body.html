@@ -89,7 +89,6 @@
       backface-visibility: hidden;
     }
 
-    /* X-ray is a wide panoramic collage — do not force 4:3 cover */
     .entry-xray .entry-frame {
       aspect-ratio: auto;
       height: auto;
@@ -111,36 +110,32 @@
       filter: contrast(1.05);
     }
 
-/* Eyes + devices — flush landscape frames, no black ring */
-.entry-eyes .entry-frame,
-.entry-machine .entry-frame {
-  aspect-ratio: auto;
-  height: auto;
-  max-height: none;
-  margin: 0.55rem 0.65rem 0.75rem;
-  display: block;
-  line-height: 0;
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  overflow: hidden;
+.entry-eyes .entry-frame::after,
+.entry-machine .entry-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(9, 10, 12, 0.28) 0%, rgba(9, 10, 12, 0.08) 42%, rgba(9, 10, 12, 0.34) 100%);
+  z-index: 1;
 }
 
-.entry-eyes .entry-frame img,
-.entry-machine .entry-frame img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-width: 100%;
-  max-height: none;
-  margin: 0;
-  padding: 0;
-  object-fit: contain;
-  object-position: center center;
-  transform: none;
-  vertical-align: top;
+.entry-eyes .scan-tags,
+.entry-machine .scan-tags {
+  color: rgba(242, 244, 244, 0.88);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.75);
+  z-index: 2;
 }
 
+.entry-eyes .crosshair {
+  border-color: rgba(242, 244, 244, 0.45);
+}
+
+.entry-eyes .crosshair::before,
+.entry-eyes .crosshair::after {
+  background: rgba(242, 244, 244, 0.45);
+}
     .scan-tags {
       position: absolute;
       inset: 0;

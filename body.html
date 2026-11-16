@@ -67,26 +67,40 @@
     .entry-frame {
       position: relative;
       margin: 0.55rem 0.65rem 0.75rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: block;
+      line-height: 0;
       background: #090a0c;
       border: 0;
-      box-shadow: inset 0 0 0 1px #090a0c;
+      box-shadow: none;
       overflow: hidden;
       isolation: isolate;
     }
 
     .entry-frame img {
       display: block;
-      width: auto;
+      width: 100%;
       height: auto;
       max-width: 100%;
-      max-height: min(48vh, 20rem);
+      margin: 0;
+      padding: 0;
       vertical-align: top;
-      transform: scale(1.12);
-      transform-origin: center center;
+      transform: none;
       backface-visibility: hidden;
+    }
+
+    .entry-eyes .entry-frame,
+    .entry-machine .entry-frame {
+      aspect-ratio: auto;
+      height: auto;
+      max-height: none;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .entry-eyes .entry-frame img,
+    .entry-machine .entry-frame img {
+      object-fit: contain;
+      object-position: center center;
     }
 
     .entry-xray .entry-frame {
@@ -95,59 +109,38 @@
       max-height: none;
       margin: 0.55rem 0.65rem 0.35rem;
       background: #090a0c;
-      overflow: hidden;
     }
 
     .entry-xray .entry-frame img {
-      display: block;
-      width: 100%;
-      height: auto;
-      max-width: 100%;
-      max-height: none;
       object-fit: contain;
       object-position: center center;
-      transform: none;
-      filter: contrast(1.05);
+      filter: contrast(1.08);
     }
 
-/* Studio shots — dark veil + bright HUD type */
-.entry-eyes .entry-frame::after,
-.entry-machine .entry-frame::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    linear-gradient(180deg, rgba(9, 10, 12, 0.28) 0%, rgba(9, 10, 12, 0.08) 42%, rgba(9, 10, 12, 0.34) 100%);
-  z-index: 1;
-}
+    .entry-eyes .entry-frame::after,
+    .entry-xray .entry-frame::after,
+    .entry-machine .entry-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(180deg, rgba(9, 10, 12, 0.34) 0%, rgba(9, 10, 12, 0.1) 42%, rgba(9, 10, 12, 0.4) 100%);
+      z-index: 1;
+    }
 
-.entry-eyes .scan-tags,
-.entry-machine .scan-tags {
-  color: rgba(242, 244, 244, 0.88);
-  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.75);
-  z-index: 2;
-}
-
-.entry-eyes .crosshair {
-  border-color: rgba(242, 244, 244, 0.45);
-}
-
-.entry-eyes .crosshair::before,
-.entry-eyes .crosshair::after {
-  background: rgba(242, 244, 244, 0.45);
-}
     .scan-tags {
       position: absolute;
       inset: 0;
       pointer-events: none;
+      z-index: 2;
       font-family: var(--sans);
       font-size: 8px;
       font-weight: 700;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(242, 244, 244, 0.72);
-      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
+      color: rgba(242, 244, 244, 0.92);
+      text-shadow: 0 1px 12px rgba(0, 0, 0, 0.85);
     }
 
     .scan-tags span { position: absolute; }
@@ -164,7 +157,7 @@
       width: 1.35rem;
       height: 1.35rem;
       transform: translate(-50%, -50%);
-      border: 1px solid rgba(242, 244, 244, 0.35);
+      border: 1px solid rgba(242, 244, 244, 0.5);
       border-radius: 50%;
     }
 
@@ -172,7 +165,7 @@
     .crosshair::after {
       content: "";
       position: absolute;
-      background: rgba(242, 244, 244, 0.35);
+      background: rgba(242, 244, 244, 0.5);
     }
 
     .crosshair::before {
@@ -306,7 +299,7 @@
         </div>
         <h2 class="entry-title">Cybernetic Devices</h2>
         <div class="entry-frame">
-          <img src="machina.jpeg" alt="Mireille's cybernetic devices" width="1200" height="800" decoding="async" onerror="this.onerror=null;this.src='machina.jpg'" />
+          <img src="machina.jpeg" alt="Mireille with cybernetic companion unit" width="1200" height="800" decoding="async" onerror="this.onerror=null;this.src='machina.jpg'" />
           <div class="scan-tags" aria-hidden="true">
             <span class="tl">Archive Entry</span>
             <span class="tr">DEV-03</span>
